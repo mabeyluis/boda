@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mabe & Luis - Our Wedding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-blue: #92A6BE;
+            --burgundy: #9F3544;
+            --dusty-rose: #D09193;
+            --golden: #CF933B;
+            --sage: #A6B072;
+            --cream: #FCFBF6;
+            --gold-light: #D5BE6F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background-color: var(--cream);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            font-family: 'Libre Baskerville', serif;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .navbar a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+            padding: 0.6rem 1.2rem;
+            white-space: nowrap;
+        }
+
+        .navbar a:hover {
+            opacity: 0.7;
+        }
+
+        .navbar a.rsvp-link {
+            border: 2px solid var(--cream);
+            border-radius: 25px;
+        }
+
+        /* Language Dropdown in Navbar */
+        .language-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-current {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .language-current::after {
+            content: '▼';
+            font-size: 0.7rem;
+        }
+
+        .language-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(252, 251, 246, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            min-width: 80px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .language-dropdown:hover .language-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .language-options a {
+            display: block;
+            color: #333;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+
+        .language-options a:hover {
+            background: rgba(0,0,0,0.05);
+            opacity: 1;
+        }
+
+        /* Mobile Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1002;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--cream);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--cream);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            color: #333;
+            font-size: 1.2rem;
+            padding: 1rem;
+        }
+
+        .mobile-menu a.rsvp-link {
+            border-color: #333;
+        }
+
+        /* Hero Section - Tall with scroll reveal */
+        .hero {
+            position: relative;
+            height: 200vh;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .hero-names {
+            position: absolute;
+            top: 30vh;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-weight: 400;
+            color: white;
+            text-shadow: 2px 4px 12px rgba(0,0,0,0.4);
+            opacity: 0;
+            animation: fadeInNames 1.5s ease-out 0.3s forwards;
+            white-space: nowrap;
+        }
+
+        .hero-bottom-content {
+            position: absolute;
+            bottom: 15vh;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            opacity: 0;
+            animation: fadeInBottom 1.5s ease-out 1s forwards;
+        }
+
+        .rsvp-button {
+            position: relative;
+            padding: 1rem 3rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .rsvp-border {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .rsvp-text {
+            font-family: 'Beth Ellen', cursive;
+            font-size: 1.4rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+            text-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Message Section */
+        .message-section {
+            background-color: var(--cream);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .message-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .message-text {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            color: var(--slate-blue);
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .message-text.visible {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        /* Info Section - Green Background */
+        .info-section {
+            background-color: var(--sage);
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .info-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 180px;
+        }
+
+        .info-card {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .info-card.visible {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        /* Card Layout Variations */
+        .info-card.layout-left .card-image {
+            grid-column: 1 / 7;
+        }
+
+        .info-card.layout-left .card-content {
+            grid-column: 7 / 13;
+        }
+
+        .info-card.layout-right .card-content {
+            grid-column: 1 / 7;
+        }
+
+        .info-card.layout-right .card-image {
+            grid-column: 7 / 13;
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .card-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .card-description {
+            font-family: 'Libre Baskerville', serif;
+            color: white;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* Dashed decorative lines */
+        .dashed-line {
+            position: absolute;
+            stroke: white;
+            stroke-width: 2.5;
+            stroke-dasharray: 8, 8;
+            fill: none;
+            opacity: 0;
+            stroke-linecap: round;
+        }
+
+        .dashed-line.visible {
+            animation: drawLine 1.5s ease-out forwards;
+        }
+
+        /* Transition Image Section */
+        .transition-section {
+            position: relative;
+            background-color: var(--cream);
+        }
+
+        .transition-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* FAQ Section - Overlapping orange box */
+        .faq-section {
+            position: relative;
+            background-color: var(--cream);
+            padding-bottom: 6rem;
+        }
+
+        .faq-container {
+            max-width: 1400px;
+            margin: -15rem auto 0;
+            padding: 0 180px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .faq-box {
+            background-color: var(--golden);
+            border-radius: 0;
+            padding: 4rem 3rem;
+            box-shadow: none;
+            width: calc(10 / 12 * 100%);
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .faq-box.visible {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .faq-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: white;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            margin-bottom: 1rem;
+        }
+
+        .faq-question-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .faq-question-wrapper:hover {
+            opacity: 0.8;
+        }
+
+        .faq-question {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+            flex: 1;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 300;
+            width: 30px;
+            text-align: center;
+        }
+
+        .faq-answer {
+            font-family: 'Libre Baskerville', serif;
+            color: white;
+            line-height: 1.7;
+            padding: 0 0 1.5rem 0;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            opacity: 1;
+            padding: 0 0 1.5rem 0;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* Footer Section */
+        .footer-section {
+            background-color: var(--cream);
+            padding: 5rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .footer-container.visible {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .footer-text-wrapper {
+            padding: 2rem;
+        }
+
+        .footer-text {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            color: var(--burgundy);
+            line-height: 1.5;
+        }
+
+        .footer-camera {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-camera:hover {
+            transform: scale(1.05);
+        }
+
+        .camera-icon {
+            width: 150px;
+            height: 150px;
+        }
+
+        /* Animations */
+        @keyframes fadeInNames {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInBottom {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes drawLine {
+            to {
+                opacity: 0.6;
+                stroke-dashoffset: 0;
+            }
+            from {
+                stroke-dashoffset: 1000;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .info-container,
+            .faq-container {
+                padding: 0 80px;
+            }
+
+            .navbar-container {
+                padding: 0 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile Navbar */
+            .navbar-container {
+                padding: 0 2rem;
+                justify-content: space-between;
+            }
+
+            .navbar a:not(.hamburger) {
+                display: none;
+            }
+
+            .language-dropdown {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                position: fixed;
+                top: 1.5rem;
+                right: 2rem;
+            }
+
+            /* Mobile Specific Layouts */
+            .info-container,
+            .faq-container {
+                padding: 0 2rem;
+            }
+
+            .info-card {
+                grid-template-columns: 1fr !important;
+                display: flex !important;
+                flex-direction: column;
+            }
+
+            /* Force image-first order on mobile */
+            .info-card.layout-left,
+            .info-card.layout-right {
+                display: flex !important;
+                flex-direction: column;
+            }
+
+            .info-card .card-image-wrapper {
+                order: 1;
+                grid-column: 1 / -1 !important;
+            }
+
+            .info-card .card-content {
+                order: 2;
+                grid-column: 1 / -1 !important;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-box {
+                width: 100%;
+                padding: 3rem 2rem;
+            }
+
+            .hero-title {
+                white-space: normal;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html">Homepage</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="transfer.html">Transfer & Accommodation</a>
+            <a href="toledo.html">Explore Toledo</a>
+            <a href="rsvp.html" class="rsvp-link">RSVP</a>
+            <div class="language-dropdown">
+                <span class="language-current">EN</span>
+                <div class="language-options">
+                    <a href="index.html">EN</a>
+                    <a href="index-es.html">ES</a>
+                </div>
+            </div>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Homepage</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="transfer.html">Transfer & Accommodation</a>
+        <a href="toledo.html">Explore Toledo</a>
+        <a href="rsvp.html" class="rsvp-link">RSVP</a>
+        <a href="index.html">EN</a>
+        <a href="index-es.html">ES</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="images/hero-photo.jpg" alt="Mabe and Luis" class="hero-image">
+        
+        <div class="hero-names">
+            <h1 class="hero-title">Mabe + Luis</h1>
+        </div>
+
+        <div class="hero-bottom-content">
+            <button class="rsvp-button" onclick="window.location.href='rsvp.html'">
+                <img src="doodles/rsvp-border.png" alt="" class="rsvp-border">
+                <span class="rsvp-text">RSVP</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Message Section -->
+    <section class="message-section">
+        <div class="message-content">
+            <p class="message-text">
+                From our very first encounter in a hidden corner of the city, we knew something magical had begun. Each shared moment has woven us closer together, nurturing a bond that feels as natural as breathing. We can't wait to celebrate our love with you in a setting as beautiful as the journey that brought us here. Thank you for being part of our story.
+            </p>
+        </div>
+    </section>
+
+    <!-- Info Section - Green Background -->
+    <section class="info-section">
+        <!-- Decorative dashed lines -->
+        <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
+            <path class="dashed-line" d="M 5% 15% Q 15% 25%, 10% 35% T 5% 55%" />
+            <path class="dashed-line" d="M 95% 40% Q 85% 50%, 90% 60% T 95% 80%" />
+            <path class="dashed-line" d="M 20% 70% Q 30% 75%, 25% 85%" />
+        </svg>
+
+        <div class="info-container">
+            <!-- Card 1: Schedule (Image Left, Content Right) -->
+            <div class="info-card layout-left">
+                <div class="card-image-wrapper">
+                    <img src="images/schedule.jpg" alt="Schedule">
+                    <!-- Doodles will be added here as overlays -->
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Schedule</h2>
+                    <p class="card-description">
+                        Our wedding day timeline from ceremony to celebration. Find out when and where everything happens so you don't miss a moment of the magic.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 2: Transfer & Accommodation (Content Left, Image Right) -->
+            <div class="info-card layout-right">
+                <div class="card-content">
+                    <h2 class="card-title">Transfer & Accommodation</h2>
+                    <p class="card-description">
+                        We've arranged comfortable accommodations and transportation options to make your journey to Toledo as smooth as possible. Find all the details here.
+                    </p>
+                </div>
+                <div class="card-image-wrapper">
+                    <img src="images/accommodation.jpg" alt="Accommodation">
+                </div>
+            </div>
+
+            <!-- Card 3: Explore Toledo (Image Left, Content Right) -->
+            <div class="info-card layout-left">
+                <div class="card-image-wrapper">
+                    <img src="images/toledo.jpg" alt="Explore Toledo">
+                    <!-- Whimsical doodle border extending beyond image -->
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Explore Toledo</h2>
+                    <p class="card-description">
+                        Discover the magic of Toledo! From ancient architecture to charming cobblestone streets, we've curated a guide to help you make the most of your time in this enchanting Spanish city.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition Image Section -->
+    <section class="transition-section">
+        <img src="images/transition-photo.jpg" alt="Mabe and Luis" class="transition-image">
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <div class="faq-box">
+                <h2 class="faq-title">FAQs</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">When should I RSVP by?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">Please RSVP by March 15th, 2026. This helps us finalize catering and seating arrangements.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">What should I wear?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">The dress code is semi-formal. Think garden party elegance with comfortable shoes for dancing!</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Can I bring a plus-one?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">Due to venue capacity, we can only accommodate guests listed on your invitation. Please check your RSVP for details.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Will there be transportation provided?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">Yes! We'll have shuttle service from select hotels to the venue. Check the Transfer & Accommodation page for details.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Are children welcome?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">We love your little ones, but this will be an adults-only celebration. We hope this gives you a chance to relax and enjoy!</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">What about dietary restrictions?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">Please let us know about any dietary restrictions when you RSVP. We'll make sure everyone is well-fed!</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">What time does the ceremony start?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">The ceremony begins at 4:30 PM. We recommend arriving 15-20 minutes early to find your seat.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Is there parking available?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">Yes, there is parking at the venue. However, we encourage using our shuttle service for convenience.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Can I take photos during the ceremony?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">We have a professional photographer capturing every moment. Please enjoy the ceremony unplugged - we'll share all photos afterwards!</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Will there be vegetarian/vegan options?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">Absolutely! Please indicate your dietary preferences when you RSVP and we'll ensure you have delicious options.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">What's the best way to get to Toledo from Madrid?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">The high-speed train from Madrid to Toledo takes just 30 minutes. Check our Transfer & Accommodation page for detailed travel information.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <section class="footer-section">
+        <div class="footer-container">
+            <div class="footer-text-wrapper">
+                <p class="footer-text">
+                    After the big day, check back here to see our wedding photos and relive the magic with us!
+                </p>
+            </div>
+            <div class="footer-camera">
+                <svg class="camera-icon" viewBox="0 0 150 150">
+                    <rect x="25" y="45" width="100" height="70" rx="8" 
+                          fill="none" stroke="#9F3544" stroke-width="3.5"/>
+                    <circle cx="75" cy="80" r="22" 
+                            fill="none" stroke="#9F3544" stroke-width="3.5"/>
+                    <circle cx="75" cy="80" r="14" 
+                            fill="none" stroke="#9F3544" stroke-width="2.5"/>
+                    <rect x="45" y="35" width="60" height="10" rx="4" 
+                          fill="none" stroke="#9F3544" stroke-width="3.5"/>
+                    <circle cx="105" cy="60" r="4" fill="#9F3544"/>
+                    <line x1="20" y1="75" x2="10" y2="75" stroke="#9F3544" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="140" y1="75" x2="130" y2="75" stroke="#9F3544" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // FAQ Toggle Function
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Toggle current FAQ
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll(
+                '.message-text, .info-card, .dashed-line, .faq-box, .footer-container'
+            );
+            
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
