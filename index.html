@@ -40,6 +40,12 @@
             z-index: 1000;
             padding: 1.5rem 0;
             font-family: 'Libre Baskerville', serif;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Navbar color change after hero */
+        .navbar.scrolled {
+            background-color: var(--cream);
         }
 
         .navbar-container {
@@ -56,9 +62,14 @@
             color: var(--cream);
             text-decoration: none;
             font-size: 0.9rem;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
             padding: 0.6rem 1.2rem;
             white-space: nowrap;
+        }
+
+        /* Change navbar text color when scrolled */
+        .navbar.scrolled a {
+            color: var(--burgundy);
         }
 
         .navbar a:hover {
@@ -68,6 +79,10 @@
         .navbar a.rsvp-link {
             border: 2px solid var(--cream);
             border-radius: 25px;
+        }
+
+        .navbar.scrolled a.rsvp-link {
+            border-color: var(--burgundy);
         }
 
         /* Language Dropdown in Navbar */
@@ -85,6 +100,11 @@
             display: flex;
             align-items: center;
             gap: 0.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled .language-current {
+            color: var(--burgundy);
         }
 
         .language-current::after {
@@ -116,7 +136,7 @@
 
         .language-options a {
             display: block;
-            color: #333;
+            color: #333 !important;
             padding: 0.6rem 1.2rem;
             font-size: 0.9rem;
             transition: background 0.2s ease;
@@ -124,7 +144,7 @@
 
         .language-options a:hover {
             background: rgba(0,0,0,0.05);
-            opacity: 1;
+            opacity: 1 !important;
         }
 
         /* Mobile Hamburger Menu */
@@ -135,6 +155,7 @@
             cursor: pointer;
             padding: 0.5rem;
             z-index: 1002;
+            transition: all 0.3s ease;
         }
 
         .hamburger span {
@@ -143,6 +164,14 @@
             background: var(--cream);
             transition: all 0.3s ease;
             border-radius: 2px;
+        }
+
+        .navbar.scrolled .hamburger span {
+            background: var(--burgundy);
+        }
+
+        .hamburger.active span {
+            background: #333;
         }
 
         .hamburger.active span:nth-child(1) {
@@ -173,6 +202,8 @@
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 1001;
+            padding: 2rem;
+            overflow-y: auto;
         }
 
         .mobile-menu.active {
@@ -184,6 +215,9 @@
             color: #333;
             font-size: 1.2rem;
             padding: 1rem;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
         }
 
         .mobile-menu a.rsvp-link {
@@ -203,7 +237,19 @@
             width: 100%;
             height: 100vh;
             object-fit: cover;
-            object-position: center;
+            object-position: center top;
+        }
+
+        /* Dark gradient overlay at top for navbar visibility */
+        .hero-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+            z-index: 5;
+            pointer-events: none;
         }
 
         .hero-names {
@@ -337,11 +383,14 @@
         .card-image-wrapper {
             position: relative;
             width: 100%;
+            min-height: 500px;
         }
 
         .card-image-wrapper img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            min-height: 500px;
+            object-fit: cover;
             display: block;
         }
 
@@ -366,6 +415,25 @@
             line-height: 1.8;
             margin-bottom: 2rem;
             font-size: 1.05rem;
+        }
+
+        .card-cta {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: white;
+            color: var(--sage);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-family: 'Libre Baskerville', serif;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .card-cta:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-2px);
         }
 
         /* Dashed decorative lines */
@@ -400,11 +468,12 @@
             position: relative;
             background-color: var(--cream);
             padding-bottom: 6rem;
+            margin-top: -20rem;
         }
 
         .faq-container {
             max-width: 1400px;
-            margin: -15rem auto 0;
+            margin: 0 auto;
             padding: 0 180px;
             position: relative;
             z-index: 10;
@@ -434,7 +503,6 @@
         }
 
         .faq-item {
-            border-bottom: 1px solid rgba(255,255,255,0.3);
             margin-bottom: 1rem;
         }
 
@@ -683,6 +751,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <img src="images/hero-photo.jpg" alt="Mabe and Luis" class="hero-image">
+        <div class="hero-gradient"></div>
         
         <div class="hero-names">
             <h1 class="hero-title">Mabe + Luis</h1>
@@ -726,6 +795,7 @@
                     <p class="card-description">
                         Our wedding day timeline from ceremony to celebration. Find out when and where everything happens so you don't miss a moment of the magic.
                     </p>
+                    <a href="schedule.html" class="card-cta">View Schedule</a>
                 </div>
             </div>
 
@@ -736,6 +806,7 @@
                     <p class="card-description">
                         We've arranged comfortable accommodations and transportation options to make your journey to Toledo as smooth as possible. Find all the details here.
                     </p>
+                    <a href="transfer.html" class="card-cta">Learn More</a>
                 </div>
                 <div class="card-image-wrapper">
                     <img src="images/accommodation.jpg" alt="Accommodation">
@@ -753,6 +824,7 @@
                     <p class="card-description">
                         Discover the magic of Toledo! From ancient architecture to charming cobblestone streets, we've curated a guide to help you make the most of your time in this enchanting Spanish city.
                     </p>
+                    <a href="toledo.html" class="card-cta">Explore</a>
                 </div>
             </div>
         </div>
@@ -887,6 +959,18 @@
     </section>
 
     <script>
+        // Navbar color change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            
+            if (window.scrollY > heroHeight - 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
         // Mobile Menu Toggle
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
@@ -895,6 +979,16 @@
             mobileMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
         }
+
+        // Close mobile menu when clicking a link
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    toggleMobileMenu();
+                });
+            });
+        });
 
         // FAQ Toggle Function
         function toggleFAQ(element) {
