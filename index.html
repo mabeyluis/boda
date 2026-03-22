@@ -40,12 +40,13 @@
             z-index: 1000;
             padding: 1.5rem 0;
             font-family: 'Libre Baskerville', serif;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            background-color: transparent;
         }
 
-        /* Navbar color change after hero */
+        /* Navbar stays transparent but text color changes */
         .navbar.scrolled {
-            background-color: var(--cream);
+            background-color: transparent;
         }
 
         .navbar-container {
@@ -156,6 +157,10 @@
             padding: 0.5rem;
             z-index: 1002;
             transition: all 0.3s ease;
+            position: fixed;
+            top: 1.5rem;
+            right: 2rem;
+            background: transparent;
         }
 
         .hamburger span {
@@ -171,7 +176,7 @@
         }
 
         .hamburger.active span {
-            background: #333;
+            background: var(--burgundy);
         }
 
         .hamburger.active span:nth-child(1) {
@@ -212,23 +217,24 @@
         }
 
         .mobile-menu a {
-            color: #333;
+            color: var(--burgundy);
             font-size: 1.2rem;
             padding: 1rem;
             text-align: center;
             width: 100%;
             max-width: 300px;
+            text-decoration: none;
         }
 
         .mobile-menu a.rsvp-link {
-            border-color: #333;
+            border-color: var(--burgundy);
         }
 
         /* Hero Section - Tall with scroll reveal */
         .hero {
             position: relative;
             height: 200vh;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .hero-image {
@@ -238,6 +244,7 @@
             height: 100vh;
             object-fit: cover;
             object-position: center top;
+            display: block;
         }
 
         /* Dark gradient overlay at top for navbar visibility */
@@ -274,7 +281,7 @@
 
         .hero-bottom-content {
             position: absolute;
-            bottom: 15vh;
+            bottom: 20vh;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -383,14 +390,17 @@
         .card-image-wrapper {
             position: relative;
             width: 100%;
-            min-height: 500px;
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
         .card-image-wrapper img {
             width: 100%;
             height: 100%;
-            min-height: 500px;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
         }
 
@@ -420,19 +430,19 @@
         .card-cta {
             display: inline-block;
             padding: 0.8rem 2rem;
-            background: white;
-            color: var(--sage);
+            background: transparent;
+            color: var(--cream);
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
+            border-radius: 25px;
+            font-weight: normal;
             font-family: 'Libre Baskerville', serif;
             transition: all 0.3s ease;
-            border: 2px solid white;
+            border: 2px solid var(--cream);
         }
 
         .card-cta:hover {
-            background: transparent;
-            color: white;
+            background: var(--cream);
+            color: var(--sage);
             transform: translateY(-2px);
         }
 
@@ -468,7 +478,7 @@
             position: relative;
             background-color: var(--cream);
             padding-bottom: 6rem;
-            margin-top: -20rem;
+            margin-top: -10rem;
         }
 
         .faq-container {
@@ -482,7 +492,7 @@
         .faq-box {
             background-color: var(--golden);
             border-radius: 0;
-            padding: 4rem 3rem;
+            padding: 3rem 3rem;
             box-shadow: none;
             width: calc(10 / 12 * 100%);
             margin: 0 auto;
@@ -499,18 +509,18 @@
             font-size: clamp(2rem, 4vw, 3rem);
             color: white;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .faq-item {
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         .faq-question-wrapper {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 0;
+            padding: 1rem 0;
             cursor: pointer;
             transition: opacity 0.3s ease;
         }
@@ -539,7 +549,7 @@
             font-family: 'Libre Baskerville', serif;
             color: white;
             line-height: 1.7;
-            padding: 0 0 1.5rem 0;
+            padding: 0 0 1rem 0;
             max-height: 0;
             overflow: hidden;
             opacity: 0;
@@ -549,7 +559,7 @@
         .faq-item.active .faq-answer {
             max-height: 500px;
             opacity: 1;
-            padding: 0 0 1.5rem 0;
+            padding: 0 0 1rem 0;
         }
 
         .faq-item.active .faq-toggle {
