@@ -41,16 +41,14 @@
             padding: 1.5rem 0;
             font-family: 'Libre Baskerville', serif;
             transition: all 0.3s ease;
-            background-color: rgba(252, 251, 246, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background-color: transparent;
         }
 
-        /* Navbar stays blurred but text color changes */
+        /* Navbar with blur effect when scrolled (below the fold) */
         .navbar.scrolled {
-            background-color: rgba(252, 251, 246, 0.8);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background-color: rgba(252, 251, 246, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .navbar-container {
@@ -94,20 +92,22 @@
         .language-dropdown {
             position: relative;
             display: inline-block;
-            background: rgba(252, 251, 246, 0.95);
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
         }
 
         .language-current {
-            color: var(--burgundy);
+            color: var(--cream);
             text-decoration: none;
             font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 0.3rem;
             transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled .language-current {
+            color: var(--burgundy);
         }
 
         .language-current::after {
@@ -119,7 +119,7 @@
             position: absolute;
             top: 100%;
             right: 0;
-            background: rgba(252, 251, 246, 0.95);
+            background: var(--cream);
             backdrop-filter: blur(10px);
             border-radius: 8px;
             padding: 0.5rem 0;
@@ -139,14 +139,14 @@
 
         .language-options a {
             display: block;
-            color: #333 !important;
+            color: var(--burgundy) !important;
             padding: 0.6rem 1.2rem;
             font-size: 0.9rem;
             transition: background 0.2s ease;
         }
 
         .language-options a:hover {
-            background: rgba(0,0,0,0.05);
+            background: rgba(159, 53, 68, 0.1);
             opacity: 1 !important;
         }
 
@@ -240,10 +240,10 @@
 
         .hero-image {
             position: absolute;
-            top: 0;
+            top: -10vh;
             left: 0;
             width: 100%;
-            height: 200vh;
+            height: 210vh;
             object-fit: cover;
             object-position: center top;
             display: block;
@@ -262,7 +262,7 @@
         }
 
         .hero-names {
-            position: absolute;
+            position: fixed;
             top: 30vh;
             left: 50%;
             transform: translateX(-50%);
@@ -272,7 +272,7 @@
 
         .hero-title {
             font-family: 'Beth Ellen', cursive;
-            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-size: clamp(2rem, 6vw, 5.5rem);
             font-weight: 400;
             color: white;
             text-shadow: 2px 4px 12px rgba(0,0,0,0.4);
@@ -281,16 +281,9 @@
             white-space: nowrap;
         }
 
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: clamp(2rem, 12vw, 3rem);
-                white-space: nowrap;
-            }
-        }
-
         .hero-bottom-content {
-            position: absolute;
-            bottom: 20vh;
+            position: fixed;
+            bottom: 25vh;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -299,6 +292,17 @@
             gap: 3rem;
             opacity: 0;
             animation: fadeInBottom 1.5s ease-out 1s forwards;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: clamp(2rem, 12vw, 3rem);
+                white-space: nowrap;
+            }
+            
+            .hero-bottom-content {
+                bottom: 35vh;
+            }
         }
 
         @media (max-width: 768px) {
@@ -362,7 +366,7 @@
         /* Info Section - Green Background */
         .info-section {
             background-color: var(--sage);
-            padding: 6rem 0;
+            padding: 6rem 0 2rem 0;
             position: relative;
         }
 
@@ -376,7 +380,7 @@
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 2rem;
-            margin-bottom: 6rem;
+            margin-bottom: 4rem;
             opacity: 0;
             transform: translateY(50px);
         }
@@ -503,7 +507,7 @@
         .faq-section {
             position: relative;
             background-color: var(--cream);
-            padding-bottom: 3rem;
+            padding-bottom: 1rem;
             margin-top: -10rem;
         }
 
@@ -518,7 +522,7 @@
         .faq-box {
             background-color: var(--golden);
             border-radius: 0;
-            padding: 3rem 3rem;
+            padding: 3rem 3rem 2rem 3rem;
             box-shadow: none;
             width: calc(10 / 12 * 100%);
             margin: 0 auto;
