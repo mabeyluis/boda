@@ -41,12 +41,16 @@
             padding: 1.5rem 0;
             font-family: 'Libre Baskerville', serif;
             transition: all 0.3s ease;
-            background-color: transparent;
+            background-color: rgba(252, 251, 246, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        /* Navbar stays transparent but text color changes */
+        /* Navbar stays blurred but text color changes */
         .navbar.scrolled {
-            background-color: transparent;
+            background-color: rgba(252, 251, 246, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
         }
 
         .navbar-container {
@@ -90,22 +94,20 @@
         .language-dropdown {
             position: relative;
             display: inline-block;
+            background: rgba(252, 251, 246, 0.95);
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
         }
 
         .language-current {
-            color: var(--cream);
+            color: var(--burgundy);
             text-decoration: none;
             font-size: 0.9rem;
-            padding: 0.6rem 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 0.3rem;
             transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled .language-current {
-            color: var(--burgundy);
         }
 
         .language-current::after {
@@ -230,18 +232,18 @@
             border-color: var(--burgundy);
         }
 
-        /* Hero Section - Tall with scroll reveal */
+        /* Hero Section - Natural scroll */
         .hero {
             position: relative;
-            height: 200vh;
-            overflow: visible;
+            min-height: 200vh;
         }
 
         .hero-image {
-            position: sticky;
+            position: absolute;
             top: 0;
+            left: 0;
             width: 100%;
-            height: 100vh;
+            height: 200vh;
             object-fit: cover;
             object-position: center top;
             display: block;
@@ -279,6 +281,13 @@
             white-space: nowrap;
         }
 
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: clamp(2rem, 12vw, 3rem);
+                white-space: nowrap;
+            }
+        }
+
         .hero-bottom-content {
             position: absolute;
             bottom: 20vh;
@@ -290,6 +299,12 @@
             gap: 3rem;
             opacity: 0;
             animation: fadeInBottom 1.5s ease-out 1s forwards;
+        }
+
+        @media (max-width: 768px) {
+            .hero-bottom-content {
+                bottom: 40vh;
+            }
         }
 
         .rsvp-button {
@@ -390,7 +405,7 @@
         .card-image-wrapper {
             position: relative;
             width: 100%;
-            min-height: 450px;
+            min-height: 630px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -400,8 +415,19 @@
         .card-image-wrapper img {
             width: 100%;
             height: 100%;
+            min-height: 630px;
             object-fit: contain;
             display: block;
+        }
+
+        @media (max-width: 768px) {
+            .card-image-wrapper {
+                min-height: 400px;
+            }
+            
+            .card-image-wrapper img {
+                min-height: 400px;
+            }
         }
 
         .card-content {
@@ -477,7 +503,7 @@
         .faq-section {
             position: relative;
             background-color: var(--cream);
-            padding-bottom: 6rem;
+            padding-bottom: 3rem;
             margin-top: -10rem;
         }
 
@@ -569,7 +595,7 @@
         /* Footer Section */
         .footer-section {
             background-color: var(--cream);
-            padding: 5rem 2rem;
+            padding: 2rem 2rem 5rem 2rem;
         }
 
         .footer-container {
