@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mabe y Luis - Nuestra Boda</title>
+    <title>Mabe & Luis - Our Wedding</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -44,9 +44,11 @@
             background-color: transparent;
         }
 
-        /* Navbar stays transparent but text color changes */
+        /* Navbar with blur effect when scrolled (below the fold) */
         .navbar.scrolled {
-            background-color: transparent;
+            background-color: rgba(252, 251, 246, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .navbar-container {
@@ -117,7 +119,7 @@
             position: absolute;
             top: 100%;
             right: 0;
-            background: rgba(252, 251, 246, 0.95);
+            background: var(--cream);
             backdrop-filter: blur(10px);
             border-radius: 8px;
             padding: 0.5rem 0;
@@ -137,14 +139,14 @@
 
         .language-options a {
             display: block;
-            color: #333 !important;
+            color: var(--burgundy) !important;
             padding: 0.6rem 1.2rem;
             font-size: 0.9rem;
             transition: background 0.2s ease;
         }
 
         .language-options a:hover {
-            background: rgba(0,0,0,0.05);
+            background: rgba(159, 53, 68, 0.1);
             opacity: 1 !important;
         }
 
@@ -230,18 +232,18 @@
             border-color: var(--burgundy);
         }
 
-        /* Hero Section - Tall with scroll reveal */
+        /* Hero Section - Natural scroll */
         .hero {
             position: relative;
-            height: 200vh;
-            overflow: visible;
+            min-height: 200vh;
         }
 
         .hero-image {
-            position: sticky;
-            top: 0;
+            position: absolute;
+            top: -10vh;
+            left: 0;
             width: 100%;
-            height: 100vh;
+            height: 210vh;
             object-fit: cover;
             object-position: center top;
             display: block;
@@ -260,17 +262,23 @@
         }
 
         .hero-names {
-            position: absolute;
+            position: fixed;
             top: 30vh;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
             text-align: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-names.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .hero-title {
             font-family: 'Beth Ellen', cursive;
-            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-size: clamp(2rem, 6vw, 5.5rem);
             font-weight: 400;
             color: white;
             text-shadow: 2px 4px 12px rgba(0,0,0,0.4);
@@ -280,8 +288,8 @@
         }
 
         .hero-bottom-content {
-            position: absolute;
-            bottom: 20vh;
+            position: fixed;
+            bottom: 25vh;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -290,6 +298,23 @@
             gap: 3rem;
             opacity: 0;
             animation: fadeInBottom 1.5s ease-out 1s forwards;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-bottom-content.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: clamp(2rem, 12vw, 3rem);
+                white-space: nowrap;
+            }
+            
+            .hero-bottom-content {
+                bottom: 45vh;
+            }
         }
 
         .rsvp-button {
@@ -347,7 +372,7 @@
         /* Info Section - Green Background */
         .info-section {
             background-color: var(--sage);
-            padding: 6rem 0;
+            padding: 6rem 0 2rem 0;
             position: relative;
         }
 
@@ -361,7 +386,7 @@
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 2rem;
-            margin-bottom: 6rem;
+            margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(50px);
         }
@@ -390,7 +415,7 @@
         .card-image-wrapper {
             position: relative;
             width: 100%;
-            min-height: 450px;
+            min-height: 630px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -400,8 +425,19 @@
         .card-image-wrapper img {
             width: 100%;
             height: 100%;
+            min-height: 630px;
             object-fit: contain;
             display: block;
+        }
+
+        @media (max-width: 768px) {
+            .card-image-wrapper {
+                min-height: 400px;
+            }
+            
+            .card-image-wrapper img {
+                min-height: 400px;
+            }
         }
 
         .card-content {
@@ -477,7 +513,7 @@
         .faq-section {
             position: relative;
             background-color: var(--cream);
-            padding-bottom: 6rem;
+            padding-bottom: 0.5rem;
             margin-top: -10rem;
         }
 
@@ -492,7 +528,7 @@
         .faq-box {
             background-color: var(--golden);
             border-radius: 0;
-            padding: 3rem 3rem;
+            padding: 3rem 3rem 2rem 3rem;
             box-shadow: none;
             width: calc(10 / 12 * 100%);
             margin: 0 auto;
@@ -569,7 +605,7 @@
         /* Footer Section */
         .footer-section {
             background-color: var(--cream);
-            padding: 5rem 2rem;
+            padding: 1rem 2rem 5rem 2rem;
         }
 
         .footer-container {
@@ -797,7 +833,7 @@
             <!-- Card 1: Schedule (Image Left, Content Right) -->
             <div class="info-card layout-left">
                 <div class="card-image-wrapper">
-                    <img src="images/schedule.jpg" alt="Horario">
+                    <img src="images/schedule.jpg" alt="Schedule">
                     <!-- Doodles will be added here as overlays -->
                 </div>
                 <div class="card-content">
@@ -819,14 +855,14 @@
                     <a href="transfer-es.html" class="card-cta">Más Info</a>
                 </div>
                 <div class="card-image-wrapper">
-                    <img src="images/accommodation.jpg" alt="Alojamiento">
+                    <img src="images/accommodation.jpg" alt="Accommodation">
                 </div>
             </div>
 
             <!-- Card 3: Explore Toledo (Image Left, Content Right) -->
             <div class="info-card layout-left">
                 <div class="card-image-wrapper">
-                    <img src="images/toledo.jpg" alt="Explora Toledo">
+                    <img src="images/toledo.jpg" alt="Explore Toledo">
                     <!-- Whimsical doodle border extending beyond image -->
                 </div>
                 <div class="card-content">
@@ -969,15 +1005,22 @@
     </section>
 
     <script>
-        // Navbar color change on scroll
+        // Navbar color change and hide hero elements on scroll
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
-            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const heroNames = document.querySelector('.hero-names');
+            const heroButton = document.querySelector('.hero-bottom-content');
+            const heroSection = document.querySelector('.hero');
             
-            if (window.scrollY > heroHeight - 100) {
+            // Hide names and RSVP after scrolling past first viewport (100vh)
+            if (window.scrollY > window.innerHeight) {
                 navbar.classList.add('scrolled');
+                if (heroNames) heroNames.classList.add('hidden');
+                if (heroButton) heroButton.classList.add('hidden');
             } else {
                 navbar.classList.remove('scrolled');
+                if (heroNames) heroNames.classList.remove('hidden');
+                if (heroButton) heroButton.classList.remove('hidden');
             }
         });
 
