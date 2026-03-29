@@ -268,6 +268,12 @@
             transform: translateX(-50%);
             z-index: 10;
             text-align: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-names.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .hero-title {
@@ -292,6 +298,12 @@
             gap: 3rem;
             opacity: 0;
             animation: fadeInBottom 1.5s ease-out 1s forwards;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-bottom-content.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         @media (max-width: 768px) {
@@ -301,13 +313,7 @@
             }
             
             .hero-bottom-content {
-                bottom: 35vh;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero-bottom-content {
-                bottom: 40vh;
+                bottom: 45vh;
             }
         }
 
@@ -380,7 +386,7 @@
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 2rem;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(50px);
         }
@@ -507,7 +513,7 @@
         .faq-section {
             position: relative;
             background-color: var(--cream);
-            padding-bottom: 1rem;
+            padding-bottom: 0.5rem;
             margin-top: -10rem;
         }
 
@@ -599,7 +605,7 @@
         /* Footer Section */
         .footer-section {
             background-color: var(--cream);
-            padding: 2rem 2rem 5rem 2rem;
+            padding: 1rem 2rem 5rem 2rem;
         }
 
         .footer-container {
@@ -999,15 +1005,22 @@
     </section>
 
     <script>
-        // Navbar color change on scroll
+        // Navbar color change and hide hero elements on scroll
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
-            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const heroNames = document.querySelector('.hero-names');
+            const heroButton = document.querySelector('.hero-bottom-content');
+            const heroSection = document.querySelector('.hero');
             
-            if (window.scrollY > heroHeight - 100) {
+            // Hide names and RSVP after scrolling past first viewport (100vh)
+            if (window.scrollY > window.innerHeight) {
                 navbar.classList.add('scrolled');
+                if (heroNames) heroNames.classList.add('hidden');
+                if (heroButton) heroButton.classList.add('hidden');
             } else {
                 navbar.classList.remove('scrolled');
+                if (heroNames) heroNames.classList.remove('hidden');
+                if (heroButton) heroButton.classList.remove('hidden');
             }
         });
 
