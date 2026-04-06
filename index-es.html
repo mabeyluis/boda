@@ -310,8 +310,8 @@
 
         .hero-bottom-content {
             position: absolute;
-            bottom: 15%;
-            left: 50%;
+            bottom: 18%;
+            left: 45%;
             transform: translateX(-50%);
             z-index: 10;
             display: flex;
@@ -333,15 +333,24 @@
             
             .hero-bottom-content {
                 bottom: 20%;
+                left: 45%;
             }
         }
 
         .rsvp-button {
             position: relative;
-            padding: 1rem 3rem;
+            padding: 1.5rem 4rem;
             background: transparent;
             border: none;
             cursor: pointer;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .rsvp-button {
+                padding: 1rem 2.5rem;
+                transform: scale(0.9);
+            }
         }
 
         .rsvp-border {
@@ -380,12 +389,8 @@
             font-size: clamp(1.3rem, 2.5vw, 1.8rem);
             color: var(--slate-blue);
             line-height: 1.6;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .message-text.visible {
-            animation: fadeInUp 1s ease-out forwards;
+            opacity: 1;
+            transform: none;
         }
 
         /* Info Section - Green Background */
@@ -406,29 +411,25 @@
             grid-template-columns: repeat(12, 1fr);
             gap: 2rem;
             margin-bottom: 3rem;
-            opacity: 0;
-            transform: translateY(50px);
+            opacity: 1;
+            transform: none;
         }
 
-        .info-card.visible {
-            animation: fadeInUp 1s ease-out forwards;
-        }
-
-        /* Card Layout Variations */
+        /* Card Layout Variations - 70/30 split (images get 8 columns, text gets 4) */
         .info-card.layout-left .card-image {
-            grid-column: 1 / 7;
+            grid-column: 1 / 9;
         }
 
         .info-card.layout-left .card-content {
-            grid-column: 7 / 13;
+            grid-column: 9 / 13;
         }
 
         .info-card.layout-right .card-content {
-            grid-column: 1 / 7;
+            grid-column: 1 / 5;
         }
 
         .info-card.layout-right .card-image {
-            grid-column: 7 / 13;
+            grid-column: 5 / 13;
         }
 
         .card-image-wrapper {
@@ -464,7 +465,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .card-title {
@@ -509,12 +510,8 @@
             stroke-width: 2.5;
             stroke-dasharray: 8, 8;
             fill: none;
-            opacity: 0;
+            opacity: 1;
             stroke-linecap: round;
-        }
-
-        .dashed-line.visible {
-            animation: drawLine 1.5s ease-out forwards;
         }
 
         /* Transition Image Section */
@@ -631,12 +628,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .footer-container.visible {
-            animation: fadeInUp 1s ease-out forwards;
+            opacity: 1;
+            transform: none;
         }
 
         .footer-text-wrapper {
@@ -834,7 +827,7 @@
     <section class="message-section">
         <div class="message-content">
             <p class="message-text">
-                Desde nuestro primer encuentro en un rincón escondido de la ciudad, supimos que algo mágico había comenzado. Cada momento compartido nos ha unido más, cultivando un vínculo que se siente tan natural como respirar. No podemos esperar para celebrar nuestro amor con ustedes en un entorno tan hermoso como el viaje que nos trajo aquí. Gracias por ser parte de nuestra historia.
+                Nos da una alegría inmensa poder compartir este día tan especial con ustedes. Esperamos tenerlos cerquita en este momento tan importante para nosotros. Y si por cosas del destino no pueden acompañarnos, queremos que sepan lo mucho que significan para nosotros. - Mabe y Luis
             </p>
         </div>
     </section>
@@ -858,9 +851,9 @@
                 <div class="card-content">
                     <h2 class="card-title">Horario</h2>
                     <p class="card-description">
-                        Our wedding day timeline from ceremony to celebration. Find out when and where everything happens so you don't miss a moment of the magic.
+                        Aquí encontrarán el plan del fin de semana y, por supuesto, del gran día. La idea es que puedan organizarse con tiempo y vivirlo todo con calma, sin prisas.
                     </p>
-                    <a href="schedule.html" class="card-cta">View Schedule</a>
+                    <a href="schedule-es.html" class="card-cta">Ver Horario</a>
                 </div>
             </div>
 
@@ -869,9 +862,9 @@
                 <div class="card-content">
                     <h2 class="card-title">Traslado y Alojamiento</h2>
                     <p class="card-description">
-                        We've arranged comfortable accommodations and transportation options to make your journey to Toledo as smooth as possible. Find all the details here.
+                        Toledo está cerquita de Madrid y es fácil llegar de muchas maneras. Les dejamos opciones de transporte y de dónde quedarse para que elijan la que mejor les venga.
                     </p>
-                    <a href="transfer.html" class="card-cta">Learn More</a>
+                    <a href="transfer-es.html" class="card-cta">Más Info</a>
                 </div>
                 <div class="card-image-wrapper">
                     <img src="images/accommodation.jpg" alt="Accommodation">
@@ -887,9 +880,9 @@
                 <div class="card-content">
                     <h2 class="card-title">Explora Toledo</h2>
                     <p class="card-description">
-                        Discover the magic of Toledo! From ancient architecture to charming cobblestone streets, we've curated a guide to help you make the most of your time in this enchanting Spanish city.
+                        Si se animan a alargar la visita, Toledo es una maravilla para recorrer. Les compartimos nuestras recomendaciones para pasear, comer rico y disfrutar la ciudad con tranquilidad.
                     </p>
-                    <a href="toledo.html" class="card-cta">Explore</a>
+                    <a href="toledo-es.html" class="card-cta">Explorar</a>
                 </div>
             </div>
         </div>
@@ -1006,7 +999,9 @@
                 </p>
             </div>
             <div class="footer-camera">
-                <img src="images/camera-icon.jpg" alt="Camera" class="camera-icon">
+                <a href="photos-es.html">
+                    <img src="images/camera-icon.jpg" alt="Camera" class="camera-icon">
+                </a>
             </div>
         </div>
     </section>
@@ -1065,29 +1060,6 @@
                 faqItem.classList.add('active');
             }
         }
-
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all animated elements
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll(
-                '.message-text, .info-card, .dashed-line, .footer-container'
-            );
-            
-            animatedElements.forEach(el => observer.observe(el));
-        });
     </script>
 </body>
 </html>
