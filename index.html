@@ -310,8 +310,8 @@
 
         .hero-bottom-content {
             position: absolute;
-            bottom: 18%;
-            left: 45%;
+            bottom: 21%;
+            left: 40%;
             transform: translateX(-50%);
             z-index: 10;
             display: flex;
@@ -333,7 +333,7 @@
             
             .hero-bottom-content {
                 bottom: 20%;
-                left: 45%;
+                left: 15%;
             }
         }
 
@@ -344,12 +344,21 @@
             border: none;
             cursor: pointer;
             transform: scale(1.2);
+            transition: transform 0.3s ease;
+        }
+
+        .rsvp-button:hover {
+            transform: scale(1.25);
         }
 
         @media (max-width: 768px) {
             .rsvp-button {
                 padding: 1rem 2.5rem;
                 transform: scale(0.9);
+            }
+            
+            .rsvp-button:hover {
+                transform: scale(0.95);
             }
         }
 
@@ -365,11 +374,17 @@
 
         .rsvp-text {
             font-family: 'Beth Ellen', cursive;
-            font-size: 1.4rem;
+            font-size: 1.68rem;
             color: white;
             position: relative;
             z-index: 1;
             text-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .rsvp-text {
+                font-size: 1.26rem;
+            }
         }
 
         /* Message Section */
@@ -415,27 +430,27 @@
             transform: none;
         }
 
-        /* Card Layout Variations - 70/30 split (images get 8 columns, text gets 4) */
+        /* Card Layout Variations - 50/50 split */
         .info-card.layout-left .card-image {
-            grid-column: 1 / 9;
+            grid-column: 1 / 7;
         }
 
         .info-card.layout-left .card-content {
-            grid-column: 9 / 13;
+            grid-column: 7 / 13;
         }
 
         .info-card.layout-right .card-content {
-            grid-column: 1 / 5;
+            grid-column: 1 / 7;
         }
 
         .info-card.layout-right .card-image {
-            grid-column: 5 / 13;
+            grid-column: 7 / 13;
         }
 
         .card-image-wrapper {
             position: relative;
             width: 100%;
-            min-height: 700px;
+            min-height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -444,9 +459,10 @@
 
         .card-image-wrapper img {
             width: 100%;
-            height: auto;
-            min-height: 700px;
+            height: 100%;
+            min-height: 600px;
             object-fit: contain;
+            object-position: center;
             display: block;
         }
 
@@ -625,7 +641,7 @@
             max-width: 1000px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 7fr 3fr;
             gap: 4rem;
             align-items: center;
             opacity: 1;
