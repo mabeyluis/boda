@@ -310,7 +310,7 @@
 
         .hero-bottom-content {
             position: absolute;
-            bottom: 24%;
+            bottom: 26%;
             left: 35%;
             transform: translateX(-50%);
             z-index: 10;
@@ -430,38 +430,38 @@
             transform: none;
         }
 
-        /* Card Layout Variations - 40/60 split (40% images, 60% text) */
+        /* Card Layout Variations - 50/50 split */
         .info-card.layout-left .card-image {
-            grid-column: 1 / 6;
+            grid-column: 1 / 7;
         }
 
         .info-card.layout-left .card-content {
-            grid-column: 6 / 13;
+            grid-column: 7 / 13;
         }
 
         .info-card.layout-right .card-content {
-            grid-column: 1 / 8;
+            grid-column: 1 / 7;
         }
 
         .info-card.layout-right .card-image {
-            grid-column: 8 / 13;
+            grid-column: 7 / 13;
         }
 
         .card-image-wrapper {
             position: relative;
             width: 100%;
-            height: 100%;
             display: flex;
-            align-items: stretch;
+            align-items: center;
             justify-content: center;
             padding: 0;
             margin: 0;
         }
 
         .card-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
             object-position: center;
             display: block;
             margin: 0;
@@ -577,7 +577,7 @@
             color: white;
             text-align: center;
             margin: 0 0 2rem 0;
-            padding-top: 2rem;
+            padding-top: 0;
         }
 
         .faq-item {
@@ -846,7 +846,7 @@
     <section class="message-section">
         <div class="message-content">
             <p class="message-text">
-                It brings us so much joy to be able to share this very special day with you. We hope you can be close to us for such an important moment in our lives. And if, for whatever reason, you can't be there with us, we want you to know how much you mean to us. - Mabe y Luis
+                It brings us so much joy to be able to share this very special day with you. We hope you can be close to us for such an important moment in our lives. And if, for whatever reason, you can't be there with us, we want you to know how much you mean to us.<br><br>- Mabe y Luis
             </p>
         </div>
     </section>
