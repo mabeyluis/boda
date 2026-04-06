@@ -51,6 +51,15 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
+        /* Remove blur on mobile */
+        @media (max-width: 768px) {
+            .navbar.scrolled {
+                background-color: transparent;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+        }
+
         .navbar-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -178,7 +187,7 @@
         }
 
         .hamburger.active span {
-            background: var(--burgundy);
+            background: var(--burgundy) !important;
         }
 
         .hamburger.active span:nth-child(1) {
@@ -232,22 +241,39 @@
             border-color: var(--burgundy);
         }
 
-        /* Hero Section - Natural scroll with contained elements */
+        /* Hero Section - Full image visible, different images for desktop/mobile */
         .hero {
             position: relative;
-            height: 100vh;
+            width: 100%;
             overflow: hidden;
         }
 
         .hero-image {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center center;
+            height: auto;
             display: block;
+            object-fit: cover;
+        }
+
+        /* Hide mobile image on desktop */
+        .hero-image-mobile {
+            display: none;
+        }
+
+        /* Show desktop image on desktop */
+        .hero-image-desktop {
+            display: block;
+        }
+
+        /* Mobile: show mobile image, hide desktop image */
+        @media (max-width: 768px) {
+            .hero-image-desktop {
+                display: none;
+            }
+            
+            .hero-image-mobile {
+                display: block;
+            }
         }
 
         /* Dark gradient overlay at top for navbar visibility */
@@ -264,7 +290,7 @@
 
         .hero-names {
             position: absolute;
-            top: 30vh;
+            top: 20%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -284,7 +310,7 @@
 
         .hero-bottom-content {
             position: absolute;
-            bottom: 10vh;
+            bottom: 15%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -296,13 +322,17 @@
         }
 
         @media (max-width: 768px) {
+            .hero-names {
+                top: 25%;
+            }
+            
             .hero-title {
                 font-size: clamp(2rem, 12vw, 3rem);
                 white-space: nowrap;
             }
             
             .hero-bottom-content {
-                bottom: 15vh;
+                bottom: 20%;
             }
         }
 
@@ -404,17 +434,17 @@
         .card-image-wrapper {
             position: relative;
             width: 100%;
-            min-height: 630px;
+            min-height: 700px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .card-image-wrapper img {
             width: 100%;
-            height: 100%;
-            min-height: 630px;
+            height: auto;
+            min-height: 700px;
             object-fit: contain;
             display: block;
         }
@@ -422,6 +452,7 @@
         @media (max-width: 768px) {
             .card-image-wrapper {
                 min-height: 400px;
+                overflow: hidden;
             }
             
             .card-image-wrapper img {
@@ -517,16 +548,12 @@
         .faq-box {
             background-color: var(--golden);
             border-radius: 0;
-            padding: 3rem 3rem 2rem 3rem;
+            padding: 2rem 3rem 2rem 3rem;
             box-shadow: none;
             width: calc(10 / 12 * 100%);
             margin: 0 auto;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .faq-box.visible {
-            animation: fadeInUp 1s ease-out forwards;
+            opacity: 1;
+            transform: none;
         }
 
         .faq-title {
@@ -638,6 +665,8 @@
         .camera-icon {
             width: 150px;
             height: 150px;
+            object-fit: contain;
+            display: block;
         }
 
         /* Animations */
@@ -785,7 +814,8 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <img src="images/hero-photo.jpg" alt="Mabe and Luis" class="hero-image">
+        <img src="images/hero-photo-desktop.jpg" alt="Mabe and Luis" class="hero-image hero-image-desktop">
+        <img src="images/hero-photo-mobile.jpg" alt="Mabe and Luis" class="hero-image hero-image-mobile">
         <div class="hero-gradient"></div>
         
         <div class="hero-names">
@@ -804,8 +834,7 @@
     <section class="message-section">
         <div class="message-content">
             <p class="message-text">
-                It brings us so much joy to be able to share this very special day with you. We hope you can be close to us for such an important moment in our lives. And if, for whatever reason, you can’t be there with us, we want you to know how much you mean to us.
-                - Mabe y Luis
+                From our very first encounter in a hidden corner of the city, we knew something magical had begun. Each shared moment has woven us closer together, nurturing a bond that feels as natural as breathing. We can't wait to celebrate our love with you in a setting as beautiful as the journey that brought us here. Thank you for being part of our story.
             </p>
         </div>
     </section>
@@ -829,7 +858,7 @@
                 <div class="card-content">
                     <h2 class="card-title">Schedule</h2>
                     <p class="card-description">
-                        Here you’ll find the plan for the weekend and, of course, the big day. The idea is that you can organize ahead of time and enjoy everything calmly, with no rushing.
+                        Our wedding day timeline from ceremony to celebration. Find out when and where everything happens so you don't miss a moment of the magic.
                     </p>
                     <a href="schedule.html" class="card-cta">View Schedule</a>
                 </div>
@@ -840,7 +869,7 @@
                 <div class="card-content">
                     <h2 class="card-title">Transfer & Accommodation</h2>
                     <p class="card-description">
-                        Toledo is close to Madrid and easy to reach in many different ways. We’re sharing transportation and accommodation options so you can choose what works best for you.
+                        We've arranged comfortable accommodations and transportation options to make your journey to Toledo as smooth as possible. Find all the details here.
                     </p>
                     <a href="transfer.html" class="card-cta">Learn More</a>
                 </div>
@@ -858,7 +887,7 @@
                 <div class="card-content">
                     <h2 class="card-title">Explore Toledo</h2>
                     <p class="card-description">
-                        If you feel like extending your visit, Toledo is a wonderful city to explore. We’re sharing our favorite recommendations for wandering around, eating well, and enjoying the city at a relaxed pace.
+                        Discover the magic of Toledo! From ancient architecture to charming cobblestone streets, we've curated a guide to help you make the most of your time in this enchanting Spanish city.
                     </p>
                     <a href="toledo.html" class="card-cta">Explore</a>
                 </div>
@@ -977,19 +1006,7 @@
                 </p>
             </div>
             <div class="footer-camera">
-                <svg class="camera-icon" viewBox="0 0 150 150">
-                    <rect x="25" y="45" width="100" height="70" rx="8" 
-                          fill="none" stroke="#9F3544" stroke-width="3.5"/>
-                    <circle cx="75" cy="80" r="22" 
-                            fill="none" stroke="#9F3544" stroke-width="3.5"/>
-                    <circle cx="75" cy="80" r="14" 
-                            fill="none" stroke="#9F3544" stroke-width="2.5"/>
-                    <rect x="45" y="35" width="60" height="10" rx="4" 
-                          fill="none" stroke="#9F3544" stroke-width="3.5"/>
-                    <circle cx="105" cy="60" r="4" fill="#9F3544"/>
-                    <line x1="20" y1="75" x2="10" y2="75" stroke="#9F3544" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="140" y1="75" x2="130" y2="75" stroke="#9F3544" stroke-width="3" stroke-linecap="round"/>
-                </svg>
+                <img src="images/camera-icon.jpg" alt="Camera" class="camera-icon">
             </div>
         </div>
     </section>
@@ -1066,7 +1083,7 @@
         // Observe all animated elements
         document.addEventListener('DOMContentLoaded', () => {
             const animatedElements = document.querySelectorAll(
-                '.message-text, .info-card, .dashed-line, .faq-box, .footer-container'
+                '.message-text, .info-card, .dashed-line, .footer-container'
             );
             
             animatedElements.forEach(el => observer.observe(el));
