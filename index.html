@@ -410,8 +410,12 @@
 
         /* Info Section - Green Background */
         .info-section {
+            background-image: url('images/background-frame.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             background-color: var(--sage);
-            padding: 6rem 0 2rem 0;
+            padding: 6rem 0 6rem 0;
             position: relative;
         }
 
@@ -425,9 +429,13 @@
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 2rem;
-            margin-bottom: 5rem;
+            margin-bottom: 4rem;
             opacity: 1;
             transform: none;
+        }
+
+        .info-card:last-child {
+            margin-bottom: 0;
         }
 
         /* Card Layout Variations - 60/40 split (images larger than text) */
