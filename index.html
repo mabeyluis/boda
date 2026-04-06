@@ -310,8 +310,8 @@
 
         .hero-bottom-content {
             position: absolute;
-            bottom: 21%;
-            left: 40%;
+            bottom: 24%;
+            left: 35%;
             transform: translateX(-50%);
             z-index: 10;
             display: flex;
@@ -333,7 +333,7 @@
             
             .hero-bottom-content {
                 bottom: 20%;
-                left: 15%;
+                left: 27%;
             }
         }
 
@@ -374,7 +374,7 @@
 
         .rsvp-text {
             font-family: 'Beth Ellen', cursive;
-            font-size: 1.68rem;
+            font-size: 2rem;
             color: white;
             position: relative;
             z-index: 1;
@@ -430,50 +430,52 @@
             transform: none;
         }
 
-        /* Card Layout Variations - 50/50 split */
+        /* Card Layout Variations - 40/60 split (40% images, 60% text) */
         .info-card.layout-left .card-image {
-            grid-column: 1 / 7;
+            grid-column: 1 / 6;
         }
 
         .info-card.layout-left .card-content {
-            grid-column: 7 / 13;
+            grid-column: 6 / 13;
         }
 
         .info-card.layout-right .card-content {
-            grid-column: 1 / 7;
+            grid-column: 1 / 8;
         }
 
         .info-card.layout-right .card-image {
-            grid-column: 7 / 13;
+            grid-column: 8 / 13;
         }
 
         .card-image-wrapper {
             position: relative;
             width: 100%;
-            min-height: 600px;
+            height: 100%;
             display: flex;
-            align-items: center;
+            align-items: stretch;
             justify-content: center;
-            overflow: visible;
+            padding: 0;
+            margin: 0;
         }
 
         .card-image-wrapper img {
             width: 100%;
             height: 100%;
-            min-height: 600px;
-            object-fit: contain;
+            object-fit: cover;
             object-position: center;
             display: block;
+            margin: 0;
+            padding: 0;
         }
 
         @media (max-width: 768px) {
             .card-image-wrapper {
                 min-height: 400px;
-                overflow: hidden;
             }
             
             .card-image-wrapper img {
                 min-height: 400px;
+                object-fit: contain;
             }
         }
 
@@ -561,7 +563,7 @@
         .faq-box {
             background-color: var(--golden);
             border-radius: 0;
-            padding: 2rem 3rem 2rem 3rem;
+            padding: 0 3rem 2rem 3rem;
             box-shadow: none;
             width: calc(10 / 12 * 100%);
             margin: 0 auto;
@@ -574,7 +576,8 @@
             font-size: clamp(2rem, 4vw, 3rem);
             color: white;
             text-align: center;
-            margin-bottom: 2rem;
+            margin: 0 0 2rem 0;
+            padding-top: 2rem;
         }
 
         .faq-item {
