@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mabe & Luis - Our Wedding</title>
+    <title>Mabe y Luis - Nuestra Boda</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -49,6 +49,15 @@
             background-color: rgba(252, 251, 246, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Remove blur on mobile */
+        @media (max-width: 768px) {
+            .navbar.scrolled {
+                background-color: transparent;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
         }
 
         .navbar-container {
@@ -178,7 +187,7 @@
         }
 
         .hamburger.active span {
-            background: var(--burgundy);
+            background: var(--burgundy) !important;
         }
 
         .hamburger.active span:nth-child(1) {
@@ -232,21 +241,39 @@
             border-color: var(--burgundy);
         }
 
-        /* Hero Section - Natural scroll */
+        /* Hero Section - Full image visible, different images for desktop/mobile */
         .hero {
             position: relative;
-            min-height: 200vh;
+            width: 100%;
+            overflow: hidden;
         }
 
         .hero-image {
-            position: absolute;
-            top: -10vh;
-            left: 0;
             width: 100%;
-            height: 210vh;
-            object-fit: cover;
-            object-position: center top;
+            height: auto;
             display: block;
+            object-fit: cover;
+        }
+
+        /* Hide mobile image on desktop */
+        .hero-image-mobile {
+            display: none;
+        }
+
+        /* Show desktop image on desktop */
+        .hero-image-desktop {
+            display: block;
+        }
+
+        /* Mobile: show mobile image, hide desktop image */
+        @media (max-width: 768px) {
+            .hero-image-desktop {
+                display: none;
+            }
+            
+            .hero-image-mobile {
+                display: block;
+            }
         }
 
         /* Dark gradient overlay at top for navbar visibility */
@@ -262,18 +289,12 @@
         }
 
         .hero-names {
-            position: fixed;
-            top: 30vh;
+            position: absolute;
+            top: 20%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
             text-align: center;
-            transition: opacity 0.3s ease;
-        }
-
-        .hero-names.hidden {
-            opacity: 0;
-            pointer-events: none;
         }
 
         .hero-title {
@@ -288,8 +309,8 @@
         }
 
         .hero-bottom-content {
-            position: fixed;
-            bottom: 25vh;
+            position: absolute;
+            bottom: 15%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -298,22 +319,20 @@
             gap: 3rem;
             opacity: 0;
             animation: fadeInBottom 1.5s ease-out 1s forwards;
-            transition: opacity 0.3s ease;
-        }
-
-        .hero-bottom-content.hidden {
-            opacity: 0;
-            pointer-events: none;
         }
 
         @media (max-width: 768px) {
+            .hero-names {
+                top: 25%;
+            }
+            
             .hero-title {
                 font-size: clamp(2rem, 12vw, 3rem);
                 white-space: nowrap;
             }
             
             .hero-bottom-content {
-                bottom: 45vh;
+                bottom: 20%;
             }
         }
 
@@ -415,17 +434,17 @@
         .card-image-wrapper {
             position: relative;
             width: 100%;
-            min-height: 630px;
+            min-height: 700px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .card-image-wrapper img {
             width: 100%;
-            height: 100%;
-            min-height: 630px;
+            height: auto;
+            min-height: 700px;
             object-fit: contain;
             display: block;
         }
@@ -433,6 +452,7 @@
         @media (max-width: 768px) {
             .card-image-wrapper {
                 min-height: 400px;
+                overflow: hidden;
             }
             
             .card-image-wrapper img {
@@ -528,16 +548,12 @@
         .faq-box {
             background-color: var(--golden);
             border-radius: 0;
-            padding: 3rem 3rem 2rem 3rem;
+            padding: 2rem 3rem 2rem 3rem;
             box-shadow: none;
             width: calc(10 / 12 * 100%);
             margin: 0 auto;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .faq-box.visible {
-            animation: fadeInUp 1s ease-out forwards;
+            opacity: 1;
+            transform: none;
         }
 
         .faq-title {
@@ -649,6 +665,8 @@
         .camera-icon {
             width: 150px;
             height: 150px;
+            object-fit: contain;
+            display: block;
         }
 
         /* Animations */
@@ -796,7 +814,8 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <img src="images/hero-photo.jpg" alt="Mabe and Luis" class="hero-image">
+        <img src="images/hero-photo-desktop.jpg" alt="Mabe and Luis" class="hero-image hero-image-desktop">
+        <img src="images/hero-photo-mobile.jpg" alt="Mabe and Luis" class="hero-image hero-image-mobile">
         <div class="hero-gradient"></div>
         
         <div class="hero-names">
@@ -839,9 +858,9 @@
                 <div class="card-content">
                     <h2 class="card-title">Horario</h2>
                     <p class="card-description">
-                        El cronograma de nuestro día especial desde la ceremonia hasta la celebración. Descubre cuándo y dónde sucede todo para que no te pierdas ni un momento de la magia.
+                        Our wedding day timeline from ceremony to celebration. Find out when and where everything happens so you don't miss a moment of the magic.
                     </p>
-                    <a href="schedule-es.html" class="card-cta">Ver Horario</a>
+                    <a href="schedule.html" class="card-cta">View Schedule</a>
                 </div>
             </div>
 
@@ -850,9 +869,9 @@
                 <div class="card-content">
                     <h2 class="card-title">Traslado y Alojamiento</h2>
                     <p class="card-description">
-                        Hemos organizado alojamientos cómodos y opciones de transporte para que tu viaje a Toledo sea lo más fluido posible. Encuentra todos los detalles aquí.
+                        We've arranged comfortable accommodations and transportation options to make your journey to Toledo as smooth as possible. Find all the details here.
                     </p>
-                    <a href="transfer-es.html" class="card-cta">Más Info</a>
+                    <a href="transfer.html" class="card-cta">Learn More</a>
                 </div>
                 <div class="card-image-wrapper">
                     <img src="images/accommodation.jpg" alt="Accommodation">
@@ -868,9 +887,9 @@
                 <div class="card-content">
                     <h2 class="card-title">Explora Toledo</h2>
                     <p class="card-description">
-                        ¡Descubre la magia de Toledo! Desde arquitectura antigua hasta encantadoras calles empedradas, hemos creado una guía para ayudarte a aprovechar al máximo tu tiempo en esta cautivadora ciudad española.
+                        Discover the magic of Toledo! From ancient architecture to charming cobblestone streets, we've curated a guide to help you make the most of your time in this enchanting Spanish city.
                     </p>
-                    <a href="toledo-es.html" class="card-cta">Explorar</a>
+                    <a href="toledo.html" class="card-cta">Explore</a>
                 </div>
             </div>
         </div>
@@ -889,90 +908,90 @@
                 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿Cuándo debo confirmar mi asistencia?</div>
+                        <div class="faq-question">When should I RSVP by?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">Por favor confirma tu asistencia antes del 15 de marzo de 2026. Esto nos ayuda a finalizar el catering y la disposición de los asientos.</div>
+                    <div class="faq-answer">Please RSVP by March 15th, 2026. This helps us finalize catering and seating arrangements.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿Qué debo ponerme?</div>
+                        <div class="faq-question">What should I wear?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">El código de vestimenta es semi-formal. Piensa en elegancia de jardín con zapatos cómodos para bailar.</div>
+                    <div class="faq-answer">The dress code is semi-formal. Think garden party elegance with comfortable shoes for dancing!</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿Puedo llevar acompañante?</div>
+                        <div class="faq-question">Can I bring a plus-one?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">Debido a la capacidad del lugar, solo podemos acomodar a los invitados listados en tu invitación. Por favor revisa tu confirmación para más detalles.</div>
+                    <div class="faq-answer">Due to venue capacity, we can only accommodate guests listed on your invitation. Please check your RSVP for details.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿Habrá transporte proporcionado?</div>
+                        <div class="faq-question">Will there be transportation provided?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">¡Sí! Tendremos servicio de traslado desde hoteles seleccionados hasta el lugar. Consulta la página de Traslado y Alojamiento para más detalles.</div>
+                    <div class="faq-answer">Yes! We'll have shuttle service from select hotels to the venue. Check the Transfer & Accommodation page for details.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿Son bienvenidos los niños?</div>
+                        <div class="faq-question">Are children welcome?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">Amamos a tus pequeños, pero esta será una celebración solo para adultos. ¡Esperamos que esto te dé la oportunidad de relajarte y disfrutar!</div>
+                    <div class="faq-answer">We love your little ones, but this will be an adults-only celebration. We hope this gives you a chance to relax and enjoy!</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿Qué pasa con las restricciones dietéticas?</div>
+                        <div class="faq-question">What about dietary restrictions?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">Por favor háznoslo saber sobre cualquier restricción dietética cuando confirmes tu asistencia. ¡Nos aseguraremos de que todos estén bien alimentados!</div>
+                    <div class="faq-answer">Please let us know about any dietary restrictions when you RSVP. We'll make sure everyone is well-fed!</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿A qué hora empieza la ceremonia?</div>
+                        <div class="faq-question">What time does the ceremony start?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">La ceremonia comienza a las 16:30. Recomendamos llegar 15-20 minutos antes para encontrar tu asiento.</div>
+                    <div class="faq-answer">The ceremony begins at 4:30 PM. We recommend arriving 15-20 minutes early to find your seat.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿Hay estacionamiento disponible?</div>
+                        <div class="faq-question">Is there parking available?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">Sí, hay estacionamiento en el lugar. Sin embargo, recomendamos usar nuestro servicio de traslado por comodidad.</div>
+                    <div class="faq-answer">Yes, there is parking at the venue. However, we encourage using our shuttle service for convenience.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿Puedo tomar fotos durante la ceremonia?</div>
+                        <div class="faq-question">Can I take photos during the ceremony?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">Tenemos un fotógrafo profesional capturando cada momento. Por favor disfruta la ceremonia sin dispositivos - ¡compartiremos todas las fotos después!</div>
+                    <div class="faq-answer">We have a professional photographer capturing every moment. Please enjoy the ceremony unplugged - we'll share all photos afterwards!</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿Habrá opciones vegetarianas/veganas?</div>
+                        <div class="faq-question">Will there be vegetarian/vegan options?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">¡Por supuesto! Por favor indica tus preferencias dietéticas cuando confirmes tu asistencia y nos aseguraremos de que tengas opciones deliciosas.</div>
+                    <div class="faq-answer">Absolutely! Please indicate your dietary preferences when you RSVP and we'll ensure you have delicious options.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">¿Cuál es la mejor manera de llegar a Toledo desde Madrid?</div>
+                        <div class="faq-question">What's the best way to get to Toledo from Madrid?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">El tren de alta velocidad desde Madrid a Toledo tarda solo 30 minutos. Consulta nuestra página de Traslado y Alojamiento para información detallada de viaje.</div>
+                    <div class="faq-answer">The high-speed train from Madrid to Toledo takes just 30 minutes. Check our Transfer & Accommodation page for detailed travel information.</div>
                 </div>
             </div>
         </div>
@@ -987,19 +1006,7 @@
                 </p>
             </div>
             <div class="footer-camera">
-                <svg class="camera-icon" viewBox="0 0 150 150">
-                    <rect x="25" y="45" width="100" height="70" rx="8" 
-                          fill="none" stroke="#9F3544" stroke-width="3.5"/>
-                    <circle cx="75" cy="80" r="22" 
-                            fill="none" stroke="#9F3544" stroke-width="3.5"/>
-                    <circle cx="75" cy="80" r="14" 
-                            fill="none" stroke="#9F3544" stroke-width="2.5"/>
-                    <rect x="45" y="35" width="60" height="10" rx="4" 
-                          fill="none" stroke="#9F3544" stroke-width="3.5"/>
-                    <circle cx="105" cy="60" r="4" fill="#9F3544"/>
-                    <line x1="20" y1="75" x2="10" y2="75" stroke="#9F3544" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="140" y1="75" x2="130" y2="75" stroke="#9F3544" stroke-width="3" stroke-linecap="round"/>
-                </svg>
+                <img src="images/camera-icon.jpg" alt="Camera" class="camera-icon">
             </div>
         </div>
     </section>
@@ -1076,7 +1083,7 @@
         // Observe all animated elements
         document.addEventListener('DOMContentLoaded', () => {
             const animatedElements = document.querySelectorAll(
-                '.message-text, .info-card, .dashed-line, .faq-box, .footer-container'
+                '.message-text, .info-card, .dashed-line, .footer-container'
             );
             
             animatedElements.forEach(el => observer.observe(el));
