@@ -310,8 +310,8 @@
 
         .hero-bottom-content {
             position: absolute;
-            bottom: 18%;
-            left: 45%;
+            bottom: 26%;
+            left: 35%;
             transform: translateX(-50%);
             z-index: 10;
             display: flex;
@@ -333,7 +333,7 @@
             
             .hero-bottom-content {
                 bottom: 20%;
-                left: 45%;
+                left: 27%;
             }
         }
 
@@ -344,12 +344,21 @@
             border: none;
             cursor: pointer;
             transform: scale(1.2);
+            transition: transform 0.3s ease;
+        }
+
+        .rsvp-button:hover {
+            transform: scale(1.25);
         }
 
         @media (max-width: 768px) {
             .rsvp-button {
                 padding: 1rem 2.5rem;
                 transform: scale(0.9);
+            }
+            
+            .rsvp-button:hover {
+                transform: scale(0.95);
             }
         }
 
@@ -365,11 +374,17 @@
 
         .rsvp-text {
             font-family: 'Beth Ellen', cursive;
-            font-size: 1.4rem;
+            font-size: 2rem;
             color: white;
             position: relative;
             z-index: 1;
             text-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .rsvp-text {
+                font-size: 1.26rem;
+            }
         }
 
         /* Message Section */
@@ -415,21 +430,21 @@
             transform: none;
         }
 
-        /* Card Layout Variations - 70/30 split (images get 8 columns, text gets 4) */
+        /* Card Layout Variations - 50/50 split */
         .info-card.layout-left .card-image {
-            grid-column: 1 / 9;
+            grid-column: 1 / 7;
         }
 
         .info-card.layout-left .card-content {
-            grid-column: 9 / 13;
+            grid-column: 7 / 13;
         }
 
         .info-card.layout-right .card-content {
-            grid-column: 1 / 5;
+            grid-column: 1 / 7;
         }
 
         .info-card.layout-right .card-image {
-            grid-column: 5 / 13;
+            grid-column: 7 / 13;
         }
 
         .card-image-wrapper {
@@ -439,25 +454,29 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: visible;
+            padding: 0;
+            margin: 0;
         }
 
         .card-image-wrapper img {
             width: 100%;
             height: auto;
             min-height: 700px;
-            object-fit: contain;
+            object-fit: cover;
+            object-position: center;
             display: block;
+            margin: 0;
+            padding: 0;
         }
 
         @media (max-width: 768px) {
             .card-image-wrapper {
                 min-height: 400px;
-                overflow: hidden;
             }
             
             .card-image-wrapper img {
                 min-height: 400px;
+                object-fit: contain;
             }
         }
 
@@ -545,7 +564,7 @@
         .faq-box {
             background-color: var(--golden);
             border-radius: 0;
-            padding: 2rem 3rem 2rem 3rem;
+            padding: 0 3rem 2rem 3rem;
             box-shadow: none;
             width: calc(10 / 12 * 100%);
             margin: 0 auto;
@@ -558,7 +577,8 @@
             font-size: clamp(2rem, 4vw, 3rem);
             color: white;
             text-align: center;
-            margin-bottom: 2rem;
+            margin: 0 0 2rem 0;
+            padding-top: 0;
         }
 
         .faq-item {
@@ -625,7 +645,7 @@
             max-width: 1000px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 7fr 3fr;
             gap: 4rem;
             align-items: center;
             opacity: 1;
@@ -827,7 +847,7 @@
     <section class="message-section">
         <div class="message-content">
             <p class="message-text">
-                Nos da una alegría inmensa poder compartir este día tan especial con ustedes. Esperamos tenerlos cerquita en este momento tan importante para nosotros. Y si por cosas del destino no pueden acompañarnos, queremos que sepan lo mucho que significan para nosotros. - Mabe y Luis
+                Nos da una alegría inmensa poder compartir este día tan especial con ustedes. Esperamos tenerlos cerquita en este momento tan importante para nosotros. Y si por cosas del destino no pueden acompañarnos, queremos que sepan lo mucho que significan para nosotros.<br><br>- Mabe y Luis
             </p>
         </div>
     </section>
