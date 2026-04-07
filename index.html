@@ -417,7 +417,7 @@
             background-color: var(--sage);
             padding: 0;
             position: relative;
-            min-height: 2400px;
+            min-height: 3000px;
         }
 
         .info-container {
@@ -426,8 +426,6 @@
             padding: 0 180px;
             position: relative;
             height: 100%;
-            padding-top: 8%;
-            padding-bottom: 8%;
         }
 
         .info-card {
@@ -438,16 +436,16 @@
             width: calc(100% - 360px);
         }
 
-        /* Card 1: Top - Image Left, Content Right - 8% from top */
+        /* Card 1: Top - Image Left, Content Right - 15% from top */
         .info-card:nth-child(1) {
-            top: 8%;
+            top: 15%;
         }
 
         .info-card.layout-left {
             flex-direction: row;
         }
 
-        /* Card 2: Middle - Content Left, Image Right - centered between card 1 and 3 */
+        /* Card 2: Middle - Content Left, Image Right - centered at 50% */
         .info-card:nth-child(2) {
             top: 50%;
             transform: translateY(-50%);
@@ -457,9 +455,9 @@
             flex-direction: row-reverse;
         }
 
-        /* Card 3: Bottom - Image Left, Content Right - 8% from bottom */
+        /* Card 3: Bottom - Image Left, Content Right - 15% from bottom */
         .info-card:nth-child(3) {
-            bottom: 8%;
+            bottom: 15%;
         }
 
         .card-image-wrapper {
