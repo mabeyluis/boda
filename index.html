@@ -411,11 +411,11 @@
         /* Info Section - Green Background */
         .info-section {
             background-image: url('images/background-frame.jpg');
-            background-size: contain;
+            background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-color: var(--sage);
-            padding: 4rem 0;
+            padding: 0;
             position: relative;
             min-height: 2400px;
         }
@@ -425,28 +425,41 @@
             margin: 0 auto;
             padding: 0 180px;
             position: relative;
+            height: 100%;
+            padding-top: 8%;
+            padding-bottom: 8%;
         }
 
         .info-card {
             display: flex;
             align-items: center;
             gap: 3rem;
-            margin-bottom: 12rem;
-            position: relative;
+            position: absolute;
+            width: calc(100% - 360px);
         }
 
-        .info-card:last-child {
-            margin-bottom: 0;
+        /* Card 1: Top - Image Left, Content Right - 8% from top */
+        .info-card:nth-child(1) {
+            top: 8%;
         }
 
-        /* Card 1: Image Left, Content Right */
         .info-card.layout-left {
             flex-direction: row;
         }
 
-        /* Card 2: Content Left, Image Right */
+        /* Card 2: Middle - Content Left, Image Right - centered between card 1 and 3 */
+        .info-card:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
         .info-card.layout-right {
             flex-direction: row-reverse;
+        }
+
+        /* Card 3: Bottom - Image Left, Content Right - 8% from bottom */
+        .info-card:nth-child(3) {
+            bottom: 8%;
         }
 
         .card-image-wrapper {
@@ -462,25 +475,38 @@
         }
 
         @media (max-width: 768px) {
+            .info-section {
+                background-image: none;
+                background-color: var(--sage);
+                min-height: auto;
+                padding: 6rem 0 2rem 0;
+            }
+
+            .info-container {
+                padding: 0 2rem;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
             .info-card {
+                position: relative !important;
                 flex-direction: column !important;
                 gap: 2rem;
-                margin-bottom: 4rem;
+                margin-bottom: 3rem;
+                width: 100% !important;
+                top: auto !important;
+                bottom: auto !important;
+                transform: none !important;
+            }
+
+            .info-card:last-child {
+                margin-bottom: 0;
             }
 
             .card-image-wrapper {
                 flex: 0 0 auto;
                 width: 100%;
                 max-width: 400px;
-            }
-
-            .info-section {
-                min-height: auto;
-                padding: 3rem 0;
-            }
-
-            .info-container {
-                padding: 0 2rem;
             }
         }
 
