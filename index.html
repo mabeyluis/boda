@@ -186,8 +186,14 @@
             background: var(--burgundy);
         }
 
+        /* X icon when menu is open - ALWAYS burgundy and visible */
+        .hamburger.active {
+            background: transparent;
+        }
+
         .hamburger.active span {
             background: var(--burgundy) !important;
+            height: 3px;
         }
 
         .hamburger.active span:nth-child(1) {
