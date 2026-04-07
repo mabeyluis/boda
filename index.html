@@ -446,7 +446,7 @@
 
         /* Card 2: Content Left, Image Right */
         .info-card.layout-right {
-            flex-direction: row-reverse;
+            flex-direction: row;
         }
 
         .card-image-wrapper {
@@ -510,6 +510,11 @@
             color: white;
             margin-bottom: 1.5rem;
             line-height: 1.2;
+        }
+
+        /* Transfer & Accommodation title - smaller to fit in one line */
+        .transfer-title {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
         }
 
         .card-description {
@@ -877,10 +882,10 @@
                 </div>
             </div>
 
-            <!-- Card 2: Transfer & Accommodation (Content Left, Image Right) -->
+            <!-- Card 2: Transfer & Accommodation (Content First, Image Second) -->
             <div class="info-card layout-right">
                 <div class="card-content">
-                    <h2 class="card-title">Transfer & Accommodation</h2>
+                    <h2 class="card-title transfer-title">Transfer & Accommodation</h2>
                     <p class="card-description">
                         Toledo is close to Madrid and easy to reach in many different ways. We're sharing transportation and accommodation options so you can choose what works best for you.
                     </p>
