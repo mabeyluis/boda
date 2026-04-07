@@ -166,7 +166,7 @@
             gap: 5px;
             cursor: pointer;
             padding: 0.5rem;
-            z-index: 1002;
+            z-index: 1003;
             transition: all 0.3s ease;
             position: fixed;
             top: 1.5rem;
@@ -175,8 +175,8 @@
         }
 
         .hamburger span {
-            width: 25px;
-            height: 3px;
+            width: 30px;
+            height: 4px;
             background: var(--cream);
             transition: all 0.3s ease;
             border-radius: 2px;
@@ -188,16 +188,19 @@
 
         /* X icon when menu is open - ALWAYS burgundy and visible */
         .hamburger.active {
-            background: transparent;
+            background: rgba(252, 251, 246, 0.9);
+            border-radius: 4px;
+            padding: 0.8rem;
         }
 
         .hamburger.active span {
             background: var(--burgundy) !important;
-            height: 3px;
+            height: 4px;
+            width: 30px;
         }
 
         .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
+            transform: rotate(45deg) translate(9px, 9px);
         }
 
         .hamburger.active span:nth-child(2) {
@@ -205,7 +208,7 @@
         }
 
         .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
+            transform: rotate(-45deg) translate(8px, -8px);
         }
 
         .mobile-menu {
