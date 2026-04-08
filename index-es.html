@@ -37,7 +37,7 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1000;
+            z-index: 1005;
             padding: 1.5rem 0;
             font-family: 'Libre Baskerville', serif;
             transition: all 0.3s ease;
@@ -163,19 +163,23 @@
         .hamburger {
             display: none;
             flex-direction: column;
-            gap: 5px;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
             cursor: pointer;
             padding: 0.5rem;
-            z-index: 1002;
+            z-index: 1003;
             transition: all 0.3s ease;
             position: fixed;
             top: 1.5rem;
             right: 2rem;
             background: transparent;
+            width: 40px;
+            height: 40px;
         }
 
         .hamburger span {
-            width: 25px;
+            width: 28px;
             height: 3px;
             background: var(--cream);
             transition: all 0.3s ease;
@@ -186,12 +190,23 @@
             background: var(--burgundy);
         }
 
+        /* X icon when menu is open - ALWAYS burgundy and visible */
+        .hamburger.active {
+            background: rgba(252, 251, 246, 0.95);
+            border-radius: 6px;
+            padding: 0.5rem;
+            gap: 0;
+        }
+
         .hamburger.active span {
             background: var(--burgundy) !important;
+            height: 3px;
+            width: 28px;
+            position: absolute;
         }
 
         .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
+            transform: rotate(45deg);
         }
 
         .hamburger.active span:nth-child(2) {
@@ -199,7 +214,7 @@
         }
 
         .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
+            transform: rotate(-45deg);
         }
 
         .mobile-menu {
@@ -241,6 +256,25 @@
             border-color: var(--burgundy);
         }
 
+        .mobile-language-switcher {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .mobile-language-switcher a {
+            padding: 1rem 0.5rem;
+            width: auto;
+            max-width: none;
+        }
+
+        .language-separator {
+            color: var(--burgundy);
+            font-size: 1.2rem;
+            padding: 0 0.5rem;
+        }
+
         /* Hero Section - Full image visible, different images for desktop/mobile */
         .hero {
             position: relative;
@@ -265,8 +299,20 @@
             display: block;
         }
 
-        /* Mobile: show mobile image, hide desktop image */
+        /* Mobile: show mobile image, hide desktop image, fit to viewport */
         @media (max-width: 768px) {
+            .hero {
+                height: 100vh;
+                min-height: 100vh;
+            }
+
+            .hero-image {
+                width: 100%;
+                height: 100vh;
+                object-fit: cover;
+                object-position: center;
+            }
+
             .hero-image-desktop {
                 display: none;
             }
@@ -327,7 +373,7 @@
             }
             
             .hero-title {
-                font-size: clamp(2rem, 12vw, 3rem);
+                font-size: clamp(1.5rem, 10vw, 2.5rem);
                 white-space: nowrap;
             }
             
@@ -410,86 +456,102 @@
 
         /* Info Section - Green Background */
         .info-section {
+            background-image: url('images/background-frame.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             background-color: var(--sage);
-            padding: 6rem 0 2rem 0;
+            padding: 12rem 0;
             position: relative;
+            min-height: 2400px;
         }
 
         .info-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 180px;
+            position: relative;
         }
 
         .info-card {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
-            opacity: 1;
-            transform: none;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 24rem;
+            position: relative;
         }
 
-        /* Card Layout Variations - 50/50 split */
-        .info-card.layout-left .card-image {
-            grid-column: 1 / 7;
+        .info-card:last-child {
+            margin-bottom: 0;
         }
 
-        .info-card.layout-left .card-content {
-            grid-column: 7 / 13;
+        /* Card 1: Image Left, Content Right */
+        .info-card.layout-left {
+            flex-direction: row;
         }
 
-        .info-card.layout-right .card-content {
-            grid-column: 1 / 7;
-        }
-
-        .info-card.layout-right .card-image {
-            grid-column: 7 / 13;
+        /* Card 2: Content Left, Image Right */
+        .info-card.layout-right {
+            flex-direction: row;
         }
 
         .card-image-wrapper {
+            flex: 1;
             position: relative;
-            width: 100%;
-            min-height: 700px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            margin: 0;
         }
 
         .card-image-wrapper img {
             width: 100%;
             height: auto;
-            min-height: 700px;
-            object-fit: cover;
-            object-position: center;
             display: block;
-            margin: 0;
-            padding: 0;
         }
 
         @media (max-width: 768px) {
-            .card-image-wrapper {
-                min-height: 400px;
+            .info-section {
+                background-image: none;
+                background-color: var(--sage);
+                min-height: auto;
+                padding: 6rem 0 2rem 0;
             }
-            
-            .card-image-wrapper img {
-                min-height: 400px;
-                object-fit: contain;
+
+            .info-container {
+                padding: 0 2rem;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+            .info-card {
+                position: relative !important;
+                flex-direction: column !important;
+                gap: 2rem;
+                margin-bottom: 3rem;
+                width: 100% !important;
+                top: auto !important;
+                bottom: auto !important;
+                transform: none !important;
+            }
+
+            .info-card:last-child {
+                margin-bottom: 0;
+            }
+
+            .card-image-wrapper {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 400px;
             }
         }
 
         .card-content {
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 1.5rem;
         }
 
         .card-title {
             font-family: 'Beth Ellen', cursive;
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
             color: white;
             margin-bottom: 1.5rem;
             line-height: 1.2;
@@ -514,23 +576,13 @@
             font-family: 'Libre Baskerville', serif;
             transition: all 0.3s ease;
             border: 2px solid var(--cream);
+            align-self: flex-start;
         }
 
         .card-cta:hover {
             background: var(--cream);
             color: var(--sage);
             transform: translateY(-2px);
-        }
-
-        /* Dashed decorative lines */
-        .dashed-line {
-            position: absolute;
-            stroke: white;
-            stroke-width: 2.5;
-            stroke-dasharray: 8, 8;
-            fill: none;
-            opacity: 1;
-            stroke-linecap: round;
         }
 
         /* Transition Image Section */
@@ -676,8 +728,8 @@
         }
 
         .camera-icon {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             object-fit: contain;
             display: block;
         }
@@ -821,8 +873,11 @@
         <a href="transfer-es.html">Traslado y Alojamiento</a>
         <a href="toledo-es.html">Explora Toledo</a>
         <a href="rsvp-es.html" class="rsvp-link">RSVP</a>
-        <a href="index.html">EN</a>
-        <a href="index-es.html">ES</a>
+        <div class="mobile-language-switcher">
+            <a href="index.html">EN</a>
+            <span class="language-separator"> / </span>
+            <a href="index-es.html">ES</a>
+        </div>
     </div>
 
     <!-- Hero Section -->
@@ -854,13 +909,6 @@
 
     <!-- Info Section - Green Background -->
     <section class="info-section">
-        <!-- Decorative dashed lines -->
-        <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none;">
-            <path class="dashed-line" d="M 5% 15% Q 15% 25%, 10% 35% T 5% 55%" />
-            <path class="dashed-line" d="M 95% 40% Q 85% 50%, 90% 60% T 95% 80%" />
-            <path class="dashed-line" d="M 20% 70% Q 30% 75%, 25% 85%" />
-        </svg>
-
         <div class="info-container">
             <!-- Card 1: Schedule (Image Left, Content Right) -->
             <div class="info-card layout-left">
@@ -877,10 +925,10 @@
                 </div>
             </div>
 
-            <!-- Card 2: Transfer & Accommodation (Content Left, Image Right) -->
+            <!-- Card 2: Transfer & Accommodation (Content First, Image Second) -->
             <div class="info-card layout-right">
                 <div class="card-content">
-                    <h2 class="card-title">Traslado y Alojamiento</h2>
+                    <h2 class="card-title transfer-title">Traslado y Alojamiento</h2>
                     <p class="card-description">
                         Toledo está cerquita de Madrid y es fácil llegar de muchas maneras. Les dejamos opciones de transporte y de dónde quedarse para que elijan la que mejor les venga.
                     </p>
@@ -921,26 +969,26 @@
                 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">When should I RSVP by?</div>
+                        <div class="faq-question">¿Cuándo debo confirmar mi asistencia?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">Please RSVP by March 15th, 2026. This helps us finalize catering and seating arrangements.</div>
+                    <div class="faq-answer">Por favor confirma tu asistencia antes del 15 de marzo de 2026. Esto nos ayuda a finalizar el catering y la distribución de asientos.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">What should I wear?</div>
+                        <div class="faq-question">¿Qué debo ponerme?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">The dress code is semi-formal. Think garden party elegance with comfortable shoes for dancing!</div>
+                    <div class="faq-answer">El código de vestimenta es semi-formal. ¡Piensa en elegancia de fiesta en jardín con zapatos cómodos para bailar!</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">Can I bring a plus-one?</div>
+                        <div class="faq-question">¿Puedo llevar acompañante?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">Due to venue capacity, we can only accommodate guests listed on your invitation. Please check your RSVP for details.</div>
+                    <div class="faq-answer">Debido a la capacidad del lugar, solo podemos acomodar a los invitados en tu invitación. Por favor revisa tu confirmación para más detalles.</div>
                 </div>
 
                 <div class="faq-item">
@@ -977,7 +1025,7 @@
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">Is there parking available?</div>
+                        <div class="faq-question">¿Hay estacionamiento disponible?</div>
                         <div class="faq-toggle">+</div>
                     </div>
                     <div class="faq-answer">Yes, there is parking at the venue. However, we encourage using our shuttle service for convenience.</div>
@@ -1019,7 +1067,7 @@
                 </p>
             </div>
             <div class="footer-camera">
-                <a href="photos-es.html">
+                <a href="photos.html">
                     <img src="images/camera-icon.jpg" alt="Camera" class="camera-icon">
                 </a>
             </div>
