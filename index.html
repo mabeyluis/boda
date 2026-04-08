@@ -728,10 +728,17 @@
         }
 
         .camera-icon {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             object-fit: contain;
             display: block;
+        }
+
+        @media (max-width: 768px) {
+            .camera-icon {
+                width: 150px;
+                height: 150px;
+            }
         }
 
         /* Animations */
