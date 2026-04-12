@@ -597,14 +597,21 @@
             display: block;
         }
 
-        /* FAQ Section - Overlapping orange box */
+        /* FAQ Section - Overlaps the bottom of transition image */
         .faq-section {
             position: relative;
-            background-color: var(--cream);
+            background-color: transparent; /* Transparent so image shows through */
             padding-bottom: 0.5rem;
-            margin-top: -10rem;
+            margin-top: -12rem; /* Pull FAQ up to overlap image */
+            z-index: 10;
         }
 
+        @media (max-width: 768px) {
+            .faq-section {
+                margin-top: 0; /* No overlap on mobile */
+                background-color: var(--cream);
+            }
+        }
         .faq-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -616,7 +623,7 @@
         .faq-box {
             background-color: var(--golden);
             border-radius: 0;
-            padding: 0 3rem 2rem 3rem;
+            padding: 2rem 3rem 2rem 3rem;
             box-shadow: none;
             width: calc(10 / 12 * 100%);
             margin: 0 auto;
