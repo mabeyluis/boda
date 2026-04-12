@@ -589,7 +589,6 @@
         .transition-section {
             position: relative;
             background-color: var(--cream);
-            margin-bottom: -15rem;
         }
 
         .transition-image {
@@ -598,22 +597,29 @@
             display: block;
         }
 
-        /* FAQ Section - Overlapping orange box */
+        /* Orange overlay that sits on bottom of transition image */
+        .faq-overlap-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 15rem;
+            background-color: var(--golden);
+            z-index: 5;
+        }
+
+        /* FAQ Section - Continues seamlessly from overlay */
         .faq-section {
             position: relative;
             background-color: var(--cream);
             padding-bottom: 0.5rem;
-            padding-top: 15rem;
+            margin-top: 0;
             z-index: 10;
         }
 
         @media (max-width: 768px) {
-            .transition-section {
-                margin-bottom: 0;
-            }
-
-            .faq-section {
-                padding-top: 0;
+            .faq-overlap-overlay {
+                display: none;
             }
         }
 
@@ -971,6 +977,7 @@
     <!-- Transition Image Section -->
     <section class="transition-section">
         <img src="images/transition-photo.jpg" alt="Mabe and Luis" class="transition-image">
+        <div class="faq-overlap-overlay"></div>
     </section>
 
     <!-- FAQ Section -->
