@@ -598,16 +598,22 @@
         }
 
         /* Orange overlay that sits on bottom of transition image */
-        .faq-overlap-overlay {
+        .overlay-container {
             position: absolute;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            right: 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 180px;
+            z-index: 5;
+        }
+
+        .faq-overlap-overlay {
             width: calc(10 / 12 * 100%);
-            max-width: calc(1400px * 10 / 12);
             height: 15rem;
             background-color: var(--golden);
-            z-index: 5;
+            margin: 0 auto;
         }
 
         /* FAQ Section - Continues seamlessly from overlay */
@@ -620,7 +626,7 @@
         }
 
         @media (max-width: 768px) {
-            .faq-overlap-overlay {
+            .overlay-container {
                 display: none;
             }
         }
@@ -979,7 +985,9 @@
     <!-- Transition Image Section -->
     <section class="transition-section">
         <img src="images/transition-photo.jpg" alt="Mabe and Luis" class="transition-image">
-        <div class="faq-overlap-overlay"></div>
+        <div class="overlay-container">
+            <div class="faq-overlap-overlay"></div>
+        </div>
     </section>
 
     <!-- FAQ Section -->
