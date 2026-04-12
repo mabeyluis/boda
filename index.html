@@ -589,6 +589,7 @@
         .transition-section {
             position: relative;
             background-color: var(--cream);
+            margin-bottom: -15rem;
         }
 
         .transition-image {
@@ -602,7 +603,18 @@
             position: relative;
             background-color: var(--cream);
             padding-bottom: 0.5rem;
-            margin-top: -10rem;
+            padding-top: 15rem;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .transition-section {
+                margin-bottom: 0;
+            }
+
+            .faq-section {
+                padding-top: 0;
+            }
         }
 
         .faq-container {
