@@ -589,7 +589,6 @@
         .transition-section {
             position: relative;
             background-color: var(--cream);
-            padding-bottom: 8rem; /* Space for FAQ overlap */
         }
 
         .transition-image {
@@ -601,19 +600,16 @@
         /* FAQ Section - Overlaps the bottom of transition image */
         .faq-section {
             position: relative;
-            background-color: var(--cream);
+            background-color: transparent; /* Transparent so image shows through */
             padding-bottom: 0.5rem;
-            margin-top: -15rem; /* Negative margin pulls FAQ up over the image */
+            margin-top: -12rem; /* Pull FAQ up to overlap image */
             z-index: 10;
         }
 
         @media (max-width: 768px) {
-            .transition-section {
-                padding-bottom: 0; /* No extra space on mobile */
-            }
-
             .faq-section {
                 margin-top: 0; /* No overlap on mobile */
+                background-color: var(--cream);
             }
         }
         .faq-container {
