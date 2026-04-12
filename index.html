@@ -589,6 +589,7 @@
         .transition-section {
             position: relative;
             background-color: var(--cream);
+            padding-bottom: 8rem; /* Space for FAQ overlap */
         }
 
         .transition-image {
@@ -597,47 +598,24 @@
             display: block;
         }
 
-        /* Orange overlay that sits on bottom of transition image */
-        .overlay-container {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 180px;
-            z-index: 5;
-        }
-
-        /* Match FAQ container responsive padding at ALL screen sizes */
-        @media (max-width: 992px) {
-            .overlay-container {
-                padding: 0 80px;
-            }
-        }
-
-        .faq-overlap-overlay {
-            width: calc(10 / 12 * 100%);
-            height: 7.5rem;
-            background-color: var(--golden);
-            margin: 0 auto;
-        }
-
-        /* FAQ Section - Continues seamlessly from overlay */
+        /* FAQ Section - Overlaps the bottom of transition image */
         .faq-section {
             position: relative;
             background-color: var(--cream);
             padding-bottom: 0.5rem;
-            margin-top: 0;
+            margin-top: -15rem; /* Negative margin pulls FAQ up over the image */
             z-index: 10;
         }
 
         @media (max-width: 768px) {
-            .overlay-container {
-                display: none;
+            .transition-section {
+                padding-bottom: 0; /* No extra space on mobile */
+            }
+
+            .faq-section {
+                margin-top: 0; /* No overlap on mobile */
             }
         }
-
         .faq-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -992,9 +970,6 @@
     <!-- Transition Image Section -->
     <section class="transition-section">
         <img src="images/transition-photo.jpg" alt="Mabe and Luis" class="transition-image">
-        <div class="overlay-container">
-            <div class="faq-overlap-overlay"></div>
-        </div>
     </section>
 
     <!-- FAQ Section -->
