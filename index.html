@@ -609,6 +609,13 @@
             z-index: 5;
         }
 
+        /* Match FAQ container responsive padding at ALL screen sizes */
+        @media (max-width: 992px) {
+            .overlay-container {
+                padding: 0 80px;
+            }
+        }
+
         .faq-overlap-overlay {
             width: calc(10 / 12 * 100%);
             height: 15rem;
