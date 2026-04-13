@@ -858,8 +858,9 @@
         .toledo-hero {
             position: relative;
             width: 100%;
-            height: 80vh;
-            min-height: 500px;
+            height: 50vh;
+            min-height: 400px;
+            max-height: 600px;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -882,16 +883,6 @@
 
         .toledo-hero-image-mobile {
             display: none;
-        }
-
-        .toledo-hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.4));
-            z-index: 2;
         }
 
         .toledo-hero-content {
@@ -922,7 +913,7 @@
         /* Quick Navigation Blocks */
         .quick-nav-section {
             background-color: var(--cream);
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
         }
 
         .quick-nav-container {
@@ -941,7 +932,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 50px;
         }
 
         .quick-nav-block:hover {
@@ -1159,7 +1150,6 @@
     <section class="toledo-hero">
         <img src="images/toledo-hero-desktop.jpg" alt="Toledo" class="toledo-hero-image toledo-hero-image-desktop">
         <img src="images/toledo-hero-mobile.jpg" alt="Toledo" class="toledo-hero-image toledo-hero-image-mobile">
-        <div class="toledo-hero-overlay"></div>
         
         <div class="toledo-hero-content">
             <h1 class="toledo-hero-title">Explora Toledo</h1>
