@@ -206,15 +206,10 @@
         .heart-icon {
             width: 100%;
             height: 100%;
-            filter: brightness(0) saturate(100%) invert(99%) sepia(6%) saturate(292%) hue-rotate(327deg) brightness(103%) contrast(98%);
-            /* Above filter converts any color to cream (#FCFBF6) */
-            transition: filter 0.3s ease;
-        }
-
-        /* When scrolled, heart changes to burgundy */
-        .navbar.scrolled .heart-icon {
-            filter: brightness(0) saturate(100%) invert(20%) sepia(76%) saturate(1654%) hue-rotate(329deg) brightness(92%) contrast(92%);
-            /* Above filter converts to burgundy (#9F3544) */
+            object-fit: contain;
+            display: block;
+            opacity: 1;
+            transition: all 0.3s ease;
         }
 
         /* X icon when menu is open - ALWAYS burgundy and visible */
