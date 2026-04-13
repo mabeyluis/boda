@@ -201,15 +201,23 @@
             z-index: 1003;
             transition: all 0.3s ease;
             text-decoration: none;
+            color: var(--cream); /* Default cream color */
         }
 
         .heart-icon {
             width: 100%;
             height: 100%;
-            object-fit: contain;
             display: block;
-            opacity: 1;
+            object-fit: contain;
+            /* Filter to make any color appear as cream */
+            filter: brightness(0) invert(1) opacity(0.95);
             transition: all 0.3s ease;
+        }
+
+        /* When scrolled, heart changes to burgundy */
+        .navbar.scrolled .heart-icon {
+            /* Filter to make appear as burgundy */
+            filter: invert(27%) sepia(78%) saturate(1377%) hue-rotate(328deg) brightness(87%) contrast(98%);
         }
 
         /* X icon when menu is open - ALWAYS burgundy and visible */
