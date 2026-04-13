@@ -454,6 +454,10 @@
             transform: none;
         }
 
+        .burgundy-text {
+            color: var(--burgundy);
+        }
+
         /* Info Section - Green Background */
         .info-section {
             background-image: url('images/background-frame.jpg');
@@ -836,6 +840,7 @@
 
             .footer-container {
                 grid-template-columns: 1fr;
+                gap: 1rem; /* Reduced from 4rem to 1rem on mobile */
             }
 
             .faq-box {
@@ -909,7 +914,7 @@
     <section class="message-section">
         <div class="message-content">
             <p class="message-text">
-                It brings us so much joy to be able to share this very special day with you. We hope you can be close to us for such an important moment in our lives. And if, for whatever reason, you can't be there with us, we want you to know how much you mean to us.<br><br>- Mabe y Luis
+                It brings us so much joy to share our special day with you. We hope that you can be close to us for this important moment in our lives.<br><br><span class="burgundy-text">We would like for you to join us on the 3rd of October in La Hacienda del Cardenal in Toledo, Spain.</span><br><br>If for whatever reason you are not able to join us, we would like for you to be certain that you mean a lot to us.<br><br>- Mabe & Luis
             </p>
         </div>
     </section>
@@ -926,7 +931,7 @@
                 <div class="card-content">
                     <h2 class="card-title">Schedule</h2>
                     <p class="card-description">
-                        Here you'll find the plan for the weekend and, of course, the big day. The idea is that you can organize ahead of time and enjoy everything calmly, with no rushing.
+                        Organize yourself ahead of time and enjoy everything the spanish way: calmly and with no rush. Here you'll find the plan for our big day!
                     </p>
                     <a href="schedule.html" class="card-cta">View Schedule</a>
                 </div>
@@ -937,7 +942,7 @@
                 <div class="card-content">
                     <h2 class="card-title transfer-title">Transfer & Accommodation</h2>
                     <p class="card-description">
-                        Toledo is close to Madrid and easy to reach in many different ways. We're sharing transportation and accommodation options so you can choose what works best for you.
+                        Toledo is a city close to Madrid which is easy to reach. There are many ways of getting there, so we're sharing some options on how to get there and where to stay. Choose what works best for you!
                     </p>
                     <a href="transfer.html" class="card-cta">Learn More</a>
                 </div>
@@ -957,7 +962,7 @@
                     <p class="card-description">
                         If you feel like extending your visit, Toledo is a wonderful city to explore. We're sharing our favorite recommendations for wandering around, eating well, and enjoying the city at a relaxed pace.
                     </p>
-                    <a href="toledo.html" class="card-cta">Explore</a>
+                    <a href="toledo.html" class="card-cta">Discover More</a>
                 </div>
             </div>
         </div>
@@ -976,23 +981,63 @@
                 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">When should I RSVP by?</div>
+                        <div class="faq-question">Can I RSVP online or do I have to RSVP on mail too?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">Please RSVP by March 15th, 2026. This helps us finalize catering and seating arrangements.</div>
+                    <div class="faq-answer">You can RSVP online through our website. No need to send anything by mail!</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">What should I wear?</div>
+                        <div class="faq-question">What date should I RSVP by?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">The dress code is semi-formal. Think garden party elegance with comfortable shoes for dancing!</div>
+                    <div class="faq-answer">Please RSVP by September 15th, 2026. This helps us finalize all the arrangements.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">Can I bring a plus-one?</div>
+                        <div class="faq-question">At what time should I arrive?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">We recommend arriving around 4:00 PM. This gives you time to find your seat before the ceremony begins.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Is there parking available near the venue?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">Yes! There is parking available at the venue. Check the Transfer & Accommodation page for more details.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Will the wedding be indoors or outdoors?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">The ceremony and reception will take place both indoors and outdoors at La Hacienda del Cardenal.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Is everything in the same location?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">Yes! The ceremony, cocktail hour, and reception all take place at La Hacienda del Cardenal in Toledo.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">What is the dresscode for the wedding?</div>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">The dress code is semi-formal. Wear something elegant and comfortable for celebrating!</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Can I bring a plus one?</div>
                         <div class="faq-toggle">+</div>
                     </div>
                     <div class="faq-answer">Due to venue capacity, we can only accommodate guests listed on your invitation. Please check your RSVP for details.</div>
@@ -1000,15 +1045,7 @@
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">Will there be transportation provided?</div>
-                        <div class="faq-toggle">+</div>
-                    </div>
-                    <div class="faq-answer">Yes! We'll have shuttle service from select hotels to the venue. Check the Transfer & Accommodation page for details.</div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">Are children welcome?</div>
+                        <div class="faq-question">Are kids invited?</div>
                         <div class="faq-toggle">+</div>
                     </div>
                     <div class="faq-answer">We love your little ones, but this will be an adults-only celebration. We hope this gives you a chance to relax and enjoy!</div>
@@ -1016,50 +1053,10 @@
 
                 <div class="faq-item">
                     <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">What about dietary restrictions?</div>
+                        <div class="faq-question">I have more questions about the wedding, who can I reach out to?</div>
                         <div class="faq-toggle">+</div>
                     </div>
-                    <div class="faq-answer">Please let us know about any dietary restrictions when you RSVP. We'll make sure everyone is well-fed!</div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">What time does the ceremony start?</div>
-                        <div class="faq-toggle">+</div>
-                    </div>
-                    <div class="faq-answer">The ceremony begins at 4:30 PM. We recommend arriving 15-20 minutes early to find your seat.</div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">Is there parking available?</div>
-                        <div class="faq-toggle">+</div>
-                    </div>
-                    <div class="faq-answer">Yes, there is parking at the venue. However, we encourage using our shuttle service for convenience.</div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">Can I take photos during the ceremony?</div>
-                        <div class="faq-toggle">+</div>
-                    </div>
-                    <div class="faq-answer">We have a professional photographer capturing every moment. Please enjoy the ceremony unplugged - we'll share all photos afterwards!</div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">Will there be vegetarian/vegan options?</div>
-                        <div class="faq-toggle">+</div>
-                    </div>
-                    <div class="faq-answer">Absolutely! Please indicate your dietary preferences when you RSVP and we'll ensure you have delicious options.</div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question-wrapper" onclick="toggleFAQ(this)">
-                        <div class="faq-question">What's the best way to get to Toledo from Madrid?</div>
-                        <div class="faq-toggle">+</div>
-                    </div>
-                    <div class="faq-answer">The high-speed train from Madrid to Toledo takes just 30 minutes. Check our Transfer & Accommodation page for detailed travel information.</div>
+                    <div class="faq-answer">Feel free to reach out to us directly! You can contact us through the RSVP page or send us a message.</div>
                 </div>
             </div>
         </div>
