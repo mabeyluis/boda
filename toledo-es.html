@@ -873,9 +873,7 @@
         .toledo-hero {
             position: relative;
             width: 100%;
-            height: 50vh;
-            min-height: 400px;
-            max-height: 600px;
+            height: auto;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -889,11 +887,15 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
             z-index: 1;
         }
 
         .toledo-hero-image-desktop {
             display: block;
+            position: relative;
+            width: 100%;
+            height: auto;
         }
 
         .toledo-hero-image-mobile {
@@ -901,12 +903,16 @@
         }
 
         .toledo-hero-content {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 3;
             text-align: center;
             max-width: 900px;
             padding: 2rem;
             color: white;
+            width: 100%;
         }
 
         .toledo-hero-title {
@@ -1040,40 +1046,40 @@
 
         .restaurant-item {
             padding: 1.5rem;
-            background: white;
+            background: var(--dusty-rose);
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
             text-align: center;
         }
 
         .restaurant-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            background: var(--burgundy);
         }
 
         .restaurant-name {
             font-family: 'Beth Ellen', cursive;
             font-size: 1.4rem;
-            color: var(--burgundy);
+            color: var(--cream);
             margin-bottom: 1rem;
         }
 
         .restaurant-map-button {
             display: inline-block;
             padding: 0.8rem 1.8rem;
-            background-color: var(--dusty-rose);
-            color: white;
+            background-color: var(--cream);
+            color: var(--dusty-rose);
             font-family: 'Libre Baskerville', serif;
             font-size: 0.9rem;
             text-decoration: none;
             border-radius: 50px;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
 
-        .restaurant-map-button:hover {
-            background-color: var(--burgundy);
-            transform: translateY(-2px);
+        .restaurant-item:hover .restaurant-map-button {
+            color: var(--burgundy);
         }
 
         /* Bottom CTA */
@@ -1104,17 +1110,15 @@
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .toledo-hero {
-                height: 100vh;
-                min-height: 100vh;
-            }
-
             .toledo-hero-image-desktop {
                 display: none;
             }
 
             .toledo-hero-image-mobile {
                 display: block;
+                position: relative;
+                width: 100%;
+                height: auto;
             }
 
             .quick-nav-container {
@@ -1366,7 +1370,7 @@
 
                 <div class="restaurant-grid">
                     <div class="restaurant-item">
-                        <h3 class="restaurant-name">Street & Soul<br>(Opción vegana/vegetariana)</h3>
+                        <h3 class="restaurant-name">Street & Soul</h3>
                         <a href="https://maps.google.com/?q=Street+Soul+Toledo+Spain" target="_blank" class="restaurant-map-button">
                             Ver en Google Maps
                         </a>
