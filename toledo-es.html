@@ -854,6 +854,11 @@
         }
         /* TOLEDO PAGE STYLES */
         
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
         /* Toledo Hero/Header Banner */
         .toledo-hero {
             position: relative;
@@ -896,7 +901,7 @@
 
         .toledo-hero-title {
             font-family: 'Beth Ellen', cursive;
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2rem, 6vw, 5.5rem);
             color: white;
             margin-bottom: 2rem;
             text-shadow: 2px 4px 12px rgba(0,0,0,0.5);
@@ -913,7 +918,7 @@
         /* Quick Navigation Blocks */
         .quick-nav-section {
             background-color: var(--cream);
-            padding: 3rem 2rem;
+            padding: 3rem 2rem 2rem 2rem;
         }
 
         .quick-nav-container {
@@ -954,7 +959,7 @@
         /* General Content Section */
         .toledo-content-section {
             background-color: var(--cream);
-            padding: 4rem 2rem;
+            padding: 2rem 2rem 4rem 2rem;
         }
 
         .toledo-content-container {
@@ -973,7 +978,7 @@
 
         .toledo-section-title {
             font-family: 'Beth Ellen', cursive;
-            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-size: clamp(2rem, 4vw, 3rem);
             color: var(--dusty-rose);
             text-align: center;
             margin-bottom: 2rem;
@@ -993,7 +998,7 @@
 
         .toledo-subsection-title {
             font-family: 'Beth Ellen', cursive;
-            font-size: 1.4rem;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
             color: var(--burgundy);
             margin-bottom: 1rem;
         }
@@ -1017,25 +1022,35 @@
 
         /* Restaurant Section */
         .restaurant-item {
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .restaurant-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
         }
 
         .restaurant-name {
             font-family: 'Beth Ellen', cursive;
-            font-size: 1.4rem;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
             color: var(--burgundy);
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .restaurant-map-button {
             display: inline-block;
-            padding: 0.8rem 1.5rem;
+            padding: 0.8rem 1.8rem;
             background-color: var(--dusty-rose);
             color: white;
             font-family: 'Libre Baskerville', serif;
             font-size: 0.9rem;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 50px;
             transition: all 0.3s ease;
         }
 
@@ -1091,11 +1106,11 @@
             }
 
             .toledo-content-section {
-                padding: 3rem 1.5rem;
+                padding: 2rem 1.5rem 3rem 1.5rem;
             }
 
             .toledo-section-title {
-                font-size: clamp(1.5rem, 5vw, 2rem);
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
             }
 
             .quick-nav-text {
@@ -1103,7 +1118,11 @@
             }
 
             .toledo-subsection-title {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
+            }
+
+            .restaurant-item {
+                padding: 1.2rem;
             }
         }
     </style>
