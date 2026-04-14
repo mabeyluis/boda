@@ -852,6 +852,16 @@
                 white-space: normal;
             }
         }
+        /* Color Palette */
+        :root {
+            --cream: #FCFBF6;
+            --dusty-rose: #D09193;
+            --burgundy: #9F3544;
+            --slate-blue: #384B70;
+            --golden: #CF933B;
+            --dark-charcoal: #1F1D1D;
+        }
+
         /* TOLEDO PAGE STYLES */
         
         /* Smooth Scroll */
@@ -901,10 +911,10 @@
 
         .toledo-hero-title {
             font-family: 'Beth Ellen', cursive;
-            font-size: clamp(2rem, 6vw, 5.5rem);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             color: white;
             margin-bottom: 2rem;
-            text-shadow: 2px 4px 12px rgba(0,0,0,0.5);
+            text-shadow: 2px 4px 12px rgba(0,0,0,0.2);
         }
 
         .toledo-hero-description {
@@ -912,7 +922,7 @@
             font-size: clamp(0.9rem, 1.8vw, 1.1rem);
             line-height: 1.7;
             color: white;
-            text-shadow: 1px 2px 8px rgba(0,0,0,0.5);
+            text-shadow: 1px 2px 8px rgba(0,0,0,0.3);
         }
 
         /* Quick Navigation Blocks */
@@ -971,14 +981,14 @@
             font-family: 'Libre Baskerville', serif;
             font-size: 0.95rem;
             line-height: 1.8;
-            color: #1F1D1D;
+            color: var(--dark-charcoal);
             text-align: center;
             margin-bottom: 4rem;
         }
 
         .toledo-section-title {
             font-family: 'Beth Ellen', cursive;
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
             color: var(--dusty-rose);
             text-align: center;
             margin-bottom: 2rem;
@@ -988,7 +998,7 @@
             font-family: 'Libre Baskerville', serif;
             font-size: 0.95rem;
             line-height: 1.8;
-            color: #1F1D1D;
+            color: var(--dark-charcoal);
             margin-bottom: 2rem;
         }
 
@@ -998,7 +1008,7 @@
 
         .toledo-subsection-title {
             font-family: 'Beth Ellen', cursive;
-            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-size: 1.4rem;
             color: var(--burgundy);
             margin-bottom: 1rem;
         }
@@ -1007,7 +1017,7 @@
             font-family: 'Libre Baskerville', serif;
             font-size: 0.9rem;
             line-height: 1.7;
-            color: #1F1D1D;
+            color: var(--dark-charcoal);
             margin-bottom: 1.5rem;
         }
 
@@ -1021,13 +1031,20 @@
         }
 
         /* Restaurant Section */
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
         .restaurant-item {
-            margin-bottom: 2rem;
             padding: 1.5rem;
             background: white;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
         }
 
         .restaurant-item:hover {
@@ -1037,9 +1054,9 @@
 
         .restaurant-name {
             font-family: 'Beth Ellen', cursive;
-            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-size: 1.4rem;
             color: var(--burgundy);
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .restaurant-map-button {
@@ -1069,20 +1086,20 @@
         .toledo-cta-button {
             display: inline-block;
             padding: 1rem 2.5rem;
-            background-color: var(--golden);
-            color: white;
+            background-color: transparent;
+            color: var(--golden);
             font-family: 'Beth Ellen', cursive;
             font-size: 1.5rem;
             text-decoration: none;
+            border: 3px solid var(--golden);
             border-radius: 50px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(207, 147, 59, 0.3);
         }
 
         .toledo-cta-button:hover {
-            background-color: var(--burgundy);
+            background-color: var(--golden);
+            color: var(--cream);
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(159, 53, 68, 0.4);
         }
 
         /* Mobile Adjustments */
@@ -1110,7 +1127,7 @@
             }
 
             .toledo-section-title {
-                font-size: clamp(1.8rem, 5vw, 2.5rem);
+                font-size: clamp(1.5rem, 5vw, 2rem);
             }
 
             .quick-nav-text {
@@ -1118,7 +1135,12 @@
             }
 
             .toledo-subsection-title {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
+            }
+
+            .restaurant-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
             .restaurant-item {
@@ -1342,32 +1364,34 @@
                     Sin ningún orden en particular, pero teniendo en mente opciones para todos los paladares y en todos los rangos de precio:
                 </p>
 
-                <div class="restaurant-item">
-                    <h3 class="restaurant-name">Street & Soul (Opción vegana/vegetariana)</h3>
-                    <a href="https://maps.google.com/?q=Street+Soul+Toledo+Spain" target="_blank" class="restaurant-map-button">
-                        📍 Ver en Google Maps
-                    </a>
-                </div>
+                <div class="restaurant-grid">
+                    <div class="restaurant-item">
+                        <h3 class="restaurant-name">Street & Soul<br>(Opción vegana/vegetariana)</h3>
+                        <a href="https://maps.google.com/?q=Street+Soul+Toledo+Spain" target="_blank" class="restaurant-map-button">
+                            Ver en Google Maps
+                        </a>
+                    </div>
 
-                <div class="restaurant-item">
-                    <h3 class="restaurant-name">La Francesa Creperie</h3>
-                    <a href="https://maps.google.com/?q=La+Francesa+Creperie+Toledo+Spain" target="_blank" class="restaurant-map-button">
-                        📍 Ver en Google Maps
-                    </a>
-                </div>
+                    <div class="restaurant-item">
+                        <h3 class="restaurant-name">La Francesa Creperie</h3>
+                        <a href="https://maps.google.com/?q=La+Francesa+Creperie+Toledo+Spain" target="_blank" class="restaurant-map-button">
+                            Ver en Google Maps
+                        </a>
+                    </div>
 
-                <div class="restaurant-item">
-                    <h3 class="restaurant-name">Restaurante Dominica</h3>
-                    <a href="https://maps.google.com/?q=Restaurante+Dominica+Toledo+Spain" target="_blank" class="restaurant-map-button">
-                        📍 Ver en Google Maps
-                    </a>
-                </div>
+                    <div class="restaurant-item">
+                        <h3 class="restaurant-name">Restaurante Dominica</h3>
+                        <a href="https://maps.google.com/?q=Restaurante+Dominica+Toledo+Spain" target="_blank" class="restaurant-map-button">
+                            Ver en Google Maps
+                        </a>
+                    </div>
 
-                <div class="restaurant-item">
-                    <h3 class="restaurant-name">Restaurante Ardave</h3>
-                    <a href="https://maps.google.com/?q=Restaurante+Ardave+Toledo+Spain" target="_blank" class="restaurant-map-button">
-                        📍 Ver en Google Maps
-                    </a>
+                    <div class="restaurant-item">
+                        <h3 class="restaurant-name">Restaurante Ardave</h3>
+                        <a href="https://maps.google.com/?q=Restaurante+Ardave+Toledo+Spain" target="_blank" class="restaurant-map-button">
+                            Ver en Google Maps
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
