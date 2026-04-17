@@ -1036,6 +1036,42 @@
             border-radius: 8px;
         }
 
+        /* Toledo Express Tile Grid */
+        .toledo-express-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .toledo-express-tile {
+            padding: 1.5rem;
+            border: 3px solid var(--burgundy);
+            border-radius: 12px;
+            background: transparent;
+            text-align: center;
+        }
+
+        .toledo-express-tile:last-child {
+            grid-column: 1 / -1;
+            max-width: 50%;
+            margin: 0 auto;
+        }
+
+        .toledo-express-tile-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: 1.4rem;
+            color: var(--burgundy);
+            margin-bottom: 1rem;
+        }
+
+        .toledo-express-tile-body {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--dark-charcoal);
+        }
+
         /* Restaurant Section */
         .restaurant-grid {
             display: grid;
@@ -1155,6 +1191,15 @@
                 font-size: 1.2rem;
             }
 
+            .toledo-express-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .toledo-express-tile:last-child {
+                max-width: 100%;
+            }
+
             .restaurant-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
@@ -1166,6 +1211,16 @@
 
             .toledo-bottom-cta {
                 padding: 2rem 2rem 4rem 2rem;
+            }
+
+            .toledo-express-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .toledo-express-tile:last-child {
+                grid-column: 1;
+                max-width: 100%;
             }
         }
     </style>
@@ -1250,42 +1305,44 @@
                     Si llegas el mismo día de la boda temprano o solo tienes unas horas para conocer la ciudad, esto es lo que creemos que no te puedes perder:
                 </p>
                 
-                <div class="toledo-subsection">
-                    <h3 class="toledo-subsection-title">El casco histórico</h3>
-                    <p class="toledo-subsection-body">
-                        Pasear sin rumbo por el centro es, en sí mismo, uno de los mejores planes. Calles estrechas, plazas pequeñas y rincones con mucha historia a cada paso.
-                    </p>
-                </div>
+                <div class="toledo-express-grid">
+                    <div class="toledo-express-tile">
+                        <h3 class="toledo-express-tile-title">El casco histórico</h3>
+                        <p class="toledo-express-tile-body">
+                            Pasear sin rumbo por el centro es, en sí mismo, uno de los mejores planes. Calles estrechas, plazas pequeñas y rincones con mucha historia a cada paso.
+                        </p>
+                    </div>
 
-                <div class="toledo-subsection">
-                    <h3 class="toledo-subsection-title">La Catedral de Toledo</h3>
-                    <p class="toledo-subsection-body">
-                        Uno de los símbolos de la ciudad y una visita que realmente vale la pena. Incluso si no entras, verla por fuera ya impresiona.
-                    </p>
-                </div>
+                    <div class="toledo-express-tile">
+                        <h3 class="toledo-express-tile-title">La Catedral de Toledo</h3>
+                        <p class="toledo-express-tile-body">
+                            Uno de los símbolos de la ciudad y una visita que realmente vale la pena. Incluso si no entras, verla por fuera ya impresiona.
+                        </p>
+                    </div>
 
-                <div class="toledo-subsection">
-                    <h3 class="toledo-subsection-title">Algún mirador</h3>
-                    <p class="toledo-subsection-body">
-                        Las vistas de Toledo desde fuera de la muralla son espectaculares y muy distintas a lo que se ve desde dentro. Ideal para una primera foto de la ciudad.
-                    </p>
-                </div>
+                    <div class="toledo-express-tile">
+                        <h3 class="toledo-express-tile-title">Algún mirador</h3>
+                        <p class="toledo-express-tile-body">
+                            Las vistas de Toledo desde fuera de la muralla son espectaculares y muy distintas a lo que se ve desde dentro. Ideal para una primera foto de la ciudad.
+                        </p>
+                    </div>
 
-                <div class="toledo-subsection">
-                    <h3 class="toledo-subsection-title">Un puente histórico</h3>
-                    <p class="toledo-subsection-body">
-                        Cruzar uno de los puentes sobre el río Tajo es una forma muy bonita de entrar o salir del centro histórico.
-                    </p>
-                </div>
+                    <div class="toledo-express-tile">
+                        <h3 class="toledo-express-tile-title">Un puente histórico</h3>
+                        <p class="toledo-express-tile-body">
+                            Cruzar uno de los puentes sobre el río Tajo es una forma muy bonita de entrar o salir del centro histórico.
+                        </p>
+                    </div>
 
-                <div class="toledo-subsection">
-                    <h3 class="toledo-subsection-title">Ruta sugerida (orientativa)</h3>
-                    <p class="toledo-subsection-body">
-                        • Llegar al centro y recorrerlo caminando<br>
-                        • Visitar la Catedral<br>
-                        • Comer por la zona<br>
-                        • Terminar el paseo en un mirador
-                    </p>
+                    <div class="toledo-express-tile">
+                        <h3 class="toledo-express-tile-title">Ruta sugerida (orientativa)</h3>
+                        <p class="toledo-express-tile-body">
+                            • Llegar al centro y recorrerlo caminando<br>
+                            • Visitar la Catedral<br>
+                            • Comer por la zona<br>
+                            • Terminar el paseo en un mirador
+                        </p>
+                    </div>
                 </div>
             </div>
 
