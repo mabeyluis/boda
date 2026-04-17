@@ -1085,7 +1085,7 @@
         /* Bottom CTA */
         .toledo-bottom-cta {
             background-color: var(--cream);
-            padding: 4rem 2rem 6rem 2rem;
+            padding: 2.5rem 2rem 4rem 2rem;
             text-align: center;
         }
 
@@ -1110,20 +1110,33 @@
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
+            .toledo-hero {
+                height: 60vh;
+            }
+
             .toledo-hero-image-desktop {
                 display: none;
             }
 
             .toledo-hero-image-mobile {
                 display: block;
-                position: relative;
+                position: absolute;
                 width: 100%;
-                height: auto;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .quick-nav-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .quick-nav-block {
+                padding: 1rem 0.8rem;
             }
 
             .quick-nav-container {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1rem;
             }
 
             .toledo-content-section {
@@ -1135,7 +1148,7 @@
             }
 
             .quick-nav-text {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
 
             .toledo-subsection-title {
@@ -1149,6 +1162,10 @@
 
             .restaurant-item {
                 padding: 1.2rem;
+            }
+
+            .toledo-bottom-cta {
+                padding: 2rem 2rem 4rem 2rem;
             }
         }
     </style>
@@ -1232,29 +1249,44 @@
                 <p class="toledo-section-description">
                     Si llegas el mismo día de la boda temprano o solo tienes unas horas para conocer la ciudad, esto es lo que creemos que no te puedes perder:
                 </p>
-                <p class="toledo-section-description">
-                    <strong>El casco histórico</strong><br>
-                    Pasear sin rumbo por el centro es, en sí mismo, uno de los mejores planes. Calles estrechas, plazas pequeñas y rincones con mucha historia a cada paso.
-                </p>
-                <p class="toledo-section-description">
-                    <strong>La Catedral de Toledo</strong><br>
-                    Uno de los símbolos de la ciudad y una visita que realmente vale la pena. Incluso si no entras, verla por fuera ya impresiona.
-                </p>
-                <p class="toledo-section-description">
-                    <strong>Algún mirador</strong><br>
-                    Las vistas de Toledo desde fuera de la muralla son espectaculares y muy distintas a lo que se ve desde dentro. Ideal para una primera foto de la ciudad.
-                </p>
-                <p class="toledo-section-description">
-                    <strong>Un puente histórico</strong><br>
-                    Cruzar uno de los puentes sobre el río Tajo es una forma muy bonita de entrar o salir del centro histórico.
-                </p>
-                <p class="toledo-section-description">
-                    <strong>Ruta sugerida (orientativa)</strong><br>
-                    • Llegar al centro y recorrerlo caminando<br>
-                    • Visitar la Catedral<br>
-                    • Comer por la zona<br>
-                    • Terminar el paseo en un mirador
-                </p>
+                
+                <div class="toledo-subsection">
+                    <h3 class="toledo-subsection-title">El casco histórico</h3>
+                    <p class="toledo-subsection-body">
+                        Pasear sin rumbo por el centro es, en sí mismo, uno de los mejores planes. Calles estrechas, plazas pequeñas y rincones con mucha historia a cada paso.
+                    </p>
+                </div>
+
+                <div class="toledo-subsection">
+                    <h3 class="toledo-subsection-title">La Catedral de Toledo</h3>
+                    <p class="toledo-subsection-body">
+                        Uno de los símbolos de la ciudad y una visita que realmente vale la pena. Incluso si no entras, verla por fuera ya impresiona.
+                    </p>
+                </div>
+
+                <div class="toledo-subsection">
+                    <h3 class="toledo-subsection-title">Algún mirador</h3>
+                    <p class="toledo-subsection-body">
+                        Las vistas de Toledo desde fuera de la muralla son espectaculares y muy distintas a lo que se ve desde dentro. Ideal para una primera foto de la ciudad.
+                    </p>
+                </div>
+
+                <div class="toledo-subsection">
+                    <h3 class="toledo-subsection-title">Un puente histórico</h3>
+                    <p class="toledo-subsection-body">
+                        Cruzar uno de los puentes sobre el río Tajo es una forma muy bonita de entrar o salir del centro histórico.
+                    </p>
+                </div>
+
+                <div class="toledo-subsection">
+                    <h3 class="toledo-subsection-title">Ruta sugerida (orientativa)</h3>
+                    <p class="toledo-subsection-body">
+                        • Llegar al centro y recorrerlo caminando<br>
+                        • Visitar la Catedral<br>
+                        • Comer por la zona<br>
+                        • Terminar el paseo en un mirador
+                    </p>
+                </div>
             </div>
 
             <!-- Toledo con Tiempo Section -->
