@@ -51,15 +51,6 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Remove blur on mobile */
-        @media (max-width: 768px) {
-            .navbar.scrolled {
-                background-color: transparent;
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
-            }
-        }
-
         .navbar-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -187,7 +178,7 @@
         }
 
         .navbar.scrolled .hamburger span {
-            background: var(--slate-blue);
+            background: var(--burgundy);
         }
 
         /* X icon when menu is open - ALWAYS burgundy and visible */
@@ -794,6 +785,13 @@
                 justify-content: space-between;
             }
 
+            /* Remove background on mobile when scrolled */
+            .navbar.scrolled {
+                background-color: transparent;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+
             .navbar a:not(.hamburger) {
                 display: none;
             }
@@ -921,7 +919,13 @@
             font-size: clamp(2rem, 5vw, 3.5rem);
             color: white;
             margin-bottom: 2rem;
-            text-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+            text-shadow: 2px 4px 12px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 768px) {
+            .schedule-hero-title {
+                text-shadow: 1px 2px 6px rgba(0,0,0,0.15);
+            }
         }
 
         .schedule-hero-description {
@@ -999,6 +1003,24 @@
             color: var(--slate-blue-light);
             text-align: center;
             margin-bottom: 2rem;
+        }
+
+        .date-full {
+            display: inline;
+        }
+
+        .date-short {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .date-full {
+                display: none;
+            }
+
+            .date-short {
+                display: inline;
+            }
         }
 
         .schedule-section-description {
@@ -1348,7 +1370,7 @@
             
             <!-- Pre-Boda Section -->
             <div id="pre-boda" style="scroll-margin-top: 100px;">
-                <h2 class="schedule-section-title">Pre-Boda: Viernes 02 de Octubre</h2>
+                <h2 class="schedule-section-title">Pre-Boda: <span class="date-full">Viernes 02 de Octubre</span><span class="date-short">02/10/2026</span></h2>
                 <p class="schedule-section-description">
                     La pre-boda se celebrará en X lugar a X hora
                 </p>
@@ -1363,7 +1385,7 @@
 
             <!-- Boda Section -->
             <div id="boda" style="scroll-margin-top: 100px; margin-top: 6rem;">
-                <h2 class="schedule-section-title">Boda: Sábado 03 de Octubre</h2>
+                <h2 class="schedule-section-title">Boda: <span class="date-full">Sábado 03 de Octubre</span><span class="date-short">03/10/2026</span></h2>
                 
                 <div class="schedule-subsection">
                     <h3 class="schedule-subsection-title">Código de vestimenta:</h3>
@@ -1394,7 +1416,7 @@
 
             <!-- Post-Boda Section -->
             <div id="post-boda" style="scroll-margin-top: 100px; margin-top: 6rem;">
-                <h2 class="schedule-section-title">Post-Boda: Domingo 04 de Octubre</h2>
+                <h2 class="schedule-section-title">Post-Boda: <span class="date-full">Domingo 04 de Octubre</span><span class="date-short">04/10/2026</span></h2>
                 <p class="schedule-section-description">
                     Si te quedas en el hotel del local, nos vemos en el desayuno a las X horas.
                 </p>
