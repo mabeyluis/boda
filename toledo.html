@@ -1492,10 +1492,13 @@
             const navbar = document.querySelector('.navbar');
             const heroNames = document.querySelector('.hero-names');
             const heroButton = document.querySelector('.hero-bottom-content');
-            const heroSection = document.querySelector('.hero');
+            const heroSection = document.querySelector('.hero, .transfer-hero, .schedule-hero, .toledo-hero');
             
-            // Hide names and RSVP after scrolling past first viewport (100vh)
-            if (window.scrollY > window.innerHeight) {
+            // Get the height of the hero section
+            const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+            
+            // Add 'scrolled' class when scrolling past the hero banner
+            if (window.scrollY > heroHeight - 80) {
                 navbar.classList.add('scrolled');
                 if (heroNames) heroNames.classList.add('hidden');
                 if (heroButton) heroButton.classList.add('hidden');
