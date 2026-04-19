@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photos - Mabe & Luis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-blue: #92A6BE;
+            --burgundy: #9F3544;
+            --dusty-rose: #D09193;
+            --golden: #CF933B;
+            --sage: #A6B072;
+            --cream: #FCFBF6;
+            --gold-light: #D5BE6F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background-color: var(--cream);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1005;
+            padding: 1.5rem 0;
+            font-family: 'Libre Baskerville', serif;
+            transition: all 0.3s ease;
+            background-color: transparent;
+        }
+
+        /* Navbar with blur effect when scrolled (below the fold) */
+        .navbar.scrolled {
+            background-color: rgba(252, 251, 246, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Remove blur on mobile */
+        @media (max-width: 768px) {
+            .navbar.scrolled {
+                background-color: transparent;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .navbar a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 0.6rem 1.2rem;
+            white-space: nowrap;
+        }
+
+        /* Change navbar text color when scrolled */
+        .navbar.scrolled a {
+            color: var(--burgundy);
+        }
+
+        .navbar a:hover {
+            opacity: 0.7;
+        }
+
+        .navbar a.rsvp-link {
+            border: 2px solid var(--cream);
+            border-radius: 25px;
+        }
+
+        .navbar.scrolled a.rsvp-link {
+            border-color: var(--burgundy);
+        }
+
+        /* Language Dropdown in Navbar */
+        .language-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-current {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled .language-current {
+            color: var(--burgundy);
+        }
+
+        .language-current::after {
+            content: '▼';
+            font-size: 0.7rem;
+        }
+
+        .language-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--cream);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            min-width: 80px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .language-dropdown:hover .language-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .language-options a {
+            display: block;
+            color: var(--burgundy) !important;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+
+        .language-options a:hover {
+            background: rgba(159, 53, 68, 0.1);
+            opacity: 1 !important;
+        }
+
+        /* Mobile Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1003;
+            transition: all 0.3s ease;
+            position: fixed;
+            top: 1.5rem;
+            right: 2rem;
+            background: transparent;
+            width: 40px;
+            height: 40px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--cream);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .navbar.scrolled .hamburger span {
+            background: var(--burgundy);
+        }
+
+        /* X icon when menu is open - ALWAYS burgundy and visible */
+        .hamburger.active {
+            background: rgba(252, 251, 246, 0.95);
+            border-radius: 6px;
+            padding: 0.5rem;
+            gap: 0;
+        }
+
+        .hamburger.active span {
+            background: var(--burgundy) !important;
+            height: 3px;
+            width: 28px;
+            position: absolute;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--cream);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            color: var(--slate-blue-light);
+            font-size: 1.2rem;
+            padding: 1rem;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            text-decoration: none;
+        }
+
+        .mobile-menu a.rsvp-link {
+            border-color: var(--slate-blue-light);
+        }
+
+        .mobile-language-switcher {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .mobile-language-switcher a {
+            padding: 1rem 0.5rem;
+            width: auto;
+            max-width: none;
+        }
+
+        .language-separator {
+            color: var(--slate-blue-light);
+            font-size: 1.2rem;
+            padding: 0 0.5rem;
+        }
+
+        /* Hero Section - Full image visible, different images for desktop/mobile */
+        .hero {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Hide mobile image on desktop */
+        .hero-image-mobile {
+            display: none;
+        }
+
+        /* Show desktop image on desktop */
+        .hero-image-desktop {
+            display: block;
+        }
+
+        /* Mobile: show mobile image, hide desktop image, fit to viewport */
+        @media (max-width: 768px) {
+            .hero {
+                height: 100vh;
+                min-height: 100vh;
+            }
+
+            .hero-image {
+                width: 100%;
+                height: 100vh;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            .hero-image-desktop {
+                display: none;
+            }
+            
+            .hero-image-mobile {
+                display: block;
+            }
+        }
+
+        /* Dark gradient overlay at top for navbar visibility */
+        .hero-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .hero-names {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(2rem, 6vw, 5.5rem);
+            font-weight: 400;
+            color: white;
+            text-shadow: 2px 4px 12px rgba(0,0,0,0.4);
+            opacity: 0;
+            animation: fadeInNames 1.5s ease-out 0.3s forwards;
+            white-space: nowrap;
+        }
+
+        .hero-bottom-content {
+            position: absolute;
+            bottom: 26%;
+            left: 35%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            opacity: 0;
+            animation: fadeInBottom 1.5s ease-out 1s forwards;
+        }
+
+        @media (max-width: 768px) {
+            .hero-names {
+                top: 25%;
+            }
+            
+            .hero-title {
+                font-size: clamp(1.5rem, 10vw, 2.5rem);
+                white-space: nowrap;
+            }
+            
+            .hero-bottom-content {
+                bottom: 20%;
+                left: 27%;
+            }
+        }
+
+        .rsvp-button {
+            position: relative;
+            padding: 1.5rem 4rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transform: scale(1.2);
+            transition: transform 0.3s ease;
+        }
+
+        .rsvp-button:hover {
+            transform: scale(1.25);
+        }
+
+        @media (max-width: 768px) {
+            .rsvp-button {
+                padding: 1rem 2.5rem;
+                transform: scale(0.9);
+            }
+            
+            .rsvp-button:hover {
+                transform: scale(0.95);
+            }
+        }
+
+        .rsvp-border {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .rsvp-text {
+            font-family: 'Beth Ellen', cursive;
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+            text-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .rsvp-text {
+                font-size: 1.26rem;
+            }
+        }
+
+        /* Message Section */
+        .message-section {
+            background-color: var(--cream);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .message-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .message-text {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            color: var(--slate-blue);
+            line-height: 1.6;
+            opacity: 1;
+            transform: none;
+        }
+
+        .dusty-rose-text {
+            color: var(--slate-blue-light);
+        }
+
+        /* Info Section - Green Background */
+        .info-section {
+            background-image: url('images/background-frame.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: var(--sage);
+            padding: 12rem 0;
+            position: relative;
+            min-height: 2400px;
+        }
+
+        .info-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 180px;
+            position: relative;
+        }
+
+        .info-card {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 24rem;
+            position: relative;
+        }
+
+        .info-card:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Card 1: Image Left, Content Right */
+        .info-card.layout-left {
+            flex-direction: row;
+        }
+
+        /* Card 2: Content Left, Image Right */
+        .info-card.layout-right {
+            flex-direction: row;
+        }
+
+        .card-image-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .card-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .info-section {
+                background-image: none;
+                background-color: var(--sage);
+                min-height: auto;
+                padding: 6rem 0 2rem 0;
+            }
+
+            .info-container {
+                padding: 0 2rem;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+            .info-card {
+                position: relative !important;
+                flex-direction: column !important;
+                gap: 2rem;
+                margin-bottom: 3rem;
+                width: 100% !important;
+                top: auto !important;
+                bottom: auto !important;
+                transform: none !important;
+            }
+
+            .info-card:last-child {
+                margin-bottom: 0;
+            }
+
+            .card-image-wrapper {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .card-description {
+            font-family: 'Libre Baskerville', serif;
+            color: white;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .card-cta {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            color: var(--cream);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: normal;
+            font-family: 'Libre Baskerville', serif;
+            transition: all 0.3s ease;
+            border: 2px solid var(--cream);
+            align-self: flex-start;
+        }
+
+        .card-cta:hover {
+            background: var(--cream);
+            color: var(--sage);
+            transform: translateY(-2px);
+        }
+
+        /* Transition Image Section */
+        .transition-section {
+            position: relative;
+            background-color: var(--cream);
+        }
+
+        .transition-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* FAQ Section - Overlaps the bottom of transition image */
+        .faq-section {
+            position: relative;
+            background-color: transparent; /* Transparent so image shows through */
+            padding-bottom: 0.5rem;
+            margin-top: -12rem; /* Pull FAQ up to overlap image */
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .faq-section {
+                margin-top: 0; /* No overlap on mobile */
+                background-color: var(--cream);
+            }
+        }
+        .faq-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 180px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .faq-box {
+            background-color: var(--golden);
+            border-radius: 0;
+            padding: 4rem 3rem 4rem 3rem;
+            box-shadow: none;
+            width: calc(10 / 12 * 100%);
+            margin: 0 auto;
+            opacity: 1;
+            transform: none;
+        }
+
+        .faq-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: white;
+            text-align: center;
+            margin: 0 0 2rem 0;
+            padding-top: 0;
+        }
+
+        .faq-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-question-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .faq-question-wrapper:hover {
+            opacity: 0.8;
+        }
+
+        .faq-question {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+            flex: 1;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 300;
+            width: 30px;
+            text-align: center;
+        }
+
+        .faq-answer {
+            font-family: 'Libre Baskerville', serif;
+            color: white;
+            line-height: 1.7;
+            padding: 0 0 1rem 0;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            opacity: 1;
+            padding: 0 0 1rem 0;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* Footer Section */
+        .footer-section {
+            background-color: var(--cream);
+            padding: 1rem 2rem 5rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 7fr 3fr;
+            gap: 4rem;
+            align-items: center;
+            opacity: 1;
+            transform: none;
+        }
+
+        .footer-text-wrapper {
+            padding: 2rem;
+        }
+
+        .footer-text {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            color: var(--slate-blue-light);
+            line-height: 1.5;
+        }
+
+        .footer-camera {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-camera:hover {
+            transform: scale(1.05);
+        }
+
+        .camera-icon {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes fadeInNames {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInBottom {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes drawLine {
+            to {
+                opacity: 0.6;
+                stroke-dashoffset: 0;
+            }
+            from {
+                stroke-dashoffset: 1000;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .info-container,
+            .faq-container {
+                padding: 0 80px;
+            }
+
+            .navbar-container {
+                padding: 0 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile Navbar */
+            .navbar-container {
+                padding: 0 2rem;
+                justify-content: space-between;
+            }
+
+            .navbar a:not(.hamburger) {
+                display: none;
+            }
+
+            .language-dropdown {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                position: fixed;
+                top: 1.5rem;
+                right: 2rem;
+            }
+
+            /* Mobile Specific Layouts */
+            .info-container,
+            .faq-container {
+                padding: 0 2rem;
+            }
+
+            .info-card {
+                grid-template-columns: 1fr !important;
+                display: flex !important;
+                flex-direction: column;
+            }
+
+            /* Force image-first order on mobile */
+            .info-card.layout-left,
+            .info-card.layout-right {
+                display: flex !important;
+                flex-direction: column;
+            }
+
+            .info-card .card-image-wrapper {
+                order: 1;
+                grid-column: 1 / -1 !important;
+            }
+
+            .info-card .card-content {
+                order: 2;
+                grid-column: 1 / -1 !important;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 1rem; /* Reduced from 4rem to 1rem on mobile */
+            }
+
+            .faq-box {
+                width: 100%;
+                padding: 3rem 2rem;
+            }
+
+            .hero-title {
+                white-space: normal;
+            }
+        }
+        /* Color Palette */
+        :root {
+            --cream: #FCFBF6;
+            --dusty-rose: #D09193;
+            --burgundy: #9F3544;
+            --slate-blue: #384B70;
+            --slate-blue-light: #92A6BE;
+            --golden: #CF933B;
+            --dark-charcoal: #1F1D1D;
+        }
+
+        /* 404 PHOTOS PAGE STYLES */
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Toledo Hero/Header Banner */
+        .photos-404-hero {
+            background-color: var(--cream);
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .photos-404-hero-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .photos-404-number {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(4rem, 15vw, 8rem);
+            color: var(--dusty-rose);
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .photos-404-hero-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            color: var(--burgundy);
+            margin-bottom: 2rem;
+        }
+
+        .photos-404-hero-description {
+            font-family: 'Libre Baskerville', serif;
+            font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+            line-height: 1.8;
+            color: var(--dark-charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .photos-404-dog-image {
+            max-width: 250px;
+            width: 100%;
+            height: auto;
+            margin: 2rem auto 2rem auto;
+            display: block;
+        }
+
+        .photos-404-small-text {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.85rem;
+            color: var(--burgundy);
+            font-style: italic;
+            margin-top: 2rem;
+        }
+
+        /* CTA Button */
+        .photos-404-cta-container {
+            margin-top: 3rem;
+        }
+
+        .photos-404-cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: transparent;
+            color: var(--dusty-rose);
+            font-family: 'Beth Ellen', cursive;
+            font-size: 1.5rem;
+            text-decoration: none;
+            border: 3px solid var(--dusty-rose);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .photos-404-cta-button:hover {
+            background-color: var(--dusty-rose);
+            color: var(--cream);
+            transform: translateY(-3px);
+        }
+
+        /* Quick Navigation Blocks */
+        .quick-nav-section {
+            background-color: var(--cream);
+            padding: 3rem 2rem 2rem 2rem;
+        }
+
+        .quick-nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .quick-nav-block {
+            border: 3px solid var(--slate-blue-light);
+            background: transparent;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border-radius: 50px;
+        }
+
+        .quick-nav-block:hover {
+            background: var(--slate-blue-light);
+            transform: translateY(-5px);
+        }
+
+        .quick-nav-block:hover .quick-nav-text {
+            color: white;
+        }
+
+        .quick-nav-text {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--slate-blue-light);
+            transition: color 0.3s ease;
+        }
+
+        /* General Content Section */
+        .photos-404-content-section {
+            background-color: var(--cream);
+            padding: 2rem 2rem 4rem 2rem;
+        }
+
+        .photos-404-content-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .photos-404-intro {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--dark-charcoal);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .photos-404-section-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            color: var(--slate-blue-light);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .date-full {
+            display: inline;
+        }
+
+        .date-short {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .date-full {
+                display: none;
+            }
+
+            .date-short {
+                display: inline;
+            }
+        }
+
+        .photos-404-section-description {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--dark-charcoal);
+            margin-bottom: 2rem;
+        }
+
+        .photos-404-subsection {
+            margin-bottom: 3rem;
+        }
+
+        .photos-404-subsection-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: 1.4rem;
+            color: var(--slate-blue-light);
+            margin-bottom: 1rem;
+        }
+
+        .photos-404-subsection-body {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--dark-charcoal);
+            margin-bottom: 1.5rem;
+        }
+
+        .photos-404-subsection-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 1.5rem auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .photos-404-timeline-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            margin: 2rem auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* Schedule Event Tile Grid (removed - not needed) */
+        .photos-404-event-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .photos-404-event-tile {
+            padding: 1.5rem;
+            border: 3px solid var(--slate-blue-light);
+            border-radius: 12px;
+            background: transparent;
+            text-align: center;
+        }
+
+        .photos-404-event-tile:last-child {
+            grid-column: 1 / -1;
+            max-width: 50%;
+            margin: 0 auto;
+        }
+
+        .photos-404-event-tile-title {
+            font-family: 'Beth Ellen', cursive;
+            font-size: 1.4rem;
+            color: var(--slate-blue-light);
+            margin-bottom: 1rem;
+        }
+
+        .photos-404-event-tile-body {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--dark-charcoal);
+        }
+
+        /* Restaurant Section */
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .restaurant-item {
+            padding: 1.5rem;
+            background: var(--slate-blue-light);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .restaurant-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            background: var(--slate-blue);
+        }
+
+        .restaurant-name {
+            font-family: 'Beth Ellen', cursive;
+            font-size: 1.4rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .restaurant-map-button {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--cream);
+            color: var(--slate-blue-light);
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: color 0.3s ease;
+        }
+
+        .restaurant-item:hover .restaurant-map-button {
+            color: var(--slate-blue-light);
+        }
+
+        /* Location Tile */
+        .location-tile {
+            padding: 1.5rem;
+            background: var(--slate-blue-light);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            text-align: center;
+            max-width: 400px;
+            margin: 2rem auto;
+        }
+
+        .location-tile:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            background: var(--slate-blue);
+        }
+
+        .location-name {
+            font-family: 'Beth Ellen', cursive;
+            font-size: 1.4rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .location-map-button {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--cream);
+            color: var(--slate-blue-light);
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: color 0.3s ease;
+        }
+
+        .location-tile:hover .location-map-button {
+            color: var(--slate-blue);
+        }
+
+        /* Bottom CTA */
+        .photos-404-bottom-cta {
+            background-color: var(--cream);
+            padding: 2.5rem 2rem 4rem 2rem;
+            text-align: center;
+        }
+
+        .photos-404-cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: transparent;
+            color: var(--dusty-rose);
+            font-family: 'Beth Ellen', cursive;
+            font-size: 1.5rem;
+            text-decoration: none;
+            border: 3px solid var(--dusty-rose);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .photos-404-cta-button:hover {
+            background-color: var(--dusty-rose);
+            color: var(--cream);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .photos-404-hero {
+                min-height: 60vh;
+                padding: 3rem 1.5rem;
+            }
+
+            .photos-404-dog-image {
+                max-width: 200px;
+            }
+
+            .quick-nav-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .quick-nav-block {
+                padding: 1rem 0.8rem;
+            }
+
+            .quick-nav-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .photos-404-content-section {
+                padding: 2rem 1.5rem 3rem 1.5rem;
+            }
+
+            .photos-404-section-title {
+                font-size: clamp(1.5rem, 5vw, 2rem);
+            }
+
+            .quick-nav-text {
+                font-size: 1rem;
+            }
+
+            .photos-404-subsection-title {
+                font-size: 1.2rem;
+            }
+
+            .photos-404-event-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .photos-404-event-tile:last-child {
+                max-width: 100%;
+            }
+
+            .restaurant-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .restaurant-item {
+                padding: 1.2rem;
+            }
+
+            .photos-404-bottom-cta {
+                padding: 2rem 2rem 4rem 2rem;
+            }
+
+            .photos-404-event-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .photos-404-event-tile:last-child {
+                grid-column: 1;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index-es.html">Inicio</a>
+            <a href="photos-404-es.html">Horario</a>
+            <a href="transfer-es.html">Traslado y Alojamiento</a>
+            <a href="toledo-es.html">Explora Toledo</a>
+            <a href="rsvp-es.html" class="rsvp-link">RSVP</a>
+            <div class="language-dropdown">
+                <span class="language-current">ES</span>
+                <div class="language-options">
+                    <a href="schedule.html">EN</a>
+                    <a href="photos-404-es.html">ES</a>
+                </div>
+            </div>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index-es.html">Inicio</a>
+        <a href="photos-404-es.html">Horario</a>
+        <a href="transfer-es.html">Traslado y Alojamiento</a>
+        <a href="toledo-es.html">Explora Toledo</a>
+        <a href="rsvp-es.html" class="rsvp-link">RSVP</a>
+        <div class="mobile-language-switcher">
+            <a href="schedule.html">EN</a>
+            <span class="language-separator"> / </span>
+            <a href="photos-404-es.html">ES</a>
+        </div>
+    </div>
+
+    <!-- 404 Photos Section -->
+    <section class="photos-404-hero">
+        <div class="photos-404-hero-content">
+            <div class="photos-404-number">404</div>
+            <h1 class="photos-404-hero-title">Oops! This page isn't ready yet</h1>
+            <p class="photos-404-hero-description">
+                This photo gallery will be available after the wedding, once we receive the photographs from the big day.
+            </p>
+            
+            <img src="images/dog-flowers-burgundy.png" alt="Dog with flowers" class="photos-404-dog-image">
+            
+            <p class="photos-404-small-text">
+                Don't forget to come back to this page after the wedding to see all the special moments!
+            </p>
+            
+            <div class="photos-404-cta-container">
+                <a href="index.html" class="photos-404-cta-button">Back to home</a>
+            </div>
+        </div>
+    </section>
+    <script>
+        // Navbar color change and hide hero elements on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            const heroNames = document.querySelector('.hero-names');
+            const heroButton = document.querySelector('.hero-bottom-content');
+            const heroSection = document.querySelector('.hero, .transfer-hero, .photos-404-hero, .toledo-hero');
+            
+            // Get the height of the hero section
+            const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+            
+            // Add 'scrolled' class when scrolling past the hero banner
+            if (window.scrollY > heroHeight - 80) {
+                navbar.classList.add('scrolled');
+                if (heroNames) heroNames.classList.add('hidden');
+                if (heroButton) heroButton.classList.add('hidden');
+            } else {
+                navbar.classList.remove('scrolled');
+                if (heroNames) heroNames.classList.remove('hidden');
+                if (heroButton) heroButton.classList.remove('hidden');
+            }
+        });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking a link
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    toggleMobileMenu();
+                });
+            });
+        });
+
+        // FAQ Toggle Function
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Toggle current FAQ
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
