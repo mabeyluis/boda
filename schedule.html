@@ -81,7 +81,7 @@
 
         /* Change navbar text color when scrolled */
         .navbar.scrolled a {
-            color: var(--slate-blue-light);
+            color: var(--burgundy);
         }
 
         .navbar a:hover {
@@ -94,7 +94,7 @@
         }
 
         .navbar.scrolled a.rsvp-link {
-            border-color: var(--slate-blue-light);
+            border-color: var(--burgundy);
         }
 
         /* Language Dropdown in Navbar */
@@ -116,7 +116,7 @@
         }
 
         .navbar.scrolled .language-current {
-            color: var(--slate-blue-light);
+            color: var(--burgundy);
         }
 
         .language-current::after {
@@ -187,7 +187,7 @@
         }
 
         .navbar.scrolled .hamburger span {
-            background: var(--slate-blue);
+            background: var(--burgundy);
         }
 
         /* X icon when menu is open - ALWAYS burgundy and visible */
@@ -921,7 +921,13 @@
             font-size: clamp(2rem, 5vw, 3.5rem);
             color: white;
             margin-bottom: 2rem;
-            text-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+            text-shadow: 2px 4px 12px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 768px) {
+            .schedule-hero-title {
+                text-shadow: 1px 2px 6px rgba(0,0,0,0.15);
+            }
         }
 
         .schedule-hero-description {
@@ -999,6 +1005,24 @@
             color: var(--slate-blue-light);
             text-align: center;
             margin-bottom: 2rem;
+        }
+
+        .date-full {
+            display: inline;
+        }
+
+        .date-short {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .date-full {
+                display: none;
+            }
+
+            .date-short {
+                display: inline;
+            }
         }
 
         .schedule-section-description {
@@ -1348,7 +1372,7 @@
             
             <!-- Pre-Wedding Section -->
             <div id="pre-wedding" style="scroll-margin-top: 100px;">
-                <h2 class="schedule-section-title">Pre-Wedding: Friday, October 2nd</h2>
+                <h2 class="schedule-section-title">Pre-Wedding: <span class="date-full">Friday, October 2nd</span><span class="date-short">10/02/2026</span></h2>
                 <p class="schedule-section-description">
                     The pre-wedding will be held at X location at X time
                 </p>
@@ -1363,7 +1387,7 @@
 
             <!-- Wedding Section -->
             <div id="wedding" style="scroll-margin-top: 100px; margin-top: 6rem;">
-                <h2 class="schedule-section-title">Wedding: Saturday, October 3rd</h2>
+                <h2 class="schedule-section-title">Wedding: <span class="date-full">Saturday, October 3rd</span><span class="date-short">10/03/2026</span></h2>
                 
                 <div class="schedule-subsection">
                     <h3 class="schedule-subsection-title">Dress code:</h3>
@@ -1394,7 +1418,7 @@
 
             <!-- Post-Wedding Section -->
             <div id="post-wedding" style="scroll-margin-top: 100px; margin-top: 6rem;">
-                <h2 class="schedule-section-title">Post-Wedding: Sunday, October 4th</h2>
+                <h2 class="schedule-section-title">Post-Wedding: <span class="date-full">Sunday, October 4th</span><span class="date-short">10/04/2026</span></h2>
                 <p class="schedule-section-description">
                     If you're staying at the venue's hotel, we'll see you at breakfast at X time.
                 </p>
