@@ -1203,20 +1203,20 @@
         .schedule-cta-button {
             display: inline-block;
             padding: 1rem 2.5rem;
-            background-color: var(--dusty-rose);
-            color: white;
+            background-color: transparent;
+            color: var(--dusty-rose);
             font-family: 'Beth Ellen', cursive;
             font-size: 1.5rem;
             text-decoration: none;
+            border: 3px solid var(--dusty-rose);
             border-radius: 50px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(208, 145, 147, 0.3);
         }
 
         .schedule-cta-button:hover {
-            background-color: var(--burgundy);
+            background-color: var(--dusty-rose);
+            color: var(--cream);
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(159, 53, 68, 0.4);
         }
 
         /* Mobile Adjustments */
@@ -1440,10 +1440,13 @@
             const navbar = document.querySelector('.navbar');
             const heroNames = document.querySelector('.hero-names');
             const heroButton = document.querySelector('.hero-bottom-content');
-            const heroSection = document.querySelector('.hero');
+            const heroSection = document.querySelector('.hero, .transfer-hero, .schedule-hero, .toledo-hero');
             
-            // Hide names and RSVP after scrolling past first viewport (100vh)
-            if (window.scrollY > window.innerHeight) {
+            // Get the height of the hero section
+            const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+            
+            // Add 'scrolled' class when scrolling past the hero banner
+            if (window.scrollY > heroHeight - 80) {
                 navbar.classList.add('scrolled');
                 if (heroNames) heroNames.classList.add('hidden');
                 if (heroButton) heroButton.classList.add('hidden');
