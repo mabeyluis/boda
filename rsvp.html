@@ -16,6 +16,7 @@
       --slate-blue-light: #92A6BE;
       --golden: #CF933B;
       --dark-charcoal: #1F1D1D;
+      --sage: #A6B072;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -371,8 +372,8 @@
     }
 
     .attend-btn.yes.selected {
-      background: var(--dusty-rose);
-      border-color: var(--dusty-rose);
+      background: var(--sage);
+      border-color: var(--sage);
       color: var(--cream);
     }
 
@@ -664,7 +665,7 @@
     <div class="rsvp-header">
       <div class="eyebrow">October 3, 2026 · Toledo</div>
       <h1>RSVP</h1>
-      <p>Use the unique code we sent you to confirm your attendance at our wedding.</p>
+      <p id="header-subtitle">Use the unique code we sent you to confirm your attendance at our wedding.</p>
     </div>
 
     <div class="card">
@@ -705,7 +706,7 @@
           <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
         <h2 class="confirm-title">You're confirmed!</h2>
-        <p class="confirm-text">Thank you for letting us know. We can't wait to celebrate with you!</p>
+        <p class="confirm-text" id="confirm-text">Thank you for letting us know. We can't wait to celebrate with you!</p>
         <div class="confirm-summary" id="confirm-summary"></div>
         <div class="confirm-cta">
           <a href="index.html" class="btn-secondary">Back to home</a>
@@ -848,6 +849,13 @@
     });
 
     function buildForm(guests) {
+      const isSolo = guests.length === 1;
+
+      // Update header subtitle
+      document.getElementById('header-subtitle').textContent = isSolo
+        ? 'Let us know if you'll be able to join us. If you have any dietary restrictions, feel free to note them below. And if you'd like to leave us a message, we'd love to read it!'
+        : 'Let us know if each person in your group will be attending. If anyone has dietary restrictions, feel free to note them below. And if you'd like to leave us a message, we'd love to read it!';
+
       const list = document.getElementById('guest-list');
       list.innerHTML = '';
 
@@ -943,6 +951,11 @@
     });
 
     function buildConfirmation(guests) {
+      const isSolo = guests.length === 1;
+      document.getElementById('confirm-text').textContent = isSolo
+        ? 'Thank you for confirming! We can\'t wait to celebrate with you.'
+        : 'Thank you for confirming! We can\'t wait to celebrate with all of you.';
+
       const summary = document.getElementById('confirm-summary');
       summary.innerHTML = '';
       guests.forEach(g => {
