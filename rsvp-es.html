@@ -16,6 +16,7 @@
       --slate-blue-light: #92A6BE;
       --golden: #CF933B;
       --dark-charcoal: #1F1D1D;
+      --sage: #A6B072;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -380,8 +381,8 @@
     }
 
     .attend-btn.yes.selected {
-      background: var(--dusty-rose);
-      border-color: var(--dusty-rose);
+      background: var(--sage);
+      border-color: var(--sage);
       color: var(--cream);
     }
 
@@ -689,7 +690,7 @@
     <div class="rsvp-header">
       <div class="eyebrow">3 de octubre, 2026 · Toledo</div>
       <h1>Confirmar Asistencia</h1>
-      <p>Usa el código único que te enviamos para confirmar tu asistencia a nuestra boda.</p>
+      <p id="header-subtitle">Usa el código único que te enviamos para confirmar tu asistencia a nuestra boda.</p>
     </div>
 
     <div class="card">
@@ -730,7 +731,7 @@
           <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
         <h2 class="confirm-title">¡Confirmado!</h2>
-        <p class="confirm-text">Gracias por confirmar. ¡Estamos muy emocionados de celebrar con vosotros!</p>
+        <p class="confirm-text" id="confirm-text">Gracias por confirmar. ¡Estamos muy emocionados de celebrar con ustedes!</p>
         <div class="confirm-summary" id="confirm-summary"></div>
         <div class="confirm-cta">
           <a href="index-es.html" class="btn-secondary">Volver al inicio</a>
@@ -879,6 +880,13 @@
 
     // ── BUILD FORM ──
     function buildForm(guests) {
+      const isSolo = guests.length === 1;
+
+      // Update header subtitle
+      document.getElementById('header-subtitle').textContent = isSolo
+        ? 'Indícanos si podrás asistir. Si tienes alguna restricción alimentaria, puedes anotarla también. ¡Y si quieres dejarnos un mensaje, nos encantará leerlo!'
+        : 'Indica si cada persona de tu grupo asistirá. Si alguien tiene alguna restricción alimentaria, puedes anotarla también. ¡Y si quieren dejarnos un mensaje, nos encantará leerlo!';
+
       const list = document.getElementById('guest-list');
       list.innerHTML = '';
 
@@ -977,6 +985,11 @@
 
     // ── BUILD CONFIRMATION SUMMARY ──
     function buildConfirmation(guests) {
+      const isSolo = guests.length === 1;
+      document.getElementById('confirm-text').textContent = isSolo
+        ? '¡Gracias por confirmar! Estamos muy emocionados de celebrar contigo.'
+        : '¡Gracias por confirmar! Estamos muy emocionados de celebrar con ustedes.';
+
       const summary = document.getElementById('confirm-summary');
       summary.innerHTML = '';
       guests.forEach(g => {
