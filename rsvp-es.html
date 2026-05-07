@@ -280,13 +280,13 @@
 
     /* ── CARD ── */
     .card {
-      background: white;
-      border: 1.5px solid rgba(208,145,147,0.25);
+      background: var(--cream);
+      border: 1.5px solid rgba(208,145,147,0.35);
       border-radius: 16px;
       padding: 2.5rem;
       width: 100%;
       max-width: 520px;
-      box-shadow: 0 4px 32px rgba(159,53,68,0.06);
+      box-shadow: 0 6px 40px rgba(159,53,68,0.08);
     }
 
     /* ── SCREENS ── */
@@ -382,13 +382,13 @@
     .attend-btn.yes.selected {
       background: var(--dusty-rose);
       border-color: var(--dusty-rose);
-      color: white;
+      color: var(--cream);
     }
 
     .attend-btn.no.selected {
       background: var(--slate-blue);
       border-color: var(--slate-blue);
-      color: white;
+      color: var(--cream);
     }
 
     .dietary-field {
@@ -440,7 +440,7 @@
     }
 
     .btn-primary:hover {
-      background: #7a2836;
+      opacity: 0.85;
       transform: translateY(-2px);
     }
 
@@ -540,7 +540,7 @@
     }
 
     .confirm-summary {
-      background: var(--cream);
+      border: 1.5px solid rgba(208,145,147,0.35);
       border-radius: 10px;
       padding: 1.25rem;
       margin-bottom: 1.75rem;
@@ -568,8 +568,8 @@
       display: inline-block;
       width: 18px;
       height: 18px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: white;
+      border: 2px solid rgba(252,251,246,0.4);
+      border-top-color: var(--cream);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       vertical-align: middle;
@@ -635,6 +635,12 @@
     .card { animation: fadeUp 0.5s ease both; }
     .rsvp-header { animation: fadeUp 0.4s ease both; }
 
+    /* ── PLACEHOLDER COLOR ── */
+    ::placeholder {
+      color: var(--dark-charcoal);
+      opacity: 0.35;
+    }
+
     /* ── MOBILE CARD ── */
     @media (max-width: 600px) {
       .card { padding: 1.75rem 1.25rem; }
@@ -695,7 +701,7 @@
           <input
             type="text"
             id="code-input"
-            placeholder="Ej: WEDDING001"
+            placeholder="Ej: BODAX245L"
             autocomplete="off"
             autocapitalize="characters"
             spellcheck="false"
