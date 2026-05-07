@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSVP — Mabe & Luis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #FCFBF6;
+      --dusty-rose: #D09193;
+      --burgundy: #9F3544;
+      --slate-blue: #384B70;
+      --slate-blue-light: #92A6BE;
+      --golden: #CF933B;
+      --dark-charcoal: #1F1D1D;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--dark-charcoal);
+      font-family: 'Libre Baskerville', serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(159,53,68,0.15);
+    }
+
+    .navbar-brand {
+      font-family: 'Beth Ellen', cursive;
+      font-size: 1.4rem;
+      color: var(--burgundy);
+      text-decoration: none;
+    }
+
+    .navbar-lang a {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.8rem;
+      color: var(--burgundy);
+      text-decoration: none;
+      border: 1.5px solid var(--burgundy);
+      border-radius: 50px;
+      padding: 0.3rem 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-lang a:hover {
+      background: var(--burgundy);
+      color: var(--cream);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 7rem 1.5rem 4rem;
+    }
+
+    .rsvp-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .rsvp-header .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dusty-rose);
+      margin-bottom: 0.75rem;
+    }
+
+    .rsvp-header h1 {
+      font-family: 'Beth Ellen', cursive;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--burgundy);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .rsvp-header p {
+      font-size: 0.95rem;
+      color: var(--dark-charcoal);
+      opacity: 0.75;
+      max-width: 420px;
+      line-height: 1.7;
+    }
+
+    .card {
+      background: white;
+      border: 1.5px solid rgba(208,145,147,0.25);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 4px 32px rgba(159,53,68,0.06);
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    .field { margin-bottom: 1.5rem; }
+
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--slate-blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid rgba(208,145,147,0.4);
+      border-radius: 10px;
+      background: var(--cream);
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1rem;
+      color: var(--dark-charcoal);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--dusty-rose);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .field input.error { border-color: var(--burgundy); }
+
+    .guest-list { margin-bottom: 1.5rem; }
+
+    .guest-item {
+      border: 1.5px solid rgba(208,145,147,0.3);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .guest-item:last-child { margin-bottom: 0; }
+
+    .guest-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .guest-name {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1rem;
+      color: var(--dark-charcoal);
+      font-weight: 700;
+    }
+
+    .attend-toggle {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .attend-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      border: 1.5px solid rgba(208,145,147,0.4);
+      background: transparent;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--dark-charcoal);
+    }
+
+    .attend-btn.yes.selected {
+      background: var(--dusty-rose);
+      border-color: var(--dusty-rose);
+      color: white;
+    }
+
+    .attend-btn.no.selected {
+      background: var(--slate-blue);
+      border-color: var(--slate-blue);
+      color: white;
+    }
+
+    .dietary-field { margin-top: 0.75rem; }
+
+    .dietary-field label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate-blue);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .dietary-field input {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1.5px solid rgba(208,145,147,0.3);
+      border-radius: 8px;
+      background: var(--cream);
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.9rem;
+      color: var(--dark-charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .dietary-field input:focus { border-color: var(--dusty-rose); }
+    .dietary-field.hidden { display: none; }
+
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background: var(--burgundy);
+      color: var(--cream);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .btn-primary:hover {
+      background: #7a2836;
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: transparent;
+      color: var(--dusty-rose);
+      border: 2px solid var(--dusty-rose);
+      border-radius: 50px;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      background: var(--dusty-rose);
+      color: var(--cream);
+      transform: translateY(-2px);
+    }
+
+    .error-msg {
+      background: rgba(159,53,68,0.08);
+      border: 1.5px solid rgba(159,53,68,0.2);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-size: 0.88rem;
+      color: var(--burgundy);
+      margin-bottom: 1.25rem;
+      display: none;
+    }
+
+    .error-msg.visible { display: block; }
+
+    .divider {
+      height: 1px;
+      background: rgba(208,145,147,0.2);
+      margin: 1.5rem 0;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dusty-rose);
+      margin-bottom: 1rem;
+    }
+
+    .confirm-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(208,145,147,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .confirm-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--dusty-rose);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .confirm-title {
+      font-family: 'Beth Ellen', cursive;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      color: var(--burgundy);
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .confirm-text {
+      font-size: 0.95rem;
+      color: var(--dark-charcoal);
+      opacity: 0.75;
+      text-align: center;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .confirm-summary {
+      background: var(--cream);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .confirm-summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(208,145,147,0.15);
+    }
+
+    .confirm-summary-row:last-child { border-bottom: none; }
+    .confirm-summary-row .name { font-weight: 700; }
+    .confirm-summary-row .status-yes { color: var(--dusty-rose); font-size: 0.8rem; }
+    .confirm-summary-row .status-no { color: var(--slate-blue); font-size: 0.8rem; }
+    .confirm-cta { text-align: center; }
+
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .info-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(56,75,112,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .info-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--slate-blue);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .info-title {
+      font-family: 'Beth Ellen', cursive;
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      color: var(--slate-blue);
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .info-text {
+      font-size: 0.95rem;
+      color: var(--dark-charcoal);
+      opacity: 0.75;
+      text-align: center;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: var(--dark-charcoal);
+      opacity: 0.4;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card { animation: fadeUp 0.5s ease both; }
+    .rsvp-header { animation: fadeUp 0.4s ease both; }
+
+    @media (max-width: 600px) {
+      .card { padding: 1.75rem 1.25rem; }
+      .navbar { padding: 1rem 1.25rem; }
+      main { padding: 6rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">Mabe & Luis</a>
+    <div class="navbar-lang">
+      <a href="rsvp-es.html">ES</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="rsvp-header">
+      <div class="eyebrow">October 3, 2026 · Toledo</div>
+      <h1>RSVP</h1>
+      <p>Use the unique code we sent you to confirm your attendance at our wedding.</p>
+    </div>
+
+    <div class="card">
+
+      <!-- SCREEN 1: CODE ENTRY -->
+      <div class="screen active" id="screen-code">
+        <div class="field">
+          <label for="code-input">Your invitation code</label>
+          <input
+            type="text"
+            id="code-input"
+            placeholder="e.g. WEDDING001"
+            autocomplete="off"
+            autocapitalize="characters"
+            spellcheck="false"
+          />
+        </div>
+        <div class="error-msg" id="code-error"></div>
+        <button class="btn-primary" id="btn-lookup">Continue</button>
+      </div>
+
+      <!-- SCREEN 2: RSVP FORM -->
+      <div class="screen" id="screen-form">
+        <p class="section-label">Who's attending?</p>
+        <div class="guest-list" id="guest-list"></div>
+        <div class="divider"></div>
+        <div class="field">
+          <label for="message-input">Message for the couple <span style="opacity:0.5;font-size:0.75rem;">(optional)</span></label>
+          <textarea id="message-input" placeholder="Write your message here…"></textarea>
+        </div>
+        <div class="error-msg" id="form-error">Please indicate attendance for each guest.</div>
+        <button class="btn-primary" id="btn-submit">Send RSVP</button>
+      </div>
+
+      <!-- SCREEN 3: SUCCESS -->
+      <div class="screen" id="screen-success">
+        <div class="confirm-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h2 class="confirm-title">You're confirmed!</h2>
+        <p class="confirm-text">Thank you for letting us know. We can't wait to celebrate with you!</p>
+        <div class="confirm-summary" id="confirm-summary"></div>
+        <div class="confirm-cta">
+          <a href="index.html" class="btn-secondary">Back to home</a>
+        </div>
+      </div>
+
+      <!-- SCREEN 4: ALREADY SUBMITTED -->
+      <div class="screen" id="screen-already">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h2 class="info-title">Already submitted</h2>
+        <p class="info-text">We already received your group's RSVP. If you think there's a mistake, please reach out to us directly.</p>
+        <div class="confirm-cta">
+          <a href="index.html" class="btn-secondary">Back to home</a>
+        </div>
+      </div>
+
+      <!-- SCREEN 5: DEADLINE PASSED -->
+      <div class="screen" id="screen-deadline">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h2 class="info-title">RSVP period closed</h2>
+        <p class="info-text">The RSVP deadline has passed. If you have any questions, please get in touch with us directly.</p>
+        <div class="confirm-cta">
+          <a href="index.html" class="btn-secondary">Back to home</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>Mabe & Luis · Toledo, October 3rd 2026</footer>
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVawvfx3UZ8zIOaN2Y7n-YwmsBcGYey9J-Ui3bKLBnWRvUYWTVV0gnk8QiJqh2ioHLLQ/exec';
+
+    let currentCode = '';
+    let currentGuests = [];
+    let householdName = '';
+
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function showError(elementId, msg) {
+      const el = document.getElementById(elementId);
+      el.textContent = msg;
+      el.classList.add('visible');
+    }
+
+    function hideError(elementId) {
+      document.getElementById(elementId).classList.remove('visible');
+    }
+
+    function setLoading(btn, loading) {
+      if (loading) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span>One moment…';
+      } else {
+        btn.disabled = false;
+      }
+    }
+
+    function displayName(guests, index) {
+      const name = guests[index];
+      if (name === '+1' && index > 0) {
+        const prev = guests[index - 1].replace(' +1', '');
+        return 'Guest of ' + prev;
+      }
+      return name;
+    }
+
+    document.getElementById('code-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('btn-lookup').click();
+    });
+
+    document.getElementById('btn-lookup').addEventListener('click', async () => {
+      const code = document.getElementById('code-input').value.trim().toUpperCase();
+      hideError('code-error');
+
+      if (!code) {
+        showError('code-error', 'Please enter your invitation code.');
+        document.getElementById('code-input').classList.add('error');
+        return;
+      }
+
+      const btn = document.getElementById('btn-lookup');
+      setLoading(btn, true);
+
+      try {
+        const res = await fetch(`${SCRIPT_URL}?action=lookup&code=${encodeURIComponent(code)}`);
+        const data = await res.json();
+
+        if (data.status === 'found') {
+          currentCode = code;
+          currentGuests = data.guests;
+          householdName = data.household;
+          buildForm(data.guests);
+          showScreen('screen-form');
+        } else if (data.status === 'already_submitted') {
+          showScreen('screen-already');
+        } else if (data.status === 'deadline_passed') {
+          showScreen('screen-deadline');
+        } else {
+          showError('code-error', 'Code not found. Please check that you typed it correctly.');
+          document.getElementById('code-input').classList.add('error');
+        }
+      } catch (err) {
+        showError('code-error', 'Connection error. Please try again.');
+      } finally {
+        btn.textContent = 'Continue';
+        btn.disabled = false;
+      }
+    });
+
+    function buildForm(guests) {
+      const list = document.getElementById('guest-list');
+      list.innerHTML = '';
+
+      guests.forEach((guest, i) => {
+        const name = displayName(guests, i);
+        const div = document.createElement('div');
+        div.className = 'guest-item';
+        div.dataset.index = i;
+        div.innerHTML = `
+          <div class="guest-name-row">
+            <span class="guest-name">${name}</span>
+            <div class="attend-toggle">
+              <button type="button" class="attend-btn yes" data-value="yes">✓ Attending</button>
+              <button type="button" class="attend-btn no" data-value="no">✗ Not attending</button>
+            </div>
+          </div>
+          <div class="dietary-field hidden">
+            <label>Dietary restrictions</label>
+            <input type="text" placeholder="Allergies, vegetarian, gluten-free…" />
+          </div>
+        `;
+
+        div.querySelectorAll('.attend-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            div.querySelectorAll('.attend-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            const dietaryField = div.querySelector('.dietary-field');
+            if (btn.dataset.value === 'yes') {
+              dietaryField.classList.remove('hidden');
+            } else {
+              dietaryField.classList.add('hidden');
+              dietaryField.querySelector('input').value = '';
+            }
+          });
+        });
+
+        list.appendChild(div);
+      });
+    }
+
+    document.getElementById('btn-submit').addEventListener('click', async () => {
+      hideError('form-error');
+
+      const items = document.querySelectorAll('.guest-item');
+      const guestResponses = [];
+      let valid = true;
+
+      items.forEach((item, i) => {
+        const selected = item.querySelector('.attend-btn.selected');
+        if (!selected) { valid = false; return; }
+        const dietary = item.querySelector('.dietary-field input')?.value.trim() || '';
+        const name = displayName(currentGuests, i);
+        guestResponses.push({
+          name: name,
+          attending: selected.dataset.value,
+          dietary: dietary
+        });
+      });
+
+      if (!valid) {
+        document.getElementById('form-error').classList.add('visible');
+        return;
+      }
+
+      const message = document.getElementById('message-input').value.trim();
+      const btn = document.getElementById('btn-submit');
+      setLoading(btn, true);
+
+      try {
+        const res = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({
+            code: currentCode,
+            guests: guestResponses,
+            message: message
+          })
+        });
+        const data = await res.json();
+
+        if (data.status === 'success') {
+          buildConfirmation(guestResponses);
+          showScreen('screen-success');
+        } else {
+          showError('form-error', 'Something went wrong. Please try again.');
+          btn.textContent = 'Send RSVP';
+          btn.disabled = false;
+        }
+      } catch (err) {
+        showError('form-error', 'Connection error. Please try again.');
+        btn.textContent = 'Send RSVP';
+        btn.disabled = false;
+      }
+    });
+
+    function buildConfirmation(guests) {
+      const summary = document.getElementById('confirm-summary');
+      summary.innerHTML = '';
+      guests.forEach(g => {
+        const row = document.createElement('div');
+        row.className = 'confirm-summary-row';
+        row.innerHTML = `
+          <span class="name">${g.name}</span>
+          <span class="${g.attending === 'yes' ? 'status-yes' : 'status-no'}">
+            ${g.attending === 'yes' ? '✓ Attending' : '✗ Not attending'}
+          </span>
+        `;
+        summary.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>
