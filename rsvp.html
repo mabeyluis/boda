@@ -541,6 +541,18 @@
     let currentGuests = [];
     let householdName = '';
 
+    // ── AUTO-FILL CODE FROM URL ──
+    // If URL includes ?code=WEDDING001, fills and triggers lookup automatically
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const codeParam = params.get('code');
+      if (codeParam) {
+        const input = document.getElementById('code-input');
+        input.value = codeParam.trim().toUpperCase();
+        document.getElementById('btn-lookup').click();
+      }
+    });
+
     function showScreen(id) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
