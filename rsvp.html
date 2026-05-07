@@ -271,7 +271,7 @@
       font-size: 0.95rem;
       color: var(--dark-charcoal);
       opacity: 0.75;
-      max-width: 420px;
+      max-width: 620px;
       line-height: 1.7;
       margin: 0 auto;
       text-align: center;
@@ -328,6 +328,7 @@
 
     .field input.error { border-color: var(--burgundy); }
 
+    /* ── GUEST ROWS ── */
     .guest-list { margin-bottom: 1.5rem; }
 
     .guest-item {
@@ -335,8 +336,11 @@
       border-radius: 12px;
       padding: 1.25rem;
       margin-bottom: 1rem;
-      transition: border-color 0.2s;
+      transition: border-color 0.3s ease;
     }
+
+    .guest-item.selected-yes  { border-color: var(--sage); }
+    .guest-item.selected-no   { border-color: var(--slate-blue); }
 
     .guest-item:last-child { margin-bottom: 0; }
 
@@ -884,6 +888,8 @@
           btn.addEventListener('click', () => {
             div.querySelectorAll('.attend-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
+            div.classList.remove('selected-yes', 'selected-no');
+            div.classList.add(btn.dataset.value === 'yes' ? 'selected-yes' : 'selected-no');
             const dietaryField = div.querySelector('.dietary-field');
             if (btn.dataset.value === 'yes') {
               dietaryField.classList.remove('hidden');
