@@ -723,8 +723,18 @@
     }
 
     .room-btn:hover {
-      background: var(--dusty-rose);
-      border-color: var(--dusty-rose);
+      background: transparent;
+    }
+
+    .room-btn[data-value="yes"]:hover {
+      background: var(--sage);
+      border-color: var(--sage);
+      color: var(--cream);
+    }
+
+    .room-btn[data-value="no"]:hover {
+      background: var(--slate-blue);
+      border-color: var(--slate-blue);
       color: var(--cream);
     }
 
