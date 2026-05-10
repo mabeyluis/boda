@@ -12,11 +12,11 @@
       --cream: #FCFBF6;
       --dusty-rose: #D09193;
       --burgundy: #9F3544;
-      --slate-blue: #384B70;
-      --slate-blue-light: #92A6BE;
+      --slate-blue: #92A6BE;
       --golden: #CF933B;
-      --dark-charcoal: #1F1D1D;
       --sage: #A6B072;
+      --gold-light: #D5BE6F;
+      --dark-charcoal: #1F1D1D;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -285,7 +285,6 @@
       padding: 2.5rem;
       width: 100%;
       max-width: 520px;
-      box-shadow: 0 6px 40px rgba(159,53,68,0.08);
     }
 
     .screen { display: none; }
@@ -298,7 +297,7 @@
       font-size: 0.8rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--slate-blue);
+      color: var(--dark-charcoal);
       margin-bottom: 0.5rem;
     }
 
@@ -336,13 +335,13 @@
       border-radius: 12px;
       padding: 1.25rem;
       margin-bottom: 1rem;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.25s ease;
     }
 
-    .guest-item.selected-yes  { border-color: var(--sage); }
-    .guest-item.selected-no   { border-color: var(--slate-blue); }
-
     .guest-item:last-child { margin-bottom: 0; }
+
+    .guest-item.selected-yes { border-color: var(--sage); }
+    .guest-item.selected-no  { border-color: var(--slate-blue); }
 
     .guest-name-row {
       display: flex;
@@ -360,10 +359,7 @@
       font-weight: 700;
     }
 
-    .attend-toggle {
-      display: flex;
-      gap: 0.5rem;
-    }
+    .attend-toggle { display: flex; gap: 0.5rem; }
 
     .attend-btn {
       padding: 0.4rem 1rem;
@@ -373,20 +369,44 @@
       font-family: 'Libre Baskerville', serif;
       font-size: 0.8rem;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
       color: var(--dark-charcoal);
     }
 
-    .attend-btn.yes.selected {
+    .attend-btn.yes:hover {
       background: var(--sage);
       border-color: var(--sage);
       color: var(--cream);
     }
 
-    .attend-btn.no.selected {
+    .attend-btn.no:hover {
       background: var(--slate-blue);
       border-color: var(--slate-blue);
       color: var(--cream);
+    }
+
+    .guest-item.selected-yes .attend-btn.yes {
+      background: var(--sage);
+      border-color: var(--sage);
+      color: var(--cream);
+    }
+
+    .guest-item.selected-yes .attend-btn.no {
+      background: transparent;
+      border-color: rgba(208,145,147,0.4);
+      color: var(--slate-blue);
+    }
+
+    .guest-item.selected-no .attend-btn.no {
+      background: var(--slate-blue);
+      border-color: var(--slate-blue);
+      color: var(--cream);
+    }
+
+    .guest-item.selected-no .attend-btn.yes {
+      background: transparent;
+      border-color: rgba(208,145,147,0.4);
+      color: var(--sage);
     }
 
     .dietary-field { margin-top: 0.75rem; }
@@ -395,7 +415,7 @@
       font-size: 0.75rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--slate-blue);
+      color: var(--dark-charcoal);
       display: block;
       margin-bottom: 0.4rem;
     }
@@ -410,15 +430,22 @@
       font-size: 0.9rem;
       color: var(--dark-charcoal);
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.25s ease;
     }
 
     .dietary-field input:focus { border-color: var(--dusty-rose); }
 
-    .guest-item.selected-yes .dietary-field input { border-color: var(--sage); }
-    .guest-item.selected-yes .dietary-field input:focus { border-color: var(--sage); }
-    .guest-item.selected-no .dietary-field input { border-color: var(--slate-blue); }
-    .guest-item.selected-no .dietary-field input:focus { border-color: var(--slate-blue); }
+    .guest-item.selected-yes .dietary-field input,
+    .guest-item.selected-yes .dietary-field input:focus {
+      border-color: var(--sage);
+      background: var(--cream);
+    }
+
+    .guest-item.selected-no .dietary-field input,
+    .guest-item.selected-no .dietary-field input:focus {
+      border-color: var(--slate-blue);
+      background: var(--cream);
+    }
 
     .dietary-field.hidden { display: none; }
 
@@ -705,7 +732,7 @@
         <div class="guest-list" id="guest-list"></div>
         <div class="divider"></div>
         <div class="field">
-          <label for="message-input">Message for the couple <span style="opacity:0.5;font-size:0.75rem;">(optional)</span></label>
+          <label for="message-input" class="section-label" style="display:block;margin-bottom:0.5rem;">Message for the couple <span style="opacity:0.5;font-size:0.75rem;text-transform:none;letter-spacing:0;">(optional)</span></label>
           <textarea id="message-input" placeholder="Write your message here…"></textarea>
         </div>
         <div class="error-msg" id="form-error">Please indicate attendance for each guest.</div>
