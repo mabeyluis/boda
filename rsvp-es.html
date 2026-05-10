@@ -12,11 +12,11 @@
       --cream: #FCFBF6;
       --dusty-rose: #D09193;
       --burgundy: #9F3544;
-      --slate-blue: #384B70;
-      --slate-blue-light: #92A6BE;
+      --slate-blue: #92A6BE;
       --golden: #CF933B;
-      --dark-charcoal: #1F1D1D;
       --sage: #A6B072;
+      --gold-light: #D5BE6F;
+      --dark-charcoal: #1F1D1D;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -289,7 +289,6 @@
       padding: 2.5rem;
       width: 100%;
       max-width: 520px;
-      box-shadow: 0 6px 40px rgba(159,53,68,0.08);
     }
 
     /* ── SCREENS ── */
@@ -304,7 +303,7 @@
       font-size: 0.8rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--slate-blue);
+      color: var(--dark-charcoal);
       margin-bottom: 0.5rem;
     }
 
@@ -344,13 +343,30 @@
       border-radius: 12px;
       padding: 1.25rem;
       margin-bottom: 1rem;
-      transition: border-color 0.3s ease;
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
 
-    .guest-item.selected-yes  { border-color: var(--sage); }
-    .guest-item.selected-no   { border-color: var(--slate-blue); }
-
     .guest-item:last-child { margin-bottom: 0; }
+
+    /* Selected YES state — full card */
+    .guest-item.selected-yes {
+      background: var(--sage);
+      border-color: var(--sage);
+    }
+
+    /* Selected NO state — full card */
+    .guest-item.selected-no {
+      background: var(--slate-blue);
+      border-color: var(--slate-blue);
+    }
+
+    /* Guest name + dietary label turn cream when card is filled */
+    .guest-item.selected-yes .guest-name,
+    .guest-item.selected-no  .guest-name,
+    .guest-item.selected-yes .dietary-field label,
+    .guest-item.selected-no  .dietary-field label {
+      color: var(--cream);
+    }
 
     .guest-name-row {
       display: flex;
@@ -366,6 +382,7 @@
       font-size: 1rem;
       color: var(--dark-charcoal);
       font-weight: 700;
+      transition: color 0.25s ease;
     }
 
     .attend-toggle {
@@ -381,19 +398,46 @@
       font-family: 'Libre Baskerville', serif;
       font-size: 0.8rem;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
       color: var(--dark-charcoal);
     }
 
-    .attend-btn.yes.selected {
+    /* Hover states */
+    .attend-btn.yes:hover {
       background: var(--sage);
       border-color: var(--sage);
       color: var(--cream);
     }
 
-    .attend-btn.no.selected {
+    .attend-btn.no:hover {
       background: var(--slate-blue);
       border-color: var(--slate-blue);
+      color: var(--cream);
+    }
+
+    /* Selected YES — "Sí asisto" becomes cream pill, "No asisto" becomes cream outline */
+    .guest-item.selected-yes .attend-btn.yes {
+      background: var(--cream);
+      border-color: var(--cream);
+      color: var(--sage);
+    }
+
+    .guest-item.selected-yes .attend-btn.no {
+      background: transparent;
+      border-color: var(--cream);
+      color: var(--cream);
+    }
+
+    /* Selected NO — "No asisto" becomes cream pill, "Sí asisto" becomes cream outline */
+    .guest-item.selected-no .attend-btn.no {
+      background: var(--cream);
+      border-color: var(--cream);
+      color: var(--slate-blue);
+    }
+
+    .guest-item.selected-no .attend-btn.yes {
+      background: transparent;
+      border-color: var(--cream);
       color: var(--cream);
     }
 
@@ -405,9 +449,10 @@
       font-size: 0.75rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--slate-blue);
+      color: var(--dark-charcoal);
       display: block;
       margin-bottom: 0.4rem;
+      transition: color 0.25s ease;
     }
 
     .dietary-field input {
@@ -420,27 +465,24 @@
       font-size: 0.9rem;
       color: var(--dark-charcoal);
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.25s ease;
     }
 
     .dietary-field input:focus {
       border-color: var(--dusty-rose);
     }
 
-    .guest-item.selected-yes .dietary-field input {
-      border-color: var(--sage);
-    }
-
+    /* Dietary input stays cream background always; border inherits card accent */
+    .guest-item.selected-yes .dietary-field input,
     .guest-item.selected-yes .dietary-field input:focus {
-      border-color: var(--sage);
+      border-color: var(--cream);
+      background: var(--cream);
     }
 
-    .guest-item.selected-no .dietary-field input {
-      border-color: var(--slate-blue);
-    }
-
+    .guest-item.selected-no .dietary-field input,
     .guest-item.selected-no .dietary-field input:focus {
-      border-color: var(--slate-blue);
+      border-color: var(--cream);
+      background: var(--cream);
     }
 
     .dietary-field.hidden { display: none; }
