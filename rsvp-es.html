@@ -678,7 +678,67 @@
     .card { animation: fadeUp 0.5s ease both; }
     .rsvp-header { animation: fadeUp 0.4s ease both; }
 
-    /* ── PLACEHOLDER COLOR ── */
+    /* ── ROOM INTEREST ── */
+    .room-field {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(208,145,147,0.2);
+    }
+
+    .room-field.hidden { display: none; }
+
+    .room-field-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark-charcoal);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .room-field-hint {
+      font-size: 0.78rem;
+      color: var(--dark-charcoal);
+      opacity: 0.5;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .room-toggle {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .room-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      border: 1.5px solid rgba(208,145,147,0.4);
+      background: transparent;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--dark-charcoal);
+    }
+
+    .room-btn:hover {
+      background: var(--dusty-rose);
+      border-color: var(--dusty-rose);
+      color: var(--cream);
+    }
+
+    .room-btn.selected-yes {
+      background: var(--dusty-rose);
+      border-color: var(--dusty-rose);
+      color: var(--cream);
+    }
+
+    .room-btn.selected-no {
+      background: var(--dark-charcoal);
+      border-color: var(--dark-charcoal);
+      color: var(--cream);
+    }
     ::placeholder {
       color: var(--dark-charcoal);
       opacity: 0.35;
@@ -949,9 +1009,17 @@
             <label>Restricciones alimentarias</label>
             <input type="text" placeholder="Alergias, vegetariano, sin gluten…" />
           </div>
+          <div class="room-field hidden">
+            <span class="room-field-label">¿Te interesa alojarte en la Hacienda del Cardenal?</span>
+            <p class="room-field-hint">Si te interesa, deberás contactar directamente con el hotel para hacer tu reserva. Esta información es solo para nosotros.</p>
+            <div class="room-toggle">
+              <button type="button" class="room-btn" data-value="yes">Sí, me interesa</button>
+              <button type="button" class="room-btn" data-value="no">No, gracias</button>
+            </div>
+          </div>
         `;
 
-        // Toggle yes/no
+        // Toggle yes/no attendance
         div.querySelectorAll('.attend-btn').forEach(btn => {
           btn.addEventListener('click', () => {
             div.querySelectorAll('.attend-btn').forEach(b => b.classList.remove('selected'));
@@ -959,12 +1027,24 @@
             div.classList.remove('selected-yes', 'selected-no');
             div.classList.add(btn.dataset.value === 'yes' ? 'selected-yes' : 'selected-no');
             const dietaryField = div.querySelector('.dietary-field');
+            const roomField = div.querySelector('.room-field');
             if (btn.dataset.value === 'yes') {
               dietaryField.classList.remove('hidden');
+              roomField.classList.remove('hidden');
             } else {
               dietaryField.classList.add('hidden');
               dietaryField.querySelector('input').value = '';
+              roomField.classList.add('hidden');
+              roomField.querySelectorAll('.room-btn').forEach(b => b.classList.remove('selected-yes', 'selected-no'));
             }
+          });
+        });
+
+        // Toggle room interest
+        div.querySelectorAll('.room-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            div.querySelectorAll('.room-btn').forEach(b => b.classList.remove('selected-yes', 'selected-no'));
+            btn.classList.add(btn.dataset.value === 'yes' ? 'selected-yes' : 'selected-no');
           });
         });
 
@@ -984,11 +1064,14 @@
         const selected = item.querySelector('.attend-btn.selected');
         if (!selected) { valid = false; return; }
         const dietary = item.querySelector('.dietary-field input')?.value.trim() || '';
+        const roomBtn = item.querySelector('.room-btn.selected-yes, .room-btn.selected-no');
+        const room_interest = selected.dataset.value === 'yes' ? (roomBtn ? roomBtn.dataset.value : '') : 'N/A';
         const name = displayName(currentGuests, i);
         guestResponses.push({
           name: name,
           attending: selected.dataset.value,
-          dietary: dietary
+          dietary: dietary,
+          room_interest: room_interest
         });
       });
 
