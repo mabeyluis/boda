@@ -301,6 +301,10 @@
       margin-bottom: 0.5rem;
     }
 
+    .field label.section-label {
+      color: var(--dusty-rose);
+    }
+
     .field input,
     .field textarea {
       width: 100%;
@@ -393,8 +397,8 @@
 
     .guest-item.selected-yes .attend-btn.no {
       background: transparent;
-      border-color: rgba(208,145,147,0.4);
-      color: var(--slate-blue);
+      border-color: rgba(208,145,147,0.35);
+      color: rgba(208,145,147,0.35);
     }
 
     .guest-item.selected-no .attend-btn.no {
@@ -405,8 +409,8 @@
 
     .guest-item.selected-no .attend-btn.yes {
       background: transparent;
-      border-color: rgba(208,145,147,0.4);
-      color: var(--sage);
+      border-color: rgba(208,145,147,0.35);
+      color: rgba(208,145,147,0.35);
     }
 
     .dietary-field { margin-top: 0.75rem; }
@@ -649,6 +653,68 @@
 
     .card { animation: fadeUp 0.5s ease both; }
     .rsvp-header { animation: fadeUp 0.4s ease both; }
+
+    /* ── ROOM INTEREST ── */
+    .room-field {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(208,145,147,0.2);
+    }
+
+    .room-field.hidden { display: none; }
+
+    .room-field-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark-charcoal);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .room-field-hint {
+      font-size: 0.78rem;
+      color: var(--dark-charcoal);
+      opacity: 0.5;
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .room-toggle {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .room-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      border: 1.5px solid rgba(208,145,147,0.4);
+      background: transparent;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--dark-charcoal);
+    }
+
+    .room-btn:hover {
+      background: var(--dusty-rose);
+      border-color: var(--dusty-rose);
+      color: var(--cream);
+    }
+
+    .room-btn.selected-yes {
+      background: var(--sage);
+      border-color: var(--sage);
+      color: var(--cream);
+    }
+
+    .room-btn.selected-no {
+      background: var(--slate-blue);
+      border-color: var(--slate-blue);
+      color: var(--cream);
+    }
 
     /* ── PLACEHOLDER COLOR ── */
     ::placeholder {
@@ -915,6 +981,14 @@
             <label>Dietary restrictions</label>
             <input type="text" placeholder="Allergies, vegetarian, gluten-free…" />
           </div>
+          <div class="room-field hidden">
+            <span class="room-field-label">Would you like to stay at Hacienda del Cardenal?</span>
+            <p class="room-field-hint">If interested, you'll need to contact the hotel directly to make your reservation. This is just so we know.</p>
+            <div class="room-toggle">
+              <button type="button" class="room-btn" data-value="yes">Yes, I'm interested</button>
+              <button type="button" class="room-btn" data-value="no">No, thanks</button>
+            </div>
+          </div>
         `;
 
         div.querySelectorAll('.attend-btn').forEach(btn => {
@@ -924,12 +998,23 @@
             div.classList.remove('selected-yes', 'selected-no');
             div.classList.add(btn.dataset.value === 'yes' ? 'selected-yes' : 'selected-no');
             const dietaryField = div.querySelector('.dietary-field');
+            const roomField = div.querySelector('.room-field');
             if (btn.dataset.value === 'yes') {
               dietaryField.classList.remove('hidden');
+              roomField.classList.remove('hidden');
             } else {
               dietaryField.classList.add('hidden');
               dietaryField.querySelector('input').value = '';
+              roomField.classList.add('hidden');
+              roomField.querySelectorAll('.room-btn').forEach(b => b.classList.remove('selected-yes', 'selected-no'));
             }
+          });
+        });
+
+        div.querySelectorAll('.room-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            div.querySelectorAll('.room-btn').forEach(b => b.classList.remove('selected-yes', 'selected-no'));
+            btn.classList.add(btn.dataset.value === 'yes' ? 'selected-yes' : 'selected-no');
           });
         });
 
@@ -948,11 +1033,14 @@
         const selected = item.querySelector('.attend-btn.selected');
         if (!selected) { valid = false; return; }
         const dietary = item.querySelector('.dietary-field input')?.value.trim() || '';
+        const roomBtn = item.querySelector('.room-btn.selected-yes, .room-btn.selected-no');
+        const room_interest = selected.dataset.value === 'yes' ? (roomBtn ? roomBtn.dataset.value : '') : 'N/A';
         const name = displayName(currentGuests, i);
         guestResponses.push({
           name: name,
           attending: selected.dataset.value,
-          dietary: dietary
+          dietary: dietary,
+          room_interest: room_interest
         });
       });
 
