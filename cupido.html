@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>Cupid — Mabe & Luis</title>
+<link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #FCFBF6;
+    --rose: #D09193;
+    --burgundy: #9F3544;
+    --slate: #384B70;
+    --slate-light: #92A6BE;
+    --golden: #CF933B;
+    --sage: #A6B072;
+    --charcoal: #1F1D1D;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { height: 100%; font-size: 16px; }
+  body {
+    background: var(--cream);
+    font-family: Georgia, serif;
+    color: var(--charcoal);
+    min-height: 100%;
+    min-height: -webkit-fill-available;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; min-height: 100svh; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem 1.25rem calc(1.5rem + var(--safe-bottom)); }
+  .screen.active { display: flex; }
+  .screen-top { justify-content: flex-start; padding-top: 2rem; }
+
+  /* ── TYPOGRAPHY ── */
+  .cupid-title { font-family: 'Beth Ellen', Georgia, serif; font-size: 3rem; font-weight: 400; color: var(--burgundy); text-align: center; line-height: 1.1; }
+  .cupid-title-sm { font-family: 'Beth Ellen', Georgia, serif; font-size: 1.8rem; font-weight: 400; color: var(--burgundy); text-align: center; }
+  .subtitle { font-size: 0.88rem; color: var(--charcoal); opacity: 0.6; text-align: center; line-height: 1.65; max-width: 320px; margin: 0.75rem auto 0; }
+  .divider { width: 40px; height: 1px; background: var(--rose); margin: 1.25rem auto; }
+
+  /* ── CARD ── */
+  .card { background: white; border: 1px solid rgba(208,145,147,0.2); border-radius: 20px; padding: 1.75rem 1.5rem; width: 100%; max-width: 440px; }
+
+  /* ── AUTOCOMPLETE ── */
+  #autoComplete_wrapper { position: relative; width: 100%; }
+  #autoComplete {
+    width: 100%; padding: 0.9rem 1.1rem;
+    border: 1.5px solid rgba(208,145,147,0.45);
+    border-radius: 50px; font-family: Georgia, serif;
+    font-size: 1rem; background: var(--cream); outline: none;
+    color: var(--charcoal); transition: border-color 0.2s;
+    -webkit-appearance: none; appearance: none;
+  }
+  #autoComplete:focus { border-color: var(--rose); }
+  #autoComplete_list {
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    background: white; border: 1.5px solid rgba(208,145,147,0.3);
+    border-radius: 14px; overflow: hidden; z-index: 100;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+    max-height: 220px; overflow-y: auto;
+    padding: 0.35rem 0;
+  }
+  #autoComplete_list li {
+    padding: 0.8rem 1.1rem; font-size: 0.95rem; cursor: pointer;
+    list-style: none; transition: background 0.12s; font-family: Georgia, serif;
+    border-bottom: 1px solid rgba(208,145,147,0.08);
+  }
+  #autoComplete_list li:last-child { border-bottom: none; }
+  #autoComplete_list li:hover, #autoComplete_list li.ac-active { background: rgba(208,145,147,0.1); }
+
+  /* ── RETURNING AUTOCOMPLETE ── */
+  #retAutoComplete_wrapper { position: relative; width: 100%; }
+  #retAutoComplete {
+    width: 100%; padding: 0.9rem 1.1rem;
+    border: 1.5px solid rgba(208,145,147,0.45);
+    border-radius: 50px; font-family: Georgia, serif;
+    font-size: 1rem; background: var(--cream); outline: none;
+    color: var(--charcoal); transition: border-color 0.2s;
+    -webkit-appearance: none; appearance: none;
+  }
+  #retAutoComplete:focus { border-color: var(--rose); }
+  #retAutoComplete_list {
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    background: white; border: 1.5px solid rgba(208,145,147,0.3);
+    border-radius: 14px; overflow: hidden; z-index: 100;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+    max-height: 200px; overflow-y: auto;
+    padding: 0.35rem 0;
+  }
+  #retAutoComplete_list li {
+    padding: 0.8rem 1.1rem; font-size: 0.95rem; cursor: pointer;
+    list-style: none; transition: background 0.12s; font-family: Georgia, serif;
+    border-bottom: 1px solid rgba(208,145,147,0.08);
+  }
+  #retAutoComplete_list li:last-child { border-bottom: none; }
+  #retAutoComplete_list li:hover, #retAutoComplete_list li.ac-active { background: rgba(208,145,147,0.1); }
+
+  /* ── FIELD LABEL ── */
+  .field-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.55rem; display: block; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    width: 100%; padding: 0.95rem; border-radius: 50px;
+    font-family: Georgia, serif; font-size: 0.95rem;
+    cursor: pointer; transition: all 0.2s; border: none;
+    letter-spacing: 0.02em; margin-top: 0.75rem;
+  }
+  .btn-sage { background: var(--sage); color: white; }
+  .btn-sage:active { opacity: 0.82; }
+  .btn-sage:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-slate { background: var(--slate-light); color: white; }
+  .btn-slate:active { opacity: 0.82; }
+  .btn-primary { background: var(--burgundy); color: var(--cream); }
+  .btn-primary:active { opacity: 0.82; }
+  .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-ghost {
+    background: none; border: none; color: var(--rose);
+    font-family: Georgia, serif; font-size: 0.82rem; cursor: pointer;
+    text-decoration: underline; margin-top: 0.75rem;
+    display: block; text-align: center; width: 100%;
+    padding: 0.35rem;
+  }
+
+  /* ── ERROR ── */
+  .field-error { color: var(--burgundy); font-size: 0.78rem; margin-top: 0.45rem; min-height: 1.1rem; display: block; padding-left: 0.25rem; }
+
+  /* ── PROGRESS ── */
+  .progress-bar { height: 3px; background: rgba(208,145,147,0.18); border-radius: 3px; margin-bottom: 1.5rem; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 0.35s ease; }
+
+  /* ── QUIZ ── */
+  .q-eyebrow { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .q-text { font-size: 1rem; line-height: 1.55; margin-bottom: 1.35rem; color: var(--charcoal); }
+  .options { display: flex; flex-direction: column; gap: 0.55rem; }
+
+  /* Option colors cycle: rose, slate-light, golden, sage */
+  .option {
+    padding: 0.85rem 1rem;
+    border: 2px solid transparent;
+    border-radius: 12px; cursor: pointer; font-family: Georgia, serif;
+    font-size: 0.88rem; line-height: 1.4; color: var(--charcoal);
+    transition: all 0.18s; background: var(--cream); text-align: left;
+    -webkit-appearance: none; appearance: none;
+    min-height: 48px; display: flex; align-items: center;
+  }
+  /* Color variants applied via JS */
+  .option.color-rose { border-color: rgba(208,145,147,0.35); }
+  .option.color-rose:hover { border-color: var(--rose); background: rgba(208,145,147,0.08); }
+  .option.color-rose.selected { border-color: var(--rose); background: rgba(208,145,147,0.15); color: var(--charcoal); font-weight: bold; }
+
+  .option.color-slate { border-color: rgba(146,166,190,0.35); }
+  .option.color-slate:hover { border-color: var(--slate-light); background: rgba(146,166,190,0.08); }
+  .option.color-slate.selected { border-color: var(--slate-light); background: rgba(146,166,190,0.15); color: var(--charcoal); font-weight: bold; }
+
+  .option.color-golden { border-color: rgba(207,147,59,0.35); }
+  .option.color-golden:hover { border-color: var(--golden); background: rgba(207,147,59,0.08); }
+  .option.color-golden.selected { border-color: var(--golden); background: rgba(207,147,59,0.15); color: var(--charcoal); font-weight: bold; }
+
+  .option.color-sage { border-color: rgba(166,176,114,0.35); }
+  .option.color-sage:hover { border-color: var(--sage); background: rgba(166,176,114,0.08); }
+  .option.color-sage.selected { border-color: var(--sage); background: rgba(166,176,114,0.15); color: var(--charcoal); font-weight: bold; }
+
+  .option:active { transform: scale(0.98); }
+  .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.35rem; }
+  .btn-back { background: none; border: none; color: var(--charcoal); opacity: 0.4; font-family: Georgia, serif; font-size: 0.85rem; cursor: pointer; padding: 0.5rem 0; min-height: 44px; }
+  .btn-next { padding: 0.7rem 1.75rem; border-radius: 50px; background: var(--burgundy); color: var(--cream); border: none; font-family: Georgia, serif; font-size: 0.88rem; cursor: pointer; transition: opacity 0.2s; min-height: 44px; }
+  .btn-next:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* ── LOADING ── */
+  .loading-wrap { text-align: center; }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+  .pulse { display: block; font-size: 2.5rem; animation: pulse 1.2s ease-in-out infinite; margin-bottom: 1rem; }
+
+  /* ── CODE BOX ── */
+  .code-box { background: rgba(207,147,59,0.07); border: 1.5px solid rgba(207,147,59,0.28); border-radius: 14px; padding: 1.25rem; text-align: center; margin: 1.25rem 0; }
+  .code-num { font-size: 3rem; letter-spacing: 0.25em; color: var(--charcoal); }
+
+  /* ── RESULTS ── */
+  .results-wrap { width: 100%; max-width: 440px; }
+  .match-card { background: white; border: 1px solid rgba(208,145,147,0.22); border-radius: 18px; overflow: hidden; margin-bottom: 1rem; }
+  .match-header { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; }
+  .match-photo { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex-shrink: 0; background: rgba(208,145,147,0.12); border: 2px solid rgba(208,145,147,0.25); }
+  .match-info { flex: 1; min-width: 0; }
+  .match-rank { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.1rem; }
+  .match-name { font-size: 1rem; color: var(--charcoal); margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .match-pct { font-size: 1.4rem; color: var(--burgundy); }
+  .match-body { padding: 0 1.25rem 1.25rem; border-top: 1px solid rgba(208,145,147,0.1); padding-top: 0.9rem; }
+  .ice-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate-light); margin-bottom: 0.4rem; }
+  .ice-text { font-size: 0.84rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1rem; }
+  .ig-btn { display: flex; align-items: center; justify-content: center; width: 100%; padding: 0.7rem; background: var(--slate); color: white; border: none; border-radius: 50px; font-family: Georgia, serif; font-size: 0.85rem; text-align: center; text-decoration: none; cursor: pointer; min-height: 44px; }
+
+  /* ── LOCKED ── */
+  .lock-wrap { text-align: center; }
+  .lock-icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
+
+  /* ── CODE INPUT ── */
+  .code-input { width: 100%; padding: 0.9rem 1rem; border: 1.5px solid rgba(208,145,147,0.45); border-radius: 50px; font-family: Georgia, serif; font-size: 1.4rem; text-align: center; background: var(--cream); outline: none; letter-spacing: 0.3em; -webkit-appearance: none; appearance: none; }
+  .code-input:focus { border-color: var(--rose); }
+
+  .mt1 { margin-top: 1rem; }
+</style>
+</head>
+<body>
+
+<!-- ══ WELCOME ══ -->
+<div class="screen active" id="screen-welcome">
+  <div style="text-align:center;margin-bottom:1.5rem;">
+    <img src="https://mabeyluis.github.io/boda/images/dog-flowers-burgundy.png" alt="" style="width:110px;height:auto;display:block;margin:0 auto 1rem;" />
+    <h1 class="cupid-title">Cupid</h1>
+    <p class="subtitle">Permite que Mabe juegue a Cupido. Responde algunas preguntas y descubre con quién tienes más en común esta noche.</p>
+  </div>
+  <div class="card">
+    <span class="field-label">Tu nombre</span>
+    <div id="autoComplete_wrapper">
+      <input id="autoComplete" type="search" placeholder="Empieza a escribir..." autocomplete="off" autocorrect="off" spellcheck="false"/>
+      <ul id="autoComplete_list" role="listbox" style="display:none;"></ul>
+    </div>
+    <span class="field-error" id="err-welcome"></span>
+    <button class="btn btn-sage" id="btn-start" onclick="handleStart()" disabled>Continuar</button>
+    <button class="btn btn-slate" id="btn-results" onclick="handleResults()" disabled>Resultados</button>
+  </div>
+</div>
+
+<!-- ══ QUIZ ══ -->
+<div class="screen screen-top" id="screen-quiz">
+  <div style="width:100%;max-width:440px;">
+    <h2 class="cupid-title-sm" style="margin-bottom:1rem;">Cupid</h2>
+    <div class="card">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <p class="q-eyebrow" id="q-num"></p>
+      <p class="q-text" id="q-text"></p>
+      <div class="options" id="q-options"></div>
+      <div class="quiz-nav">
+        <button class="btn-back" id="btn-back" onclick="prevQ()">Atras</button>
+        <button class="btn-next" id="btn-next" onclick="nextQ()" disabled>Siguiente</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LOADING ══ -->
+<div class="screen" id="screen-loading">
+  <div class="loading-wrap">
+    <span class="pulse">&#10084;&#65039;</span>
+    <p style="font-size:1rem;color:var(--burgundy);margin-bottom:0.4rem;">Guardando tus respuestas...</p>
+    <p style="font-size:0.84rem;opacity:0.55;">Esto tarda solo un momento</p>
+  </div>
+</div>
+
+<!-- ══ CONFIRMATION ══ -->
+<div class="screen" id="screen-code">
+  <div class="card" style="text-align:center;">
+    <h2 class="cupid-title-sm" style="margin-bottom:1rem;">Cupid</h2>
+    <h3 style="font-size:1.25rem;font-weight:400;color:var(--burgundy);margin-bottom:0.75rem;">Respuestas guardadas</h3>
+    <p style="font-size:0.88rem;opacity:0.6;line-height:1.7;">Tus respuestas se guardaron. Vuelve a esta página a las 9pm para ver tus resultados. Ingresa de nuevo con tu nombre.</p>
+    <button class="btn btn-primary" style="margin-top:1.5rem;" onclick="goWelcome()">Volver al inicio</button>
+  </div>
+</div>
+
+<!-- ══ LOCKED ══ -->
+<div class="screen" id="screen-locked">
+  <div class="card lock-wrap">
+    <span class="lock-icon">&#128274;</span>
+    <h2 style="font-size:1.15rem;font-weight:400;color:var(--burgundy);margin-bottom:0.75rem;">Todavia no, paciencia</h2>
+    <p style="font-size:0.86rem;opacity:0.6;line-height:1.6;margin-bottom:1.25rem;">Mabe y Luis van a desbloquear los matches en algun momento de la noche. Vuelve a entrar con tu nombre cuando lo anuncien.</p>
+    <button class="btn btn-primary" style="margin-top:0;" onclick="goWelcome()">Volver al inicio</button>
+  </div>
+</div>
+
+<!-- ══ RESULTS ══ -->
+<div class="screen screen-top" id="screen-results">
+  <div class="results-wrap">
+    <img src="https://mabeyluis.github.io/boda/images/dog-flowers-burgundy.png" alt="" style="width:90px;height:auto;display:block;margin:0 auto 0.75rem;" />
+    <h2 class="cupid-title" style="font-size:2rem;margin-bottom:0.25rem;text-align:center;" id="results-greeting"></h2>
+    <p style="font-size:0.82rem;opacity:0.55;text-align:center;margin-bottom:1.25rem;line-height:1.5;">Las personas con las que tienes mas en comun esta noche.</p>
+    <div id="matches-container"></div>
+    <button class="btn-ghost" style="margin-top:0.5rem;" onclick="goWelcome()">Volver al inicio</button>
+  </div>
+</div>
+
+
+<script>
+// ══ CONFIG (UPDATE BEFORE LAUNCH) ══
+const APPS_SCRIPT_URL = 'TU_APPS_SCRIPT_URL_AQUI';
+
+// ══ DATA ══
+const QUESTIONS = [
+  {id:'q1',text:'Si tuvieras que elegir tu peor enemigo, ¿cuál sería?',options:['100 caballos del tamaño de un pato. Los aplasto de uno en uno.','Un pato del tamaño de un caballo. Negocio con él, los patos son listos.','Huyo de ambos sin mirar atrás.','Me rindo antes de empezar.']},
+  {id:'q2',text:'¿Con qué villano de Disney te identificas más?',options:['Úrsula','Scar','Maléfica','Gastón','Hades','Cruella de Vil']},
+  {id:'q3',text:'¿Qué estación del año eres?',options:['Verano. Energía, sol y planes.','Otoño. Café, mantas y planes tranquilos.','Primavera. Siempre de buen humor, nueva etapa.','Invierno. Tranquila/o, selectiva/o y profunda/o.']},
+  {id:'q4',text:'¿Qué animal serías en tu próxima vida?',options:['Delfín','Gato','Perro','Oso','Cuervo','Pulpo']},
+  {id:'q5',text:'¿Cómo reaccionas cuando alguien cancela planes en el último momento?',options:['Alivio total. Era lo que quería pero no me atrevía a decir.','Molestia genuina. Me había preparado para esto.','Ya me lo esperaba, siempre pasa.','Propongo otro plan inmediatamente.']},
+  {id:'q6',text:'Si pudieras tener un superpoder, ¿cuál elegirías?',options:['Teletransportarme. Adiós atascos, adiós madrugadas.','Leer la mente. El caos que causaría.','Detener el tiempo. Dormir sin perderme nada.','Volverme invisible. Solo para situaciones específicas.']},
+  {id:'q7',text:'Si te quedas atrapada/o en un ascensor, ¿qué haces?',options:['Pulso todos los botones por si acaso.','Llamo al número de emergencias inmediatamente.','Me siento en el suelo y espero con calma.','Intento hablar con quien esté dentro para hacer la espera llevadera.']},
+  {id:'q8',text:'¿Qué haces cuando una canción te gusta mucho?',options:['La pongo en repeat hasta que la odio.','La agrego a la playlist y sigo con mi vida.','La busco en todas las plataformas y aprendo la letra en dos días.','La mando a tres personas distintas sin contexto.']},
+  {id:'q9',text:'Si pudieras vivir en cualquier época, ¿cuál elegirías?',options:['Antigua Roma, con todos los dramas incluidos.','Los años 70. Música, libertad y sin redes sociales.','El futuro. Quiero ver cómo termina todo esto.','Aquí me quedo. Las otras épocas eran una pesadilla sanitaria.']},
+  {id:'q10',text:'¿Cuánto tiempo tardas en estar listo/a para salir?',options:['Quince minutos, máximo veinte con ducha incluida.','Una hora. Necesito mi proceso.','Empiezo a arreglarme tres horas antes para no tener prisa.','Depende del plan. Para algo importante me tomo mi tiempo.']},
+  {id:'q11',text:'Si tuvieras que comer lo mismo todos los días para siempre, ¿qué elegirías?',options:['Pizza, sin límites ni remordimientos.','Sushi. Podría vivir así perfectamente.','Pasta en cualquiera de sus formas.','Un desayuno completo. Es la única comida que nunca cansa.','Tacos. Hay infinitas variaciones como para aburrirse.','Arroz con lo que sea. Es el acompañamiento perfecto para todo.']},
+  {id:'q12',text:'¿Qué tipo de viajero/a eres?',options:['Itinerario completo. Reservas hechas y plan hora por hora.','Una idea general del destino y el resto sobre la marcha.','Vuelo barato, mochila y a ver qué pasa.','Prefiero repetir destinos que ya conozco y que sé que me gustan.']},
+];
+
+const HOMBRES = [
+  {name:'Adrian Cazar',slug:'adrian-cazar',instagram:''},
+  {name:'Jose Cazar',slug:'jose-cazar',instagram:''},
+  {name:'Caetano Torres',slug:'caetano-torres',instagram:''},
+  {name:'Pedro Rubio',slug:'pedro-rubio',instagram:''},
+  {name:'Alberto Vidal',slug:'alberto-vidal',instagram:''},
+  {name:'Rodrigo Carrion',slug:'rodrigo-carrion',instagram:''},
+  {name:'Andres Barreto',slug:'andres-barreto',instagram:''},
+  {name:'Daniel Del Pozo',slug:'daniel-del-pozo',instagram:''},
+  {name:'Daniel Rondon',slug:'daniel-rondon',instagram:''},
+  {name:'Santiago Urdaneta',slug:'santiago-urdaneta',instagram:''},
+  {name:'Sergio Abisambra',slug:'sergio-abisambra',instagram:''},
+  {name:'Jesus Rodriguez',slug:'jesus-rodriguez',instagram:''},
+  {name:'Jose Comerma',slug:'jose-comerma',instagram:''},
+  {name:'Saeed Suwaidi',slug:'saeed-suwaidi',instagram:''},
+  {name:'Fernando Carrillo',slug:'fernando-carrillo',instagram:''},
+  {name:'Daniel Figueredo',slug:'daniel-figueredo',instagram:''},
+];
+const MUJERES = [
+  {name:'Micaela Vargas',slug:'micaela-vargas',instagram:''},
+  {name:'Claudia Ycaza',slug:'claudia-ycaza',instagram:''},
+  {name:'Arianna Vargas',slug:'arianna-vargas',instagram:''},
+  {name:'Ilaria Huertas',slug:'ilaria-huertas',instagram:''},
+  {name:'Claudia Voysest',slug:'claudia-voysest',instagram:''},
+  {name:'Mercedes Nuñez',slug:'mercedes-nunez',instagram:''},
+  {name:'Karen Guambo',slug:'karen-guambo',instagram:''},
+  {name:'Mariana Paez',slug:'mariana-paez',instagram:''},
+  {name:'Andrea Isa',slug:'andrea-isa',instagram:''},
+  {name:'Maria Fernanda Bravo',slug:'maria-fernanda-bravo',instagram:''},
+  {name:'Isabella Dalmau',slug:'isabella-dalmau',instagram:''},
+  {name:'Alicia Olivares',slug:'alicia-olivares',instagram:''},
+  {name:'Maria Andreina Touza',slug:'maria-andreina-touza',instagram:''},
+  {name:'Manuela Hernandez',slug:'manuela-hernandez',instagram:''},
+  {name:'Silvana Merida',slug:'silvana-merida',instagram:''},
+  {name:'Paola Marín',slug:'paola-marin',instagram:''},
+];
+const ALL = [...HOMBRES,...MUJERES];
+const BLOCKLIST = [
+  ['Adrian Cazar','Micaela Vargas'],['Adrian Cazar','Claudia Ycaza'],['Adrian Cazar','Arianna Vargas'],
+  ['Jose Cazar','Micaela Vargas'],['Jose Cazar','Claudia Ycaza'],['Jose Cazar','Arianna Vargas'],
+  ['Caetano Torres','Micaela Vargas'],['Caetano Torres','Claudia Ycaza'],['Caetano Torres','Arianna Vargas'],
+  ['Pedro Rubio','Micaela Vargas'],['Pedro Rubio','Claudia Ycaza'],['Pedro Rubio','Arianna Vargas'],
+  ['Jose Comerma','Alicia Olivares'],['Jose Comerma','Manuela Hernandez'],
+];
+
+function isBlocked(a,b){ return BLOCKLIST.some(([x,y])=>(x===a&&y===b)||(x===b&&y===a)); }
+function getGender(name){ return HOMBRES.find(h=>h.name===name)?'H':'M'; }
+function getPerson(name){ return ALL.find(p=>p.name===name); }
+
+// ══ STATE ══
+let selName='', selGender='', curQ=0, answers={}, savedCode='';
+
+// ══ NATIVE AUTOCOMPLETE ══
+function makeAutocomplete(inputId, listId, names, onSelect) {
+  const input = document.getElementById(inputId);
+  const list = document.getElementById(listId);
+
+  function highlight(text, query) {
+    if (!query) return text;
+    const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+    return text.replace(re, '<strong style="color:var(--burgundy);font-weight:bold;">$1</strong>');
+  }
+
+  function showList(q) {
+    if (!q) { list.style.display='none'; return; }
+    const matches = names.filter(n => n.toLowerCase().includes(q.toLowerCase()));
+    if (!matches.length) { list.style.display='none'; return; }
+    list.innerHTML = matches.map(n =>
+      `<li role="option" tabindex="-1" data-val="${n}">${highlight(n, q)}</li>`
+    ).join('');
+    list.style.display = 'block';
+  }
+
+  input.addEventListener('input', () => {
+    showList(input.value.trim());
+    onSelect(null); // reset selection when typing
+  });
+
+  list.addEventListener('mousedown', e => {
+    const li = e.target.closest('li');
+    if (!li) return;
+    e.preventDefault();
+    const val = li.dataset.val;
+    input.value = val;
+    list.style.display = 'none';
+    onSelect(val);
+  });
+
+  // Keyboard navigation
+  input.addEventListener('keydown', e => {
+    const items = list.querySelectorAll('li');
+    const active = list.querySelector('li.ac-active');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const next = active ? active.nextElementSibling : items[0];
+      if (active) active.classList.remove('ac-active');
+      if (next) next.classList.add('ac-active');
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prev = active ? active.previousElementSibling : items[items.length-1];
+      if (active) active.classList.remove('ac-active');
+      if (prev) prev.classList.add('ac-active');
+    } else if (e.key === 'Enter' && active) {
+      e.preventDefault();
+      const val = active.dataset.val;
+      input.value = val;
+      list.style.display = 'none';
+      onSelect(val);
+    } else if (e.key === 'Escape') {
+      list.style.display = 'none';
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${listId}`)) {
+      list.style.display = 'none';
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  makeAutocomplete('autoComplete', 'autoComplete_list', ALL.map(p=>p.name), val => {
+    if (val) {
+      selName = val; selGender = getGender(val);
+      const local = localStorage.getItem('cupido_'+val);
+      document.getElementById('btn-start').textContent = local ? 'Empezar de nuevo' : 'Empezar';
+      document.getElementById('btn-start').disabled = false;
+      document.getElementById('btn-results').disabled = false;
+      document.getElementById('err-welcome').textContent = '';
+    } else {
+      selName = ''; selGender = '';
+      document.getElementById('btn-start').disabled = true;
+      document.getElementById('btn-start').textContent = 'Continuar';
+      document.getElementById('btn-results').disabled = true;
+    }
+  });
+});
+
+// ══ HANDLE START — always goes to quiz ══
+function handleStart() {
+  if (!selName) { document.getElementById('err-welcome').textContent = 'Selecciona tu nombre de la lista'; return; }
+  startQuiz();
+}
+
+// ══ HANDLE RESULTS — goes to results or locked ══
+async function handleResults() {
+  if (!selName) { document.getElementById('err-welcome').textContent = 'Selecciona tu nombre de la lista'; return; }
+  const local = localStorage.getItem('cupido_'+selName);
+  if (local) {
+    const data = JSON.parse(local);
+    await showResults(selName, data.gender, data.answers);
+  } else {
+    document.getElementById('err-welcome').textContent = 'Primero tienes que responder el quiz.';
+  }
+}
+
+// ══ QUIZ ══
+function startQuiz() {
+  curQ = 0; answers = {};
+  goScreen('screen-quiz');
+  renderQ();
+}
+
+const Q_COLORS = ['color-rose','color-slate','color-golden','color-sage'];
+const Q_PROGRESS_COLORS = ['var(--rose)','var(--slate-light)','var(--golden)','var(--sage)'];
+
+function renderQ() {
+  const q = QUESTIONS[curQ];
+  const total = QUESTIONS.length;
+  const colorClass = Q_COLORS[curQ % 4];
+  const progressColor = Q_PROGRESS_COLORS[curQ % 4];
+  document.getElementById('progress-fill').style.width = `${(curQ/total)*100}%`;
+  document.getElementById('progress-fill').style.background = progressColor;
+  document.getElementById('q-num').textContent = `Pregunta ${curQ+1} de ${total}`;
+  document.getElementById('q-num').style.color = progressColor;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('q-options').innerHTML = q.options.map((opt,i) =>
+    `<button class="option ${colorClass}${answers[q.id]===i?' selected':''}" onclick="selectOpt(${i})">${opt}</button>`
+  ).join('');
+  const isLast = curQ === total-1;
+  document.getElementById('btn-next').textContent = isLast ? 'Terminar' : 'Siguiente';
+  document.getElementById('btn-next').disabled = answers[q.id] === undefined;
+  document.getElementById('btn-back').style.visibility = curQ===0 ? 'hidden' : 'visible';
+}
+
+function selectOpt(i) {
+  answers[QUESTIONS[curQ].id] = i;
+  document.querySelectorAll('.option').forEach((el,idx)=>el.classList.toggle('selected',idx===i));
+  document.getElementById('btn-next').disabled = false;
+}
+
+function nextQ() {
+  if (answers[QUESTIONS[curQ].id] === undefined) return;
+  if (curQ < QUESTIONS.length-1) { curQ++; renderQ(); }
+  else submitAnswers();
+}
+
+function prevQ() { if (curQ>0){ curQ--; renderQ(); } }
+
+// ══ SUBMIT ══
+async function submitAnswers() {
+  goScreen('screen-loading');
+  const payload = { action:'saveAnswers', name:selName, gender:selGender, answers };
+  localStorage.setItem('cupido_'+selName, JSON.stringify({answers, gender:selGender}));
+  try {
+    await fetch(APPS_SCRIPT_URL, { method:'POST', body:JSON.stringify(payload) });
+  } catch(e) {}
+  setTimeout(()=>goScreen('screen-code'), 1500);
+}
+
+// ══ RESULTS ══
+async function showResults(name, gender, myAnswers) {
+  let unlocked = localStorage.getItem('cupido_unlocked') === 'true';
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=getStatus`);
+    const data = await res.json();
+    unlocked = data.unlocked === true;
+    if (unlocked) localStorage.setItem('cupido_unlocked','true');
+  } catch(e) {}
+
+  if (!unlocked) { goScreen('screen-locked'); return; }
+
+  let allAnswers = [];
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=getAllAnswers`);
+    allAnswers = await res.json();
+  } catch(e) {}
+
+  const pool = gender==='H' ? MUJERES : HOMBRES;
+  const scores = [];
+  for (const person of pool) {
+    if (isBlocked(name, person.name)) continue;
+    const their = allAnswers.find(a=>a.name===person.name);
+    if (!their) continue;
+    let hits = 0;
+    for (const qid of Object.keys(myAnswers)) {
+      if (myAnswers[qid] === their.answers[qid]) hits++;
+    }
+    const pct = Math.round((hits/QUESTIONS.length)*100);
+    scores.push({person, pct, theirAnswers:their.answers});
+  }
+  scores.sort((a,b)=>b.pct-a.pct);
+  const top3 = scores.slice(0,3);
+
+  function icebreaker(myA, theirA, isMale) {
+    for (const q of QUESTIONS) {
+      if (myA[q.id]!==undefined && theirA[q.id]!==undefined && myA[q.id]!==theirA[q.id]) {
+        const myOpt = q.options[myA[q.id]].split('.')[0];
+        const theirOpt = q.options[theirA[q.id]].split('.')[0];
+        const pro = isMale ? 'El respondio' : 'Ella respondio';
+        return `Tu respuesta fue "${myOpt}". ${pro} "${theirOpt}". Alguien tiene que dar el primer paso para resolver este debate.`;
+      }
+    }
+    return 'Respondieron practicamente igual en todo. La unica forma de confirmarlo es hablarse.';
+  }
+
+  const ranks = ['Primer match','Segundo match','Tercer match'];
+  const matchesMale = gender==='H';
+  const baseUrl = 'https://mabeyluis.github.io/boda/images/cupido/';
+
+  document.getElementById('results-greeting').textContent = `Tus matches, ${name.split(' ')[0]}`;
+  const container = document.getElementById('matches-container');
+
+  if (top3.length===0) {
+    container.innerHTML = '<div class="card" style="text-align:center;padding:2rem;"><p style="opacity:0.55;font-size:0.9rem;line-height:1.6;">Aun no hay suficientes respuestas para calcular tus matches. Vuelve mas tarde.</p></div>';
+  } else {
+    container.innerHTML = top3.map((m,i) => {
+      const img = `${baseUrl}${m.person.slug}-main.jpg`;
+      const ice = icebreaker(myAnswers, m.theirAnswers, !matchesMale);
+      const ig = m.person.instagram;
+      return `<div class="match-card">
+        <div class="match-header">
+          <img class="match-photo" src="${img}" alt="${m.person.name}" onerror="this.style.background='rgba(208,145,147,0.15)'"/>
+          <div class="match-info">
+            <p class="match-rank">${ranks[i]}</p>
+            <p class="match-name">${m.person.name}</p>
+            <p class="match-pct">${m.pct}% compatibles</p>
+          </div>
+        </div>
+        <div class="match-body">
+          <p class="ice-label">Para romper el hielo</p>
+          <p class="ice-text">${ice}</p>
+          ${ig ? `<a class="ig-btn" href="https://instagram.com/${ig.replace('@','')}" target="_blank">Ver en Instagram</a>` : `<p style="font-size:0.76rem;text-align:center;opacity:0.35;">Instagram no disponible</p>`}
+        </div>
+      </div>`;
+    }).join('');
+  }
+  goScreen('screen-results');
+}
+
+// ══ NAVIGATION ══
+function goScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goWelcome() {
+  selName=''; selGender=''; curQ=0; answers={};
+  document.getElementById('autoComplete').value='';
+  document.getElementById('btn-start').disabled=true;
+  document.getElementById('btn-start').textContent='Empezar';
+  document.getElementById('btn-results').disabled=true;
+  document.getElementById('err-welcome').textContent='';
+  goScreen('screen-welcome');
+}
+</script>
+</body>
+</html>
