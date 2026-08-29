@@ -40,13 +40,13 @@
   .divider { width: 40px; height: 1px; background: var(--rose); margin: 1.25rem auto; }
 
   /* ── CARD ── */
-  .card { background: white; border: 1px solid rgba(208,145,147,0.2); border-radius: 20px; padding: 1.75rem 1.5rem; width: 100%; max-width: 440px; }
+  .card { background: white; border: 1.5px solid var(--burgundy); border-radius: 20px; padding: 1.75rem 1.5rem; width: 100%; max-width: 440px; }
 
   /* ── AUTOCOMPLETE ── */
   #autoComplete_wrapper { position: relative; width: 100%; }
   #autoComplete {
     width: 100%; padding: 0.9rem 1.1rem;
-    border: 1.5px solid rgba(208,145,147,0.45);
+    border: 1.5px solid var(--rose);
     border-radius: 50px; font-family: Georgia, serif;
     font-size: 1rem; background: var(--cream); outline: none;
     color: var(--charcoal); transition: border-color 0.2s;
@@ -226,8 +226,7 @@
 <div class="screen screen-top" id="screen-quiz">
   <div style="width:100%;max-width:440px;">
     <h2 class="cupid-title-sm" style="margin-bottom:1rem;">Cupid</h2>
-    <div class="card">
-      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="card" id="quiz-card">
       <p class="q-eyebrow" id="q-num"></p>
       <p class="q-text" id="q-text"></p>
       <div class="options" id="q-options"></div>
@@ -466,16 +465,20 @@ function startQuiz() {
 
 const Q_COLORS = ['color-rose','color-slate','color-golden','color-sage'];
 const Q_PROGRESS_COLORS = ['var(--rose)','var(--slate-light)','var(--golden)','var(--sage)'];
+const Q_BORDER_COLORS = ['var(--rose)','var(--slate-light)','var(--golden)','var(--sage)'];
 
 function renderQ() {
   const q = QUESTIONS[curQ];
   const total = QUESTIONS.length;
   const colorClass = Q_COLORS[curQ % 4];
   const progressColor = Q_PROGRESS_COLORS[curQ % 4];
+  const borderColor = Q_BORDER_COLORS[curQ % 4];
   document.getElementById('progress-fill').style.width = `${(curQ/total)*100}%`;
   document.getElementById('progress-fill').style.background = progressColor;
   document.getElementById('q-num').textContent = `Pregunta ${curQ+1} de ${total}`;
   document.getElementById('q-num').style.color = progressColor;
+  // Update quiz card border color
+  document.getElementById('quiz-card').style.borderColor = borderColor;
   document.getElementById('q-text').textContent = q.text;
   document.getElementById('q-options').innerHTML = q.options.map((opt,i) =>
     `<button class="option ${colorClass}${answers[q.id]===i?' selected':''}" onclick="selectOpt(${i})">${opt}</button>`
