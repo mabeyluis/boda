@@ -254,7 +254,7 @@
     <img src="https://mabeyluis.github.io/boda/images/cupido/angel-1.png" alt="" style="width:340px;height:auto;display:block;margin:0 auto -2rem;" />
     <h2 class="cupid-title-sm" style="margin-bottom:1rem;">Cupid</h2>
     <h3 style="font-size:1.25rem;font-weight:400;color:var(--burgundy);margin-bottom:0.75rem;">Respuestas guardadas</h3>
-    <p style="font-size:0.88rem;opacity:0.6;line-height:1.7;">Tus respuestas se guardaron. Vuelve a esta página a las 9pm para ver tus resultados. Ingresa de nuevo con tu nombre.</p>
+    <p style="font-size:0.88rem;opacity:0.6;line-height:1.7;" id="confirm-msg">Tus respuestas se guardaron. Vuelve a esta página a las 9pm para ver tus resultados. Ingresa de nuevo con tu nombre.</p>
     <button class="btn btn-primary" style="margin-top:1.5rem;" onclick="goWelcome()">Volver al inicio</button>
   </div>
 </div>
@@ -422,36 +422,54 @@ function makeAutocomplete(inputId, listId, names, onSelect) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  makeAutocomplete('autoComplete', 'autoComplete_list', ALL.map(p=>p.name), val => {
+  makeAutocomplete('autoComplete', 'autoComplete_list', [...ALL.map(p=>p.name), 'TEST'], val => {
     if (val) {
       selName = val; selGender = getGender(val);
-      const local = localStorage.getItem('cupido_'+val);
-      document.getElementById('btn-start').textContent = local ? 'Empezar de nuevo' : 'Empezar';
-      document.getElementById('btn-start').disabled = false;
+      const isTest = val === 'TEST';
+      const local = isTest ? null : localStorage.getItem('cupido_'+val);
+      const alreadyDone = !!local;
+
+      document.getElementById('btn-start').disabled = alreadyDone;
+      document.getElementById('btn-start').textContent = 'Empezar';
       document.getElementById('btn-results').disabled = false;
-      document.getElementById('err-welcome').textContent = '';
+
+      if (alreadyDone) {
+        document.getElementById('err-welcome').textContent = 'Ya completaste el quiz. Usa "Resultados" para ver tus matches.';
+      } else {
+        document.getElementById('err-welcome').textContent = '';
+      }
     } else {
       selName = ''; selGender = '';
       document.getElementById('btn-start').disabled = true;
-      document.getElementById('btn-start').textContent = 'Continuar';
+      document.getElementById('btn-start').textContent = 'Empezar';
       document.getElementById('btn-results').disabled = true;
+      document.getElementById('err-welcome').textContent = '';
     }
   });
 });
 
-// ══ HANDLE START — always goes to quiz ══
+// ══ HANDLE START ══
 function handleStart() {
   if (!selName) { document.getElementById('err-welcome').textContent = 'Selecciona tu nombre de la lista'; return; }
+  // TEST mode — always allowed, clears after
+  if (selName === 'TEST') { startQuiz(); return; }
+  // Block if already answered
+  const local = localStorage.getItem('cupido_'+selName);
+  if (local) { document.getElementById('err-welcome').textContent = 'Ya completaste el quiz. Usa "Resultados" para ver tus matches.'; return; }
   startQuiz();
 }
 
 // ══ HANDLE RESULTS — goes to results or locked ══
 async function handleResults() {
   if (!selName) { document.getElementById('err-welcome').textContent = 'Selecciona tu nombre de la lista'; return; }
-  const local = localStorage.getItem('cupido_'+selName);
+  const isTest = selName === 'TEST';
+  const local = isTest ? null : localStorage.getItem('cupido_'+selName);
   if (local) {
     const data = JSON.parse(local);
     await showResults(selName, data.gender, data.answers);
+  } else if (isTest) {
+    // TEST: use dummy answers to preview results screen
+    await showResults('TEST', 'H', {q1:0,q2:0,q3:0,q4:0,q5:0,q6:0,q7:0,q8:0,q9:0,q10:0,q11:0,q12:0});
   } else {
     document.getElementById('err-welcome').textContent = 'Primero tienes que responder el quiz.';
   }
@@ -507,11 +525,16 @@ function prevQ() { if (curQ>0){ curQ--; renderQ(); } }
 // ══ SUBMIT ══
 async function submitAnswers() {
   goScreen('screen-loading');
+  const isTest = selName === 'TEST';
   const payload = { action:'saveAnswers', name:selName, gender:selGender, answers };
-  localStorage.setItem('cupido_'+selName, JSON.stringify({answers, gender:selGender}));
-  try {
-    await fetch(APPS_SCRIPT_URL, { method:'POST', body:JSON.stringify(payload) });
-  } catch(e) {}
+
+  if (!isTest) {
+    localStorage.setItem('cupido_'+selName, JSON.stringify({answers, gender:selGender}));
+    try { await fetch(APPS_SCRIPT_URL, { method:'POST', body:JSON.stringify(payload) }); } catch(e) {}
+    document.getElementById('confirm-msg').textContent = 'Tus respuestas se guardaron. Vuelve a esta página a las 9pm para ver tus resultados. Ingresa de nuevo con tu nombre.';
+  } else {
+    document.getElementById('confirm-msg').textContent = 'Modo test — las respuestas no se guardaron. Puedes volver a empezar cuando quieras.';
+  }
   setTimeout(()=>goScreen('screen-code'), 1500);
 }
 
