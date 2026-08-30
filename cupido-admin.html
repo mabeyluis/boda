@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>Cupido Admin — Mabe & Luis</title>
+<link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream:#FCFBF6; --burgundy:#9F3544; --rose:#D09193;
+    --sage:#A6B072; --charcoal:#1F1D1D; --golden:#CF933B;
+    --slate:#92A6BE; --safe-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html{height:100%;}
+  body{background:var(--cream);font-family:Georgia,serif;color:var(--charcoal);min-height:100vh;min-height:-webkit-fill-available;padding:1.5rem 1.25rem calc(1.5rem + var(--safe-bottom));}
+
+  /* ── SCREENS ── */
+  .screen{display:none;min-height:100svh;flex-direction:column;align-items:center;justify-content:center;}
+  .screen.active{display:flex;}
+  .screen-top{justify-content:flex-start;padding-top:2rem;}
+
+  /* ── CARD ── */
+  .card{background:white;border:1.5px solid var(--burgundy);border-radius:20px;padding:1.75rem 1.5rem;width:100%;max-width:440px;}
+
+  /* ── TYPE ── */
+  .cupid-title{font-family:'Beth Ellen',Georgia,serif;font-size:2rem;font-weight:400;color:var(--burgundy);text-align:center;}
+  .eyebrow{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);text-align:center;margin-bottom:0.4rem;}
+  .section-label{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--rose);margin-bottom:0.6rem;display:block;}
+
+  /* ── INPUTS ── */
+  input[type=password]{width:100%;padding:0.9rem 1rem;border:1.5px solid var(--rose);border-radius:50px;font-family:Georgia,serif;font-size:1rem;background:var(--cream);outline:none;text-align:center;letter-spacing:0.1em;-webkit-appearance:none;appearance:none;margin-bottom:0.5rem;}
+  input[type=password]:focus{border-color:var(--burgundy);}
+  input[type=text]{width:100%;padding:0.7rem 1rem;border:1.5px solid rgba(208,145,147,0.4);border-radius:50px;font-family:Georgia,serif;font-size:0.9rem;background:var(--cream);outline:none;-webkit-appearance:none;appearance:none;}
+  input[type=text]:focus{border-color:var(--rose);}
+  select{width:100%;padding:0.7rem 1rem;border:1.5px solid rgba(208,145,147,0.4);border-radius:50px;font-family:Georgia,serif;font-size:0.9rem;background:var(--cream);outline:none;-webkit-appearance:none;appearance:none;cursor:pointer;}
+
+  /* ── BUTTONS ── */
+  .btn{width:100%;padding:0.9rem;border-radius:50px;font-family:Georgia,serif;font-size:0.95rem;cursor:pointer;transition:all 0.2s;border:none;margin-top:0.65rem;min-height:52px;letter-spacing:0.02em;}
+  .btn-login{background:var(--burgundy);color:var(--cream);}
+  .btn-unlock{background:var(--sage);color:white;font-size:1rem;}
+  .btn-lock{background:var(--burgundy);color:var(--cream);}
+  .btn-add{background:var(--slate);color:white;}
+  .btn-save{background:var(--burgundy);color:var(--cream);}
+  .btn:active{opacity:0.82;}
+  .btn-tab{flex:1;padding:0.6rem;font-family:Georgia,serif;font-size:0.8rem;background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;color:var(--charcoal);opacity:0.5;transition:all 0.2s;}
+  .btn-tab.active{opacity:1;color:var(--burgundy);border-bottom-color:var(--burgundy);}
+  .btn-ghost{background:none;border:none;color:var(--rose);font-family:Georgia,serif;font-size:0.8rem;cursor:pointer;text-decoration:underline;margin-top:0.75rem;display:block;width:100%;text-align:center;padding:0.35rem;}
+
+  /* ── STATUS ── */
+  .status-box{border-radius:14px;padding:1.1rem 1rem;margin:1rem 0;font-size:0.9rem;line-height:1.5;text-align:center;}
+  .status-locked{background:rgba(159,53,68,0.07);border:1.5px solid rgba(159,53,68,0.25);color:var(--burgundy);}
+  .status-unlocked{background:rgba(166,176,114,0.1);border:1.5px solid rgba(166,176,114,0.35);color:#6b7a3a;}
+  .status-text{font-size:1rem;font-weight:bold;margin-bottom:0.2rem;}
+  .status-sub{font-size:0.8rem;opacity:0.75;}
+
+  /* ── COUNT ── */
+  .count-box{margin-top:1rem;padding:0.75rem 1rem;background:rgba(208,145,147,0.07);border-radius:10px;font-size:0.82rem;color:var(--charcoal);opacity:0.7;text-align:center;}
+  .count-num{font-size:1.6rem;color:var(--burgundy);display:block;}
+
+  /* ── TABS ── */
+  .tabs{display:flex;border-bottom:1px solid rgba(208,145,147,0.2);margin:1.25rem 0 1rem;}
+
+  /* ── SOLTERO LIST ── */
+  .soltero-item{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid rgba(208,145,147,0.1);}
+  .soltero-item:last-child{border-bottom:none;}
+  .soltero-name{flex:1;font-size:0.88rem;}
+  .soltero-badge{font-size:0.65rem;padding:0.15rem 0.4rem;border-radius:4px;font-family:monospace;flex-shrink:0;}
+  .badge-h{background:rgba(146,166,190,0.2);color:#384B70;}
+  .badge-m{background:rgba(208,145,147,0.15);color:var(--burgundy);}
+  .btn-remove{background:none;border:none;color:rgba(159,53,68,0.4);font-size:1.1rem;cursor:pointer;padding:0.2rem 0.4rem;flex-shrink:0;min-height:36px;min-width:36px;}
+  .btn-remove:active{color:var(--burgundy);}
+
+  /* ── ADD FORM ── */
+  .add-form{background:rgba(208,145,147,0.05);border:1px solid rgba(208,145,147,0.2);border-radius:12px;padding:1rem;margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;}
+
+  /* ── SAVE BAR ── */
+  .save-bar{position:sticky;bottom:0;background:var(--cream);padding:0.75rem 0 0;margin-top:1rem;}
+
+  .error{color:var(--burgundy);font-size:0.8rem;margin-top:0.4rem;min-height:1.1rem;display:block;text-align:center;}
+  .msg-ok{color:#4a6a2a;font-size:0.8rem;margin-top:0.4rem;text-align:center;}
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div class="screen active" id="screen-login" style="align-items:center;justify-content:center;">
+  <div class="card" style="text-align:center;">
+    <p class="eyebrow">Solo para Mabe y Luis</p>
+    <h1 class="cupid-title">Cupid</h1>
+    <div style="margin-top:1.25rem;">
+      <input type="password" id="pwd" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()" autocomplete="current-password"/>
+      <button class="btn btn-login" onclick="login()">Entrar</button>
+      <span class="error" id="login-error"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══ -->
+<div class="screen screen-top" id="screen-admin">
+  <div style="width:100%;max-width:440px;">
+
+    <!-- Header -->
+    <p class="eyebrow" style="margin-bottom:0.3rem;">Panel de control</p>
+    <h1 class="cupid-title" style="margin-bottom:1.25rem;">Cupid</h1>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="btn-tab active" id="tab-matches" onclick="switchTab('matches')">Matches</button>
+      <button class="btn-tab" id="tab-hombres" onclick="switchTab('hombres')">Hombres</button>
+      <button class="btn-tab" id="tab-mujeres" onclick="switchTab('mujeres')">Mujeres</button>
+    </div>
+
+    <!-- ── MATCHES PANEL ── -->
+    <div id="panel-matches">
+      <div id="status-box" class="status-box status-locked">
+        <p class="status-text" id="status-text">Cargando...</p>
+        <p class="status-sub" id="status-stat"></p>
+      </div>
+      <button class="btn btn-unlock" id="btn-unlock" onclick="setUnlocked(true)">Desbloquear matches</button>
+      <button class="btn btn-lock" id="btn-lock" onclick="setUnlocked(false)" style="display:none;">Volver a bloquear</button>
+      <div class="count-box">
+        <span class="count-num" id="count-num">—</span>
+        personas han respondido el quiz
+      </div>
+    </div>
+
+    <!-- ── HOMBRES PANEL ── -->
+    <div id="panel-hombres" style="display:none;">
+      <div id="list-hombres"></div>
+      <div class="add-form">
+        <span class="section-label" style="margin-bottom:0;">Añadir hombre</span>
+        <input type="text" id="add-h-name" placeholder="Nombre completo"/>
+        <input type="text" id="add-h-ig" placeholder="Instagram (opcional)"/>
+        <button class="btn btn-add" onclick="addSoltero('H')">Añadir</button>
+      </div>
+      <div class="save-bar">
+        <button class="btn btn-save" onclick="saveSolteros()">Guardar cambios</button>
+        <span class="msg-ok" id="save-ok-h"></span>
+      </div>
+    </div>
+
+    <!-- ── MUJERES PANEL ── -->
+    <div id="panel-mujeres" style="display:none;">
+      <div id="list-mujeres"></div>
+      <div class="add-form">
+        <span class="section-label" style="margin-bottom:0;">Añadir mujer</span>
+        <input type="text" id="add-m-name" placeholder="Nombre completo"/>
+        <input type="text" id="add-m-ig" placeholder="Instagram (opcional)"/>
+        <button class="btn btn-add" onclick="addSoltero('M')">Añadir</button>
+      </div>
+      <div class="save-bar">
+        <button class="btn btn-save" onclick="saveSolteros()">Guardar cambios</button>
+        <span class="msg-ok" id="save-ok-m"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVawvfx3UZ8zIOaN2Y7n-YwmsBcGYey9J-Ui3bKLBnWRvUYWTVV0gnk8QiJqh2ioHLLQ/exec';
+const PASSWORD = '2026';
+
+// Default list — used to seed Sheets if empty
+const DEFAULT_HOMBRES = [
+  {name:'Adrian Cazar',gender:'H',instagram:''},
+  {name:'Jose Cazar',gender:'H',instagram:''},
+  {name:'Caetano Torres',gender:'H',instagram:''},
+  {name:'Pedro Rubio',gender:'H',instagram:''},
+  {name:'Alberto Vidal',gender:'H',instagram:''},
+  {name:'Rodrigo Carrion',gender:'H',instagram:''},
+  {name:'Andres Barreto',gender:'H',instagram:''},
+  {name:'Daniel Del Pozo',gender:'H',instagram:''},
+  {name:'Daniel Rondon',gender:'H',instagram:''},
+  {name:'Santiago Urdaneta',gender:'H',instagram:''},
+  {name:'Sergio Abisambra',gender:'H',instagram:''},
+  {name:'Jesus Rodriguez',gender:'H',instagram:''},
+  {name:'Jose Comerma',gender:'H',instagram:''},
+  {name:'Saeed Suwaidi',gender:'H',instagram:''},
+  {name:'Fernando Carrillo',gender:'H',instagram:''},
+  {name:'Daniel Figueredo',gender:'H',instagram:''},
+];
+const DEFAULT_MUJERES = [
+  {name:'Micaela Vargas',gender:'M',instagram:''},
+  {name:'Claudia Ycaza',gender:'M',instagram:''},
+  {name:'Arianna Vargas',gender:'M',instagram:''},
+  {name:'Ilaria Huertas',gender:'M',instagram:''},
+  {name:'Claudia Voysest',gender:'M',instagram:''},
+  {name:'Mercedes Nuñez',gender:'M',instagram:''},
+  {name:'Karen Guambo',gender:'M',instagram:''},
+  {name:'Mariana Paez',gender:'M',instagram:''},
+  {name:'Andrea Isa',gender:'M',instagram:''},
+  {name:'Maria Fernanda Bravo',gender:'M',instagram:''},
+  {name:'Isabella Dalmau',gender:'M',instagram:''},
+  {name:'Alicia Olivares',gender:'M',instagram:''},
+  {name:'Maria Andreina Touza',gender:'M',instagram:''},
+  {name:'Manuela Hernandez',gender:'M',instagram:''},
+  {name:'Silvana Merida',gender:'M',instagram:''},
+  {name:'Paola Marín',gender:'M',instagram:''},
+];
+
+let solteros = []; // full list loaded from Sheets
+
+// ── LOGIN ──
+function login() {
+  if (document.getElementById('pwd').value === PASSWORD) {
+    document.getElementById('screen-login').classList.remove('active');
+    document.getElementById('screen-admin').classList.add('active');
+    loadAll();
+  } else {
+    document.getElementById('login-error').textContent = 'Contraseña incorrecta';
+  }
+}
+
+// ── LOAD ──
+async function loadAll() {
+  loadStatus();
+  loadSolteros();
+}
+
+async function loadStatus() {
+  try {
+    const [statusRes, answersRes] = await Promise.all([
+      fetch(`${APPS_SCRIPT_URL}?action=getStatus`),
+      fetch(`${APPS_SCRIPT_URL}?action=getAllAnswers`)
+    ]);
+    const status = await statusRes.json();
+    const answers = await answersRes.json();
+    updateStatusUI(status.unlocked, Array.isArray(answers) ? answers.length : 0);
+  } catch(e) {
+    updateStatusUI(false, '?');
+  }
+}
+
+async function loadSolteros() {
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=getSolteros`);
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      solteros = data;
+    } else {
+      // Seed with defaults
+      solteros = [...DEFAULT_HOMBRES, ...DEFAULT_MUJERES];
+      await saveSolterosData();
+    }
+  } catch(e) {
+    solteros = [...DEFAULT_HOMBRES, ...DEFAULT_MUJERES];
+  }
+  renderLists();
+}
+
+// ── RENDER LISTS ──
+function renderLists() {
+  renderList('H', 'list-hombres');
+  renderList('M', 'list-mujeres');
+}
+
+function renderList(gender, containerId) {
+  const list = solteros.filter(s => s.gender === gender);
+  const el = document.getElementById(containerId);
+  if (list.length === 0) {
+    el.innerHTML = '<p style="font-size:0.82rem;opacity:0.45;text-align:center;padding:1rem 0;">No hay personas en esta lista</p>';
+    return;
+  }
+  el.innerHTML = list.map((s, i) => {
+    const globalIdx = solteros.indexOf(s);
+    return `<div class="soltero-item">
+      <span class="soltero-badge ${gender==='H'?'badge-h':'badge-m'}">${gender}</span>
+      <span class="soltero-name">${s.name}${s.instagram ? ` <span style="font-size:0.75rem;opacity:0.5;">@${s.instagram.replace('@','')}</span>` : ''}</span>
+      <button class="btn-remove" onclick="removeSoltero(${globalIdx})" title="Quitar">✕</button>
+    </div>`;
+  }).join('');
+}
+
+// ── ADD / REMOVE ──
+function addSoltero(gender) {
+  const nameId = gender === 'H' ? 'add-h-name' : 'add-m-name';
+  const igId   = gender === 'H' ? 'add-h-ig'   : 'add-m-ig';
+  const name   = document.getElementById(nameId).value.trim();
+  const ig     = document.getElementById(igId).value.trim().replace('@','');
+  if (!name) return;
+  solteros.push({ name, gender, instagram: ig });
+  document.getElementById(nameId).value = '';
+  document.getElementById(igId).value = '';
+  renderLists();
+}
+
+function removeSoltero(idx) {
+  solteros.splice(idx, 1);
+  renderLists();
+}
+
+// ── SAVE ──
+async function saveSolteros() {
+  await saveSolterosData();
+  document.getElementById('save-ok-h').textContent = '✓ Guardado';
+  document.getElementById('save-ok-m').textContent = '✓ Guardado';
+  setTimeout(() => {
+    document.getElementById('save-ok-h').textContent = '';
+    document.getElementById('save-ok-m').textContent = '';
+  }, 2500);
+}
+
+async function saveSolterosData() {
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'setSolteros', solteros }),
+    });
+  } catch(e) {}
+}
+
+// ── MATCHES ──
+function updateStatusUI(unlocked, count) {
+  const box = document.getElementById('status-box');
+  document.getElementById('status-text').textContent = unlocked ? 'Matches ACTIVOS' : 'Matches bloqueados';
+  document.getElementById('status-stat').textContent = unlocked ? 'Los invitados ya pueden ver sus matches' : 'Los invitados aun no pueden ver sus matches';
+  box.className = 'status-box ' + (unlocked ? 'status-unlocked' : 'status-locked');
+  document.getElementById('btn-unlock').style.display = unlocked ? 'none' : 'block';
+  document.getElementById('btn-lock').style.display = unlocked ? 'block' : 'none';
+  document.getElementById('count-num').textContent = count;
+}
+
+async function setUnlocked(val) {
+  localStorage.setItem('cupido_unlocked', val ? 'true' : 'false');
+  try {
+    await fetch(APPS_SCRIPT_URL, { method:'POST', body:JSON.stringify({ action:'setStatus', unlocked:val }) });
+  } catch(e) {}
+  updateStatusUI(val, document.getElementById('count-num').textContent);
+}
+
+// ── TABS ──
+function switchTab(tab) {
+  ['matches','hombres','mujeres'].forEach(t => {
+    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+    document.getElementById('panel-'+t).style.display = t===tab ? 'block' : 'none';
+  });
+}
+</script>
+</body>
+</html>
