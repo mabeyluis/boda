@@ -6,24 +6,18 @@
 <title>Solteras — Mabe & Luis</title>
 <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --cream:#FCFBF6;--dusty-rose:#D09193;--burgundy:#9F3544;
-    --sage:#A6B072;--charcoal:#1F1D1D;
-  }
+  :root{--cream:#FCFBF6;--dusty-rose:#D09193;--burgundy:#9F3544;--charcoal:#1F1D1D;}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--cream);font-family:Georgia,serif;color:var(--charcoal);min-height:100vh;display:flex;flex-direction:column;}
   .page-header{text-align:center;padding:2.5rem 1.5rem 1.25rem;border-bottom:1px solid rgba(208,145,147,0.2);position:sticky;top:0;background:var(--cream);z-index:10;}
   .page-title{font-family:'Beth Ellen',Georgia,serif;font-size:2.2rem;font-weight:400;color:var(--burgundy);margin-bottom:0.3rem;}
   .page-subtitle{font-size:0.82rem;color:var(--charcoal);opacity:0.55;font-style:italic;}
   .count-badge{display:inline-block;background:rgba(208,145,147,0.12);border:1px solid rgba(208,145,147,0.3);border-radius:50px;padding:0.2rem 0.75rem;font-size:0.75rem;color:var(--dusty-rose);margin-top:0.5rem;letter-spacing:0.05em;}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;padding:1.5rem;max-width:1000px;margin:0 auto;flex:1;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;padding:1.5rem;max-width:1000px;margin:0 auto;flex:1;}
   .person-card{background:white;border:1px solid rgba(208,145,147,0.2);border-radius:16px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;color:inherit;display:block;}
   .person-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(159,53,68,0.1);border-color:rgba(208,145,147,0.5);}
-  .photo-strip{display:flex;gap:3px;height:220px;background:rgba(208,145,147,0.08);}
-  .photo-main{width:66%;height:100%;object-fit:cover;flex-shrink:0;}
-  .photo-thumbs{display:flex;flex-direction:column;gap:3px;flex:1;}
-  .photo-thumb{width:100%;height:50%;object-fit:cover;}
-  .photo{background:rgba(208,145,147,0.1);}
+  .photo-wrap{width:100%;aspect-ratio:1/1;overflow:hidden;background:rgba(208,145,147,0.1);}
+  .photo{width:100%;height:100%;object-fit:cover;display:block;}
   .person-info{padding:0.9rem 1.25rem;display:flex;align-items:center;justify-content:space-between;}
   .person-name{font-size:0.95rem;font-weight:400;color:var(--charcoal);}
   .ig-handle{font-size:0.75rem;color:var(--dusty-rose);opacity:0.8;}
@@ -43,12 +37,8 @@
 <div class="grid">
 
     <a href="https://instagram.com/aliolisc" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/alicia-olivares-1.jpg" alt="Alicia Olivares" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/alicia-olivares-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/alicia-olivares-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/alicia-olivares-1.jpg" alt="Alicia Olivares" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Alicia Olivares</span>
@@ -56,12 +46,8 @@
       </div>
     </a>
     <a href="https://instagram.com/andreaisalopez" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/andrea-isa-1.jpg" alt="Andrea Isa" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/andrea-isa-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/andrea-isa-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/andrea-isa-1.jpg" alt="Andrea Isa" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Andrea Isa</span>
@@ -69,12 +55,8 @@
       </div>
     </a>
     <a href="https://instagram.com/ariannafvm" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/arianna-vargas-1.jpg" alt="Arianna Vargas" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/arianna-vargas-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/arianna-vargas-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/arianna-vargas-1.jpg" alt="Arianna Vargas" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Arianna Vargas</span>
@@ -82,12 +64,8 @@
       </div>
     </a>
     <a href="https://instagram.com/claudia.voy" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/claudia-voysest-1.jpg" alt="Claudia Voysest" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/claudia-voysest-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/claudia-voysest-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/claudia-voysest-1.jpg" alt="Claudia Voysest" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Claudia Voysest</span>
@@ -95,12 +73,8 @@
       </div>
     </a>
     <a href="https://instagram.com/clauycaza" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/claudia-ycaza-1.jpg" alt="Claudia Ycaza" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/claudia-ycaza-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/claudia-ycaza-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/claudia-ycaza-1.jpg" alt="Claudia Ycaza" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Claudia Ycaza</span>
@@ -108,12 +82,8 @@
       </div>
     </a>
     <a href="https://instagram.com/ila.hs" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/ilaria-huertas-1.jpg" alt="Ilaria Huertas" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/ilaria-huertas-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/ilaria-huertas-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/ilaria-huertas-1.jpg" alt="Ilaria Huertas" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Ilaria Huertas</span>
@@ -121,12 +91,8 @@
       </div>
     </a>
     <a href="https://instagram.com/isa_dalmau" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/isabella-dalmau-1.jpg" alt="Isabella Dalmau" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/isabella-dalmau-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/isabella-dalmau-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/isabella-dalmau-1.jpg" alt="Isabella Dalmau" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Isabella Dalmau</span>
@@ -134,12 +100,8 @@
       </div>
     </a>
     <a href="https://instagram.com/karenguambo" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/karen-guambo-1.jpg" alt="Karen Guambo" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/karen-guambo-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/karen-guambo-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/karen-guambo-1.jpg" alt="Karen Guambo" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Karen Guambo</span>
@@ -147,12 +109,8 @@
       </div>
     </a>
     <a href="https://instagram.com/manuhernandez97" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/manuela-hernandez-1.jpg" alt="Manuela Hernandez" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/manuela-hernandez-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/manuela-hernandez-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/manuela-hernandez-1.jpg" alt="Manuela Hernandez" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Manuela Hernandez</span>
@@ -160,12 +118,8 @@
       </div>
     </a>
     <a href="https://instagram.com/mandytouza" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/maria-andreina-touza-1.jpg" alt="Maria Andreina Touza" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/maria-andreina-touza-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/maria-andreina-touza-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/maria-andreina-touza-1.jpg" alt="Maria Andreina Touza" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Maria Andreina Touza</span>
@@ -173,12 +127,8 @@
       </div>
     </a>
     <a href="https://instagram.com/mafeb79" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/maria-fernanda-bravo-1.jpg" alt="Maria Fernanda Bravo" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/maria-fernanda-bravo-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/maria-fernanda-bravo-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/maria-fernanda-bravo-1.jpg" alt="Maria Fernanda Bravo" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Maria Fernanda Bravo</span>
@@ -186,12 +136,8 @@
       </div>
     </a>
     <a href="https://instagram.com/mariana_paez" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/mariana-paez-1.jpg" alt="Mariana Paez" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/mariana-paez-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/mariana-paez-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/mariana-paez-1.jpg" alt="Mariana Paez" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Mariana Paez</span>
@@ -199,12 +145,8 @@
       </div>
     </a>
     <a href="https://instagram.com/mercynunez" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/mercedes-nunez-1.jpg" alt="Mercedes Nuñez" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/mercedes-nunez-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/mercedes-nunez-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/mercedes-nunez-1.jpg" alt="Mercedes Nuñez" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Mercedes Nuñez</span>
@@ -212,12 +154,8 @@
       </div>
     </a>
     <a href="https://instagram.com/mi.camita" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/micaela-vargas-1.jpg" alt="Micaela Vargas" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/micaela-vargas-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/micaela-vargas-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/micaela-vargas-1.jpg" alt="Micaela Vargas" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Micaela Vargas</span>
@@ -225,12 +163,8 @@
       </div>
     </a>
     <a href="https://instagram.com/paomarin97" target="_blank" class="person-card">
-      <div class="photo-strip">
-        <img src="https://mabeyluis.github.io/boda/images/cupido/paola-marin-1.jpg" alt="Paola Marín" class="photo photo-main" onerror="this.style.display='none'"/>
-        <div class="photo-thumbs">
-          <img src="https://mabeyluis.github.io/boda/images/cupido/paola-marin-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-          <img src="https://mabeyluis.github.io/boda/images/cupido/paola-marin-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
-        </div>
+      <div class="photo-wrap">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/paola-marin-1.jpg" alt="Paola Marín" class="photo" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
       </div>
       <div class="person-info">
         <span class="person-name">Paola Marín</span>
