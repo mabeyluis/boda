@@ -78,6 +78,17 @@
   /* ── SAVE BAR ── */
   .save-bar{position:sticky;bottom:0;background:var(--cream);padding:0.75rem 0 0;margin-top:1rem;}
 
+  /* ── CÓDIGO RESULT ── */
+  .code-result-card{background:rgba(207,147,59,0.07);border:1.5px solid rgba(207,147,59,0.3);border-radius:14px;padding:1.1rem 1.25rem;text-align:center;}
+  .code-result-name{font-size:0.82rem;opacity:0.6;margin-bottom:0.35rem;}
+  .code-result-num{font-size:2.5rem;letter-spacing:0.25em;color:var(--charcoal);}
+  .code-result-hint{font-size:0.72rem;opacity:0.45;margin-top:0.25rem;}
+  .code-row{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(208,145,147,0.1);font-size:0.85rem;}
+  .code-row:last-child{border-bottom:none;}
+  .code-row-name{flex:1;opacity:0.8;}
+  .code-row-num{font-size:0.95rem;letter-spacing:0.15em;color:var(--charcoal);font-weight:400;}
+  .code-empty{font-size:0.82rem;opacity:0.4;text-align:center;padding:1.5rem 0;}
+
   .error{color:var(--burgundy);font-size:0.8rem;margin-top:0.4rem;min-height:1.1rem;display:block;text-align:center;}
   .msg-ok{color:#4a6a2a;font-size:0.8rem;margin-top:0.4rem;text-align:center;}
 </style>
@@ -108,6 +119,7 @@
     <!-- Tabs -->
     <div class="tabs">
       <button class="btn-tab active" id="tab-matches" onclick="switchTab('matches')">Matches</button>
+      <button class="btn-tab" id="tab-codigos" onclick="switchTab('codigos')">Códigos</button>
       <button class="btn-tab" id="tab-hombres" onclick="switchTab('hombres')">Hombres</button>
       <button class="btn-tab" id="tab-mujeres" onclick="switchTab('mujeres')">Mujeres</button>
     </div>
@@ -124,6 +136,16 @@
         <span class="count-num" id="count-num">—</span>
         personas han respondido el quiz
       </div>
+    </div>
+
+    <!-- ── CÓDIGOS PANEL ── -->
+    <div id="panel-codigos" style="display:none;">
+      <p style="font-size:0.82rem;opacity:0.55;margin-bottom:1rem;line-height:1.5;">Busca el nombre de un invitado para ver su código personal y ayudarle a recuperarlo.</p>
+      <div style="position:relative;">
+        <input type="text" id="code-search" placeholder="Buscar nombre..." oninput="searchCode()" autocomplete="off" autocorrect="off" spellcheck="false"/>
+      </div>
+      <div id="code-result" style="margin-top:1rem;"></div>
+      <div id="code-list" style="margin-top:1.25rem;"></div>
     </div>
 
     <!-- ── HOMBRES PANEL ── -->
@@ -217,6 +239,51 @@ function login() {
 async function loadAll() {
   loadStatus();
   loadSolteros();
+  loadCodes();
+}
+
+let allCodes = [];
+
+async function loadCodes() {
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=getAllAnswers`);
+    const data = await res.json();
+    if (Array.isArray(data)) {
+      allCodes = data.map(d => ({ name: d.name, code: d.code || '—' }));
+      renderCodeList(allCodes);
+    }
+  } catch(e) { allCodes = []; }
+}
+
+function renderCodeList(list) {
+  const el = document.getElementById('code-list');
+  if (!list || !list.length) {
+    el.innerHTML = '<p class="code-empty">Nadie ha respondido el quiz aún.</p>';
+    return;
+  }
+  const sorted = [...list].sort((a,b) => a.name.localeCompare(b.name));
+  el.innerHTML = '<div style="border:1px solid rgba(208,145,147,0.2);border-radius:12px;padding:0.5rem 1rem;">' +
+    sorted.map(r => `<div class="code-row">
+      <span class="code-row-name">${r.name}</span>
+      <span class="code-row-num">${r.code}</span>
+    </div>`).join('') + '</div>';
+}
+
+function searchCode() {
+  const q = document.getElementById('code-search').value.trim().toLowerCase();
+  const resultEl = document.getElementById('code-result');
+  if (!q) { resultEl.innerHTML=''; renderCodeList(allCodes); return; }
+  const matches = allCodes.filter(r => r.name.toLowerCase().includes(q));
+  renderCodeList(matches);
+  if (matches.length === 1) {
+    resultEl.innerHTML = `<div class="code-result-card">
+      <p class="code-result-name">${matches[0].name}</p>
+      <p class="code-result-num">${matches[0].code}</p>
+      <p class="code-result-hint">Este es su código personal</p>
+    </div>`;
+  } else {
+    resultEl.innerHTML = '';
+  }
 }
 
 async function loadStatus() {
@@ -332,10 +399,11 @@ async function setUnlocked(val) {
 
 // ── TABS ──
 function switchTab(tab) {
-  ['matches','hombres','mujeres'].forEach(t => {
+  ['matches','codigos','hombres','mujeres'].forEach(t => {
     document.getElementById('tab-'+t).classList.toggle('active', t===tab);
     document.getElementById('panel-'+t).style.display = t===tab ? 'block' : 'none';
   });
+  if (tab === 'codigos') loadCodes();
 }
 </script>
 </body>
