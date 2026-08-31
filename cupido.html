@@ -8,25 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --cream: #FCFBF6;
-    --rose: #D09193;
-    --burgundy: #9F3544;
-    --slate: #384B70;
-    --slate-light: #92A6BE;
-    --golden: #CF933B;
-    --sage: #A6B072;
-    --charcoal: #1F1D1D;
+    --cream: #FCFBF6; --rose: #D09193; --burgundy: #9F3544;
+    --slate: #384B70; --slate-light: #92A6BE;
+    --golden: #CF933B; --sage: #A6B072; --charcoal: #1F1D1D;
     --safe-bottom: env(safe-area-inset-bottom, 0px);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html { height: 100%; font-size: 16px; }
-  body {
-    background: var(--cream);
-    font-family: Georgia, serif;
-    color: var(--charcoal);
-    min-height: 100%;
-    min-height: -webkit-fill-available;
-  }
+  body { background: var(--cream); font-family: Georgia, serif; color: var(--charcoal); min-height: 100%; min-height: -webkit-fill-available; }
 
   /* ── SCREENS ── */
   .screen { display: none; min-height: 100svh; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem 1.25rem calc(1.5rem + var(--safe-bottom)); }
@@ -37,93 +26,31 @@
   .cupid-title { font-family: 'Beth Ellen', Georgia, serif; font-size: 3rem; font-weight: 400; color: var(--burgundy); text-align: center; line-height: 1.1; }
   .cupid-title-sm { font-family: 'Beth Ellen', Georgia, serif; font-size: 1.8rem; font-weight: 400; color: var(--burgundy); text-align: center; }
   .subtitle { font-size: 0.88rem; color: var(--charcoal); opacity: 0.6; text-align: center; line-height: 1.65; max-width: 320px; margin: 0.75rem auto 0; }
-  .divider { width: 40px; height: 1px; background: var(--rose); margin: 1.25rem auto; }
 
   /* ── CARD ── */
   .card { background: white; border: 1.5px solid var(--burgundy); border-radius: 20px; padding: 1.75rem 1.5rem; width: 100%; max-width: 440px; }
 
   /* ── AUTOCOMPLETE ── */
   #autoComplete_wrapper { position: relative; width: 100%; }
-  #autoComplete {
-    width: 100%; padding: 0.9rem 1.1rem;
-    border: 1.5px solid var(--rose);
-    border-radius: 50px; font-family: Georgia, serif;
-    font-size: 1rem; background: var(--cream); outline: none;
-    color: var(--charcoal); transition: border-color 0.2s;
-    -webkit-appearance: none; appearance: none;
-  }
+  #autoComplete { width: 100%; padding: 0.9rem 1.1rem; border: 1.5px solid var(--rose); border-radius: 50px; font-family: Georgia, serif; font-size: 1rem; background: var(--cream); outline: none; color: var(--charcoal); transition: border-color 0.2s; -webkit-appearance: none; appearance: none; }
   #autoComplete:focus { border-color: var(--rose); }
-  #autoComplete_list {
-    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
-    background: white; border: 1.5px solid rgba(208,145,147,0.3);
-    border-radius: 14px; overflow: hidden; z-index: 100;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.09);
-    max-height: 220px; overflow-y: auto;
-    padding: 0.35rem 0;
-  }
-  #autoComplete_list li {
-    padding: 0.8rem 1.1rem; font-size: 0.95rem; cursor: pointer;
-    list-style: none; transition: background 0.12s; font-family: Georgia, serif;
-    border-bottom: 1px solid rgba(208,145,147,0.08);
-  }
+  #autoComplete_list { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1.5px solid rgba(208,145,147,0.3); border-radius: 14px; overflow: hidden; z-index: 100; box-shadow: 0 6px 24px rgba(0,0,0,0.09); max-height: 220px; overflow-y: auto; padding: 0.35rem 0; display: none; }
+  #autoComplete_list li { padding: 0.8rem 1.1rem; font-size: 0.95rem; cursor: pointer; list-style: none; transition: background 0.12s; font-family: Georgia, serif; border-bottom: 1px solid rgba(208,145,147,0.08); }
   #autoComplete_list li:last-child { border-bottom: none; }
   #autoComplete_list li:hover, #autoComplete_list li.ac-active { background: rgba(208,145,147,0.1); }
 
-  /* ── RETURNING AUTOCOMPLETE ── */
-  #retAutoComplete_wrapper { position: relative; width: 100%; }
-  #retAutoComplete {
-    width: 100%; padding: 0.9rem 1.1rem;
-    border: 1.5px solid rgba(208,145,147,0.45);
-    border-radius: 50px; font-family: Georgia, serif;
-    font-size: 1rem; background: var(--cream); outline: none;
-    color: var(--charcoal); transition: border-color 0.2s;
-    -webkit-appearance: none; appearance: none;
-  }
-  #retAutoComplete:focus { border-color: var(--rose); }
-  #retAutoComplete_list {
-    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
-    background: white; border: 1.5px solid rgba(208,145,147,0.3);
-    border-radius: 14px; overflow: hidden; z-index: 100;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.09);
-    max-height: 200px; overflow-y: auto;
-    padding: 0.35rem 0;
-  }
-  #retAutoComplete_list li {
-    padding: 0.8rem 1.1rem; font-size: 0.95rem; cursor: pointer;
-    list-style: none; transition: background 0.12s; font-family: Georgia, serif;
-    border-bottom: 1px solid rgba(208,145,147,0.08);
-  }
-  #retAutoComplete_list li:last-child { border-bottom: none; }
-  #retAutoComplete_list li:hover, #retAutoComplete_list li.ac-active { background: rgba(208,145,147,0.1); }
-
-  /* ── FIELD LABEL ── */
+  /* ── FIELD ── */
   .field-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.55rem; display: block; }
+  .field-error { color: var(--burgundy); font-size: 0.78rem; margin-top: 0.45rem; min-height: 1.1rem; display: block; padding-left: 0.25rem; }
 
   /* ── BUTTONS ── */
-  .btn {
-    width: 100%; padding: 0.95rem; border-radius: 50px;
-    font-family: Georgia, serif; font-size: 0.95rem;
-    cursor: pointer; transition: all 0.2s; border: none;
-    letter-spacing: 0.02em; margin-top: 0.75rem;
-  }
+  .btn { width: 100%; padding: 0.95rem; border-radius: 50px; font-family: Georgia, serif; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; border: none; letter-spacing: 0.02em; margin-top: 0.75rem; min-height: 52px; }
   .btn-sage { background: var(--sage); color: white; }
-  .btn-sage:active { opacity: 0.82; }
-  .btn-sage:disabled { opacity: 0.3; cursor: not-allowed; }
   .btn-slate { background: var(--slate-light); color: white; }
-  .btn-slate:active { opacity: 0.82; }
   .btn-primary { background: var(--burgundy); color: var(--cream); }
-  .btn-primary:active { opacity: 0.82; }
-  .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
-  .btn-ghost {
-    background: none; border: none; color: var(--rose);
-    font-family: Georgia, serif; font-size: 0.82rem; cursor: pointer;
-    text-decoration: underline; margin-top: 0.75rem;
-    display: block; text-align: center; width: 100%;
-    padding: 0.35rem;
-  }
-
-  /* ── ERROR ── */
-  .field-error { color: var(--burgundy); font-size: 0.78rem; margin-top: 0.45rem; min-height: 1.1rem; display: block; padding-left: 0.25rem; }
+  .btn:active { opacity: 0.82; }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-ghost { background: none; border: none; color: var(--rose); font-family: Georgia, serif; font-size: 0.82rem; cursor: pointer; text-decoration: underline; margin-top: 0.75rem; display: block; text-align: center; width: 100%; padding: 0.35rem; }
 
   /* ── PROGRESS ── */
   .progress-bar { height: 3px; background: rgba(208,145,147,0.18); border-radius: 3px; margin-bottom: 1.5rem; overflow: hidden; }
@@ -133,35 +60,20 @@
   .q-eyebrow { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.5rem; }
   .q-text { font-size: 1rem; line-height: 1.55; margin-bottom: 1.35rem; color: var(--charcoal); }
   .options { display: flex; flex-direction: column; gap: 0.55rem; }
-
-  /* Option colors cycle: rose, slate-light, golden, sage */
-  .option {
-    padding: 0.85rem 1rem;
-    border: 2px solid transparent;
-    border-radius: 12px; cursor: pointer; font-family: Georgia, serif;
-    font-size: 0.88rem; line-height: 1.4; color: var(--charcoal);
-    transition: all 0.18s; background: var(--cream); text-align: left;
-    -webkit-appearance: none; appearance: none;
-    min-height: 48px; display: flex; align-items: center;
-  }
-  /* Color variants applied via JS */
+  .option { padding: 0.85rem 1rem; border: 2px solid transparent; border-radius: 12px; cursor: pointer; font-family: Georgia, serif; font-size: 0.88rem; line-height: 1.4; color: var(--charcoal); transition: all 0.18s; background: var(--cream); text-align: left; -webkit-appearance: none; appearance: none; min-height: 48px; display: flex; align-items: center; }
+  .option:active { transform: scale(0.98); }
   .option.color-rose { border-color: rgba(208,145,147,0.35); }
   .option.color-rose:hover { border-color: var(--rose); background: rgba(208,145,147,0.08); }
-  .option.color-rose.selected { border-color: var(--rose); background: rgba(208,145,147,0.15); color: var(--charcoal); font-weight: bold; }
-
+  .option.color-rose.selected { border-color: var(--rose); background: rgba(208,145,147,0.15); font-weight: bold; }
   .option.color-slate { border-color: rgba(146,166,190,0.35); }
   .option.color-slate:hover { border-color: var(--slate-light); background: rgba(146,166,190,0.08); }
-  .option.color-slate.selected { border-color: var(--slate-light); background: rgba(146,166,190,0.15); color: var(--charcoal); font-weight: bold; }
-
+  .option.color-slate.selected { border-color: var(--slate-light); background: rgba(146,166,190,0.15); font-weight: bold; }
   .option.color-golden { border-color: rgba(207,147,59,0.35); }
   .option.color-golden:hover { border-color: var(--golden); background: rgba(207,147,59,0.08); }
-  .option.color-golden.selected { border-color: var(--golden); background: rgba(207,147,59,0.15); color: var(--charcoal); font-weight: bold; }
-
+  .option.color-golden.selected { border-color: var(--golden); background: rgba(207,147,59,0.15); font-weight: bold; }
   .option.color-sage { border-color: rgba(166,176,114,0.35); }
   .option.color-sage:hover { border-color: var(--sage); background: rgba(166,176,114,0.08); }
-  .option.color-sage.selected { border-color: var(--sage); background: rgba(166,176,114,0.15); color: var(--charcoal); font-weight: bold; }
-
-  .option:active { transform: scale(0.98); }
+  .option.color-sage.selected { border-color: var(--sage); background: rgba(166,176,114,0.15); font-weight: bold; }
   .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.35rem; }
   .btn-back { background: none; border: none; color: var(--charcoal); opacity: 0.4; font-family: Georgia, serif; font-size: 0.85rem; cursor: pointer; padding: 0.5rem 0; min-height: 44px; }
   .btn-next { padding: 0.7rem 1.75rem; border-radius: 50px; background: var(--burgundy); color: var(--cream); border: none; font-family: Georgia, serif; font-size: 0.88rem; cursor: pointer; transition: opacity 0.2s; min-height: 44px; }
@@ -175,30 +87,44 @@
   /* ── CODE BOX ── */
   .code-box { background: rgba(207,147,59,0.07); border: 1.5px solid rgba(207,147,59,0.28); border-radius: 14px; padding: 1.25rem; text-align: center; margin: 1.25rem 0; }
   .code-num { font-size: 3rem; letter-spacing: 0.25em; color: var(--charcoal); }
+  .code-hint { font-size: 0.78rem; color: var(--charcoal); opacity: 0.5; margin-top: 0.4rem; line-height: 1.5; }
+
+  /* ── CODE INPUT (returning) ── */
+  .code-input { width: 100%; padding: 0.9rem 1rem; border: 1.5px solid rgba(208,145,147,0.45); border-radius: 50px; font-family: Georgia, serif; font-size: 1.4rem; text-align: center; background: var(--cream); outline: none; letter-spacing: 0.3em; -webkit-appearance: none; appearance: none; margin-bottom: 0.25rem; }
+  .code-input:focus { border-color: var(--rose); }
+
+  /* ── LOCK ── */
+  .lock-icon { font-size: 3rem; display: block; margin-bottom: 1rem; text-align: center; }
 
   /* ── RESULTS ── */
   .results-wrap { width: 100%; max-width: 440px; }
-  .match-card { background: white; border: 1px solid rgba(208,145,147,0.22); border-radius: 18px; overflow: hidden; margin-bottom: 1rem; }
-  .match-header { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; }
-  .match-photo { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex-shrink: 0; background: rgba(208,145,147,0.12); border: 2px solid rgba(208,145,147,0.25); }
-  .match-info { flex: 1; min-width: 0; }
-  .match-rank { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.1rem; }
-  .match-name { font-size: 1rem; color: var(--charcoal); margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .match-pct { font-size: 1.4rem; color: var(--burgundy); }
-  .match-body { padding: 0 1.25rem 1.25rem; border-top: 1px solid rgba(208,145,147,0.1); padding-top: 0.9rem; }
-  .ice-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate-light); margin-bottom: 0.4rem; }
-  .ice-text { font-size: 0.84rem; line-height: 1.55; color: var(--charcoal); font-style: italic; margin-bottom: 1rem; }
-  .ig-btn { display: flex; align-items: center; justify-content: center; width: 100%; padding: 0.7rem; background: var(--slate); color: white; border: none; border-radius: 50px; font-family: Georgia, serif; font-size: 0.85rem; text-align: center; text-decoration: none; cursor: pointer; min-height: 44px; }
 
-  /* ── LOCKED ── */
-  .lock-wrap { text-align: center; }
-  .lock-icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
+  .match-card { border-radius: 18px; overflow: hidden; margin-bottom: 1rem; background: white; }
+  .match-card.r0 { border: 1.5px solid rgba(166,176,114,0.5); }
+  .match-card.r1 { border: 1.5px solid rgba(207,147,59,0.5); }
+  .match-card.r2 { border: 1.5px solid rgba(208,145,147,0.5); }
 
-  /* ── CODE INPUT ── */
-  .code-input { width: 100%; padding: 0.9rem 1rem; border: 1.5px solid rgba(208,145,147,0.45); border-radius: 50px; font-family: Georgia, serif; font-size: 1.4rem; text-align: center; background: var(--cream); outline: none; letter-spacing: 0.3em; -webkit-appearance: none; appearance: none; }
-  .code-input:focus { border-color: var(--rose); }
+  .match-top { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.25rem 0.75rem; }
+  .match-photo { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .match-card.r0 .match-photo { border: 2.5px solid var(--sage); }
+  .match-card.r1 .match-photo { border: 2.5px solid var(--golden); }
+  .match-card.r2 .match-photo { border: 2.5px solid var(--rose); }
+  .match-info { flex: 1; min-width: 0; padding: 0 0.85rem; }
+  .match-name { font-size: 1rem; color: var(--charcoal); margin-bottom: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .match-ig { font-size: 0.75rem; opacity: 0.6; }
+  .match-pct { font-size: 1.5rem; font-weight: 400; flex-shrink: 0; }
+  .match-card.r0 .match-pct { color: var(--sage); }
+  .match-card.r1 .match-pct { color: var(--golden); }
+  .match-card.r2 .match-pct { color: var(--rose); }
 
-  .mt1 { margin-top: 1rem; }
+  .match-body { padding: 0.85rem 1.25rem 1.1rem; border-top: 1px solid rgba(208,145,147,0.1); }
+  .ice-text { font-size: 0.84rem; line-height: 1.6; color: var(--charcoal); font-style: italic; margin-bottom: 1rem; opacity: 0.85; }
+
+  .ig-btn { display: flex; align-items: center; justify-content: center; width: 100%; padding: 0.7rem; border: none; border-radius: 50px; font-family: Georgia, serif; font-size: 0.85rem; text-decoration: none; min-height: 44px; color: white; transition: opacity 0.2s; }
+  .match-card.r0 .ig-btn { background: var(--sage); }
+  .match-card.r1 .ig-btn { background: var(--golden); }
+  .match-card.r2 .ig-btn { background: var(--rose); }
+  .ig-btn:active { opacity: 0.82; }
 </style>
 </head>
 <body>
@@ -214,11 +140,11 @@
     <span class="field-label">Tu nombre</span>
     <div id="autoComplete_wrapper">
       <input id="autoComplete" type="search" placeholder="Empieza a escribir..." autocomplete="off" autocorrect="off" spellcheck="false"/>
-      <ul id="autoComplete_list" role="listbox" style="display:none;"></ul>
+      <ul id="autoComplete_list" role="listbox"></ul>
     </div>
     <span class="field-error" id="err-welcome"></span>
-    <button class="btn btn-sage" id="btn-start" onclick="handleStart()" disabled>Continuar</button>
-    <button class="btn btn-slate" id="btn-results" onclick="handleResults()" disabled>Resultados</button>
+    <button class="btn btn-sage" id="btn-start" onclick="handleStart()" disabled>Empezar</button>
+    <button class="btn btn-slate" id="btn-results" onclick="goReturning()" disabled>Resultados</button>
   </div>
 </div>
 
@@ -248,23 +174,47 @@
   </div>
 </div>
 
-<!-- ══ CONFIRMATION ══ -->
+<!-- ══ CONFIRMATION (with code) ══ -->
 <div class="screen" id="screen-code">
   <div class="card" style="text-align:center;">
     <img src="https://mabeyluis.github.io/boda/images/cupido/angel-1.png" alt="" style="width:340px;height:auto;display:block;margin:0 auto -2rem;" />
-    <h2 class="cupid-title-sm" style="margin-bottom:1rem;">Cupid</h2>
-    <h3 style="font-size:1.25rem;font-weight:400;color:var(--burgundy);margin-bottom:0.75rem;">Respuestas guardadas</h3>
-    <p style="font-size:0.88rem;opacity:0.6;line-height:1.7;" id="confirm-msg">Tus respuestas se guardaron. Vuelve a esta página a las 9pm para ver tus resultados. Ingresa de nuevo con tu nombre.</p>
-    <button class="btn btn-primary" style="margin-top:1.5rem;" onclick="goWelcome()">Volver al inicio</button>
+    <h2 class="cupid-title-sm" style="margin-bottom:0.75rem;">Cupid</h2>
+    <h3 style="font-size:1.1rem;font-weight:400;color:var(--burgundy);margin-bottom:0.5rem;">Respuestas guardadas</h3>
+    <p style="font-size:0.84rem;opacity:0.6;line-height:1.6;" id="confirm-msg">Vuelve a esta página a las 9pm para ver tus resultados.</p>
+    <div class="code-box" id="code-box-wrap">
+      <p class="field-label" style="margin-bottom:0.35rem;">Tu código personal</p>
+      <p class="code-num" id="display-code"></p>
+      <p class="code-hint">Haz screenshot ahora — lo necesitarás para ver tus resultados</p>
+    </div>
+    <button class="btn btn-primary" onclick="goWelcome()">Volver al inicio</button>
+  </div>
+</div>
+
+<!-- ══ RETURNING (name + code) ══ -->
+<div class="screen" id="screen-returning">
+  <div class="card">
+    <h2 class="cupid-title-sm" style="margin-bottom:1.25rem;">Cupid</h2>
+    <span class="field-label">Tu nombre</span>
+    <div id="retAutoComplete_wrapper" style="position:relative;width:100%;margin-bottom:0.25rem;">
+      <input id="retAutoComplete" type="search" placeholder="Empieza a escribir..." autocomplete="off" autocorrect="off" spellcheck="false"
+        style="width:100%;padding:0.9rem 1.1rem;border:1.5px solid var(--rose);border-radius:50px;font-family:Georgia,serif;font-size:1rem;background:var(--cream);outline:none;-webkit-appearance:none;"/>
+      <ul id="retAutoComplete_list" role="listbox" style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:white;border:1.5px solid rgba(208,145,147,0.3);border-radius:14px;overflow:hidden;z-index:100;box-shadow:0 6px 24px rgba(0,0,0,0.09);max-height:200px;overflow-y:auto;padding:0.35rem 0;"></ul>
+    </div>
+    <span class="field-error" id="err-ret-name"></span>
+    <span class="field-label" style="display:block;margin-top:1rem;">Tu código de 4 dígitos</span>
+    <input class="code-input" type="tel" id="ret-code" placeholder="0000" maxlength="4" inputmode="numeric" pattern="[0-9]*"/>
+    <span class="field-error" id="err-ret-code"></span>
+    <button class="btn btn-primary" onclick="checkReturning()">Ver mis matches</button>
+    <button class="btn-ghost" onclick="goWelcome()">Volver al inicio</button>
   </div>
 </div>
 
 <!-- ══ LOCKED ══ -->
 <div class="screen" id="screen-locked">
-  <div class="card lock-wrap">
+  <div class="card" style="text-align:center;">
     <span class="lock-icon">&#128274;</span>
     <h2 style="font-size:1.15rem;font-weight:400;color:var(--burgundy);margin-bottom:0.75rem;">Todavia no, paciencia</h2>
-    <p style="font-size:0.86rem;opacity:0.6;line-height:1.6;margin-bottom:1.25rem;">Mabe y Luis van a desbloquear los matches en algun momento de la noche. Vuelve a entrar con tu nombre cuando lo anuncien.</p>
+    <p style="font-size:0.86rem;opacity:0.6;line-height:1.6;margin-bottom:1.25rem;">Mabe y Luis van a desbloquear los matches en algun momento de la noche. Vuelve con tu nombre y tu codigo cuando lo anuncien.</p>
     <button class="btn btn-primary" style="margin-top:0;" onclick="goWelcome()">Volver al inicio</button>
   </div>
 </div>
@@ -272,20 +222,17 @@
 <!-- ══ RESULTS ══ -->
 <div class="screen screen-top" id="screen-results">
   <div class="results-wrap">
-    <img src="https://mabeyluis.github.io/boda/images/cupido/angel-2.png" alt="" style="width:160px;height:auto;display:block;margin:0 auto 0.75rem;" />
-    <h2 class="cupid-title" style="font-size:2rem;margin-bottom:0.25rem;text-align:center;" id="results-greeting"></h2>
-    <p style="font-size:0.82rem;opacity:0.55;text-align:center;margin-bottom:1.25rem;line-height:1.5;">Las personas con las que tienes mas en comun esta noche.</p>
+    <img src="https://mabeyluis.github.io/boda/images/cupido/angel-2.png" alt="" style="width:160px;height:auto;display:block;margin:0 auto 0.5rem;" />
+    <h2 class="cupid-title" style="font-size:2rem;margin-bottom:0.2rem;">Top Matches</h2>
+    <p style="font-size:0.82rem;opacity:0.55;text-align:center;margin-bottom:1.25rem;line-height:1.5;">Las personas con las que tienes más en común esta noche.</p>
     <div id="matches-container"></div>
     <button class="btn-ghost" style="margin-top:0.5rem;" onclick="goWelcome()">Volver al inicio</button>
   </div>
 </div>
 
-
 <script>
-// ══ CONFIG (UPDATE BEFORE LAUNCH) ══
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVawvfx3UZ8zIOaN2Y7n-YwmsBcGYey9J-Ui3bKLBnWRvUYWTVV0gnk8QiJqh2ioHLLQ/exec';
 
-// ══ DATA ══
 const QUESTIONS = [
   {id:'q1',text:'Si tuvieras que elegir tu peor enemigo, ¿cuál sería?',options:['100 caballos del tamaño de un pato. Los aplasto de uno en uno.','Un pato del tamaño de un caballo. Negocio con él, los patos son listos.','Huyo de ambos sin mirar atrás.','Me rindo antes de empezar.']},
   {id:'q2',text:'¿Con qué villano de Disney te identificas más?',options:['Úrsula','Scar','Maléfica','Gastón','Hades','Cruella de Vil']},
@@ -302,39 +249,39 @@ const QUESTIONS = [
 ];
 
 const HOMBRES = [
-  {name:'Adrian Cazar',slug:'adrian-cazar',instagram:''},
-  {name:'Jose Cazar',slug:'jose-cazar',instagram:''},
-  {name:'Caetano Torres',slug:'caetano-torres',instagram:''},
-  {name:'Pedro Rubio',slug:'pedro-rubio',instagram:''},
-  {name:'Alberto Vidal',slug:'alberto-vidal',instagram:''},
-  {name:'Rodrigo Carrion',slug:'rodrigo-carrion',instagram:''},
-  {name:'Andres Barreto',slug:'andres-barreto',instagram:''},
-  {name:'Daniel Del Pozo',slug:'daniel-del-pozo',instagram:''},
-  {name:'Daniel Rondon',slug:'daniel-rondon',instagram:''},
-  {name:'Santiago Urdaneta',slug:'santiago-urdaneta',instagram:''},
-  {name:'Sergio Abisambra',slug:'sergio-abisambra',instagram:''},
-  {name:'Jesus Rodriguez',slug:'jesus-rodriguez',instagram:''},
-  {name:'Jose Comerma',slug:'jose-comerma',instagram:''},
-  {name:'Saeed Suwaidi',slug:'saeed-suwaidi',instagram:''},
-  {name:'Fernando Carrillo',slug:'fernando-carrillo',instagram:''},
-  {name:'Daniel Figueredo',slug:'daniel-figueredo',instagram:''},
+  {name:'Adrian Cazar',slug:'adrian-cazar',instagram:'_c_adrian04'},
+  {name:'Jose Cazar',slug:'jose-cazar',instagram:'jose_cazar'},
+  {name:'Caetano Torres',slug:'caetano-torres',instagram:'_.c.m.t.r._'},
+  {name:'Pedro Rubio',slug:'pedro-rubio',instagram:'pedrorubio__'},
+  {name:'Alberto Vidal',slug:'alberto-vidal',instagram:'titovidal99'},
+  {name:'Rodrigo Carrion',slug:'rodrigo-carrion',instagram:'rodrigofcm16'},
+  {name:'Andres Barreto',slug:'andres-barreto',instagram:'arrebarreto'},
+  {name:'Daniel Del Pozo',slug:'daniel-del-pozo',instagram:'danieldelpo95'},
+  {name:'Daniel Rondon',slug:'daniel-rondon',instagram:'danielrondonv'},
+  {name:'Santiago Urdaneta',slug:'santiago-urdaneta',instagram:'santiurdaneta'},
+  {name:'Sergio Abisambra',slug:'sergio-abisambra',instagram:'foca.3'},
+  {name:'Jesus Rodriguez',slug:'jesus-rodriguez',instagram:'jrafael.rdz'},
+  {name:'Jose Comerma',slug:'jose-comerma',instagram:'josecomerma'},
+  {name:'Saeed Suwaidi',slug:'saeed-suwaidi',instagram:'saeed.primary'},
+  {name:'Fernando Carrillo',slug:'fernando-carrillo',instagram:'fernandocsv'},
+  {name:'Daniel Figueredo',slug:'daniel-figueredo',instagram:'danielpfigueredo'},
 ];
 const MUJERES = [
-  {name:'Micaela Vargas',slug:'micaela-vargas',instagram:''},
-  {name:'Claudia Ycaza',slug:'claudia-ycaza',instagram:''},
-  {name:'Arianna Vargas',slug:'arianna-vargas',instagram:''},
-  {name:'Ilaria Huertas',slug:'ilaria-huertas',instagram:''},
-  {name:'Claudia Voysest',slug:'claudia-voysest',instagram:''},
-  {name:'Mercedes Nuñez',slug:'mercedes-nunez',instagram:''},
-  {name:'Karen Guambo',slug:'karen-guambo',instagram:''},
-  {name:'Mariana Paez',slug:'mariana-paez',instagram:''},
-  {name:'Andrea Isa',slug:'andrea-isa',instagram:''},
-  {name:'Maria Fernanda Bravo',slug:'maria-fernanda-bravo',instagram:''},
-  {name:'Isabella Dalmau',slug:'isabella-dalmau',instagram:''},
-  {name:'Alicia Olivares',slug:'alicia-olivares',instagram:''},
-  {name:'Maria Andreina Touza',slug:'maria-andreina-touza',instagram:''},
-  {name:'Manuela Hernandez',slug:'manuela-hernandez',instagram:''},
-  {name:'Paola Marín',slug:'paola-marin',instagram:''},
+  {name:'Micaela Vargas',slug:'micaela-vargas',instagram:'mi.camita'},
+  {name:'Claudia Ycaza',slug:'claudia-ycaza',instagram:'clauycaza'},
+  {name:'Arianna Vargas',slug:'arianna-vargas',instagram:'ariannafvm'},
+  {name:'Ilaria Huertas',slug:'ilaria-huertas',instagram:'ila.hs'},
+  {name:'Claudia Voysest',slug:'claudia-voysest',instagram:'claudia.voy'},
+  {name:'Mercedes Nuñez',slug:'mercedes-nunez',instagram:'mercynunez'},
+  {name:'Karen Guambo',slug:'karen-guambo',instagram:'karenguambo'},
+  {name:'Mariana Paez',slug:'mariana-paez',instagram:'mariana_paez'},
+  {name:'Andrea Isa',slug:'andrea-isa',instagram:'andreaisalopez'},
+  {name:'Maria Fernanda Bravo',slug:'maria-fernanda-bravo',instagram:'mafeb79'},
+  {name:'Isabella Dalmau',slug:'isabella-dalmau',instagram:'isa_dalmau'},
+  {name:'Alicia Olivares',slug:'alicia-olivares',instagram:'aliolisc'},
+  {name:'Maria Andreina Touza',slug:'maria-andreina-touza',instagram:'mandytouza'},
+  {name:'Manuela Hernandez',slug:'manuela-hernandez',instagram:'manuhernandez97'},
+  {name:'Paola Marín',slug:'paola-marin',instagram:'paomarin97'},
 ];
 const ALL = [...HOMBRES,...MUJERES];
 const BLOCKLIST = [
@@ -344,25 +291,20 @@ const BLOCKLIST = [
   ['Pedro Rubio','Micaela Vargas'],['Pedro Rubio','Claudia Ycaza'],['Pedro Rubio','Arianna Vargas'],
   ['Jose Comerma','Alicia Olivares'],['Jose Comerma','Manuela Hernandez'],
 ];
-
 function isBlocked(a,b){ return BLOCKLIST.some(([x,y])=>(x===a&&y===b)||(x===b&&y===a)); }
 function getGender(name){ return HOMBRES.find(h=>h.name===name)?'H':'M'; }
-function getPerson(name){ return ALL.find(p=>p.name===name); }
 
-// ══ STATE ══
+// ── STATE ──
 let selName='', selGender='', curQ=0, answers={}, savedCode='';
 
-// ══ NATIVE AUTOCOMPLETE ══
+// ── AUTOCOMPLETE ──
 function makeAutocomplete(inputId, listId, names, onSelect) {
   const input = document.getElementById(inputId);
   const list = document.getElementById(listId);
-
   function highlight(text, query) {
-    if (!query) return text;
     const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
     return text.replace(re, '<strong style="color:var(--burgundy);font-weight:bold;">$1</strong>');
   }
-
   function showList(q) {
     if (!q) { list.style.display='none'; return; }
     const matches = names.filter(n => n.toLowerCase().includes(q.toLowerCase()));
@@ -372,244 +314,227 @@ function makeAutocomplete(inputId, listId, names, onSelect) {
     ).join('');
     list.style.display = 'block';
   }
-
-  input.addEventListener('input', () => {
-    showList(input.value.trim());
-    onSelect(null); // reset selection when typing
-  });
-
+  input.addEventListener('input', () => { showList(input.value.trim()); onSelect(null); });
   list.addEventListener('mousedown', e => {
     const li = e.target.closest('li');
     if (!li) return;
     e.preventDefault();
-    const val = li.dataset.val;
-    input.value = val;
+    input.value = li.dataset.val;
     list.style.display = 'none';
-    onSelect(val);
+    onSelect(li.dataset.val);
   });
-
-  // Keyboard navigation
   input.addEventListener('keydown', e => {
     const items = list.querySelectorAll('li');
     const active = list.querySelector('li.ac-active');
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      const next = active ? active.nextElementSibling : items[0];
-      if (active) active.classList.remove('ac-active');
-      if (next) next.classList.add('ac-active');
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      const prev = active ? active.previousElementSibling : items[items.length-1];
-      if (active) active.classList.remove('ac-active');
-      if (prev) prev.classList.add('ac-active');
-    } else if (e.key === 'Enter' && active) {
-      e.preventDefault();
-      const val = active.dataset.val;
-      input.value = val;
-      list.style.display = 'none';
-      onSelect(val);
-    } else if (e.key === 'Escape') {
-      list.style.display = 'none';
-    }
+    if (e.key==='ArrowDown') { e.preventDefault(); const n=active?active.nextElementSibling:items[0]; if(active)active.classList.remove('ac-active'); if(n)n.classList.add('ac-active'); }
+    else if (e.key==='ArrowUp') { e.preventDefault(); const p=active?active.previousElementSibling:items[items.length-1]; if(active)active.classList.remove('ac-active'); if(p)p.classList.add('ac-active'); }
+    else if (e.key==='Enter'&&active) { e.preventDefault(); input.value=active.dataset.val; list.style.display='none'; onSelect(active.dataset.val); }
+    else if (e.key==='Escape') list.style.display='none';
   });
-
   document.addEventListener('click', e => {
-    if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${listId}`)) {
-      list.style.display = 'none';
-    }
+    if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${listId}`)) list.style.display='none';
   });
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  makeAutocomplete('autoComplete', 'autoComplete_list', [...ALL.map(p=>p.name), 'TEST'], val => {
+  makeAutocomplete('autoComplete', 'autoComplete_list', [...ALL.map(p=>p.name),'TEST'], val => {
     if (val) {
-      selName = val; selGender = getGender(val);
-      const isTest = val === 'TEST';
+      selName=val; selGender=getGender(val);
+      const isTest = val==='TEST';
       const local = isTest ? null : localStorage.getItem('cupido_'+val);
       const alreadyDone = !!local;
-
       document.getElementById('btn-start').disabled = alreadyDone;
       document.getElementById('btn-start').textContent = 'Empezar';
       document.getElementById('btn-results').disabled = false;
-
-      if (alreadyDone) {
-        document.getElementById('err-welcome').textContent = 'Ya completaste el quiz. Usa "Resultados" para ver tus matches.';
-      } else {
-        document.getElementById('err-welcome').textContent = '';
-      }
+      document.getElementById('err-welcome').textContent = alreadyDone
+        ? 'Ya completaste el quiz. Usa "Resultados" para ver tus matches.' : '';
     } else {
-      selName = ''; selGender = '';
+      selName=''; selGender='';
       document.getElementById('btn-start').disabled = true;
-      document.getElementById('btn-start').textContent = 'Empezar';
       document.getElementById('btn-results').disabled = true;
       document.getElementById('err-welcome').textContent = '';
     }
   });
+  makeAutocomplete('retAutoComplete', 'retAutoComplete_list', ALL.map(p=>p.name), val => {
+    if (val) document.getElementById('err-ret-name').textContent='';
+  });
 });
 
-// ══ HANDLE START ══
+// ── HANDLE START ──
 function handleStart() {
-  if (!selName) { document.getElementById('err-welcome').textContent = 'Selecciona tu nombre de la lista'; return; }
-  // TEST mode — always allowed, clears after
-  if (selName === 'TEST') { startQuiz(); return; }
-  // Block if already answered
-  const local = localStorage.getItem('cupido_'+selName);
-  if (local) { document.getElementById('err-welcome').textContent = 'Ya completaste el quiz. Usa "Resultados" para ver tus matches.'; return; }
+  if (!selName) { document.getElementById('err-welcome').textContent='Selecciona tu nombre de la lista'; return; }
+  if (selName==='TEST') { startQuiz(); return; }
+  if (localStorage.getItem('cupido_'+selName)) {
+    document.getElementById('err-welcome').textContent='Ya completaste el quiz. Usa "Resultados" para ver tus matches.';
+    return;
+  }
   startQuiz();
 }
 
-// ══ HANDLE RESULTS — goes to results or locked ══
-async function handleResults() {
-  if (!selName) { document.getElementById('err-welcome').textContent = 'Selecciona tu nombre de la lista'; return; }
-  const isTest = selName === 'TEST';
-  const local = isTest ? null : localStorage.getItem('cupido_'+selName);
+// ── RETURNING ──
+function goReturning() {
+  if (!selName) { document.getElementById('err-welcome').textContent='Selecciona tu nombre de la lista'; return; }
+  if (selName==='TEST') { showResults('TEST','H',{q1:0,q2:0,q3:0,q4:0,q5:0,q6:0,q7:0,q8:0,q9:0,q10:0,q11:0,q12:0}); return; }
+  document.getElementById('retAutoComplete').value = selName;
+  document.getElementById('err-ret-name').textContent='';
+  document.getElementById('err-ret-code').textContent='';
+  document.getElementById('ret-code').value='';
+  goScreen('screen-returning');
+}
+
+async function checkReturning() {
+  const name = document.getElementById('retAutoComplete').value.trim();
+  const code = document.getElementById('ret-code').value.trim();
+  let valid = true;
+  if (!name || !ALL.find(p=>p.name===name)) {
+    document.getElementById('err-ret-name').textContent='Selecciona tu nombre de la lista'; valid=false;
+  } else document.getElementById('err-ret-name').textContent='';
+  if (code.length!==4||isNaN(code)) {
+    document.getElementById('err-ret-code').textContent='El código debe tener exactamente 4 dígitos'; valid=false;
+  } else document.getElementById('err-ret-code').textContent='';
+  if (!valid) return;
+
+  // Check localStorage first
+  const local = localStorage.getItem('cupido_'+name);
   if (local) {
     const data = JSON.parse(local);
-    await showResults(selName, data.gender, data.answers);
-  } else if (isTest) {
-    // TEST: use dummy answers to preview results screen
-    await showResults('TEST', 'H', {q1:0,q2:0,q3:0,q4:0,q5:0,q6:0,q7:0,q8:0,q9:0,q10:0,q11:0,q12:0});
-  } else {
-    document.getElementById('err-welcome').textContent = 'Primero tienes que responder el quiz.';
+    if (data.code===code) { await showResults(name, data.gender, data.answers); return; }
   }
+  // Try Sheets
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=getAnswers&name=${encodeURIComponent(name)}&code=${code}`);
+    const data = await res.json();
+    if (data.found) { await showResults(name, data.gender, data.answers); return; }
+  } catch(e){}
+  document.getElementById('err-ret-code').textContent='Nombre o código incorrecto';
 }
 
-// ══ QUIZ ══
-function startQuiz() {
-  curQ = 0; answers = {};
-  goScreen('screen-quiz');
-  renderQ();
-}
+// ── QUIZ ──
+function startQuiz() { curQ=0; answers={}; goScreen('screen-quiz'); renderQ(); }
 
 const Q_COLORS = ['color-rose','color-slate','color-golden','color-sage'];
-const Q_PROGRESS_COLORS = ['var(--rose)','var(--slate-light)','var(--golden)','var(--sage)'];
-const Q_BORDER_COLORS = ['var(--rose)','var(--slate-light)','var(--golden)','var(--sage)'];
+const Q_PROGRESS = ['var(--rose)','var(--slate-light)','var(--golden)','var(--sage)'];
 
 function renderQ() {
   const q = QUESTIONS[curQ];
   const total = QUESTIONS.length;
-  const colorClass = Q_COLORS[curQ % 4];
-  const progressColor = Q_PROGRESS_COLORS[curQ % 4];
-  const borderColor = Q_BORDER_COLORS[curQ % 4];
-  document.getElementById('progress-fill').style.width = `${(curQ/total)*100}%`;
-  document.getElementById('progress-fill').style.background = progressColor;
-  document.getElementById('q-num').textContent = `Pregunta ${curQ+1} de ${total}`;
-  document.getElementById('q-num').style.color = progressColor;
-  // Update quiz card border color
-  document.getElementById('quiz-card').style.borderColor = borderColor;
-  document.getElementById('q-text').textContent = q.text;
-  document.getElementById('q-options').innerHTML = q.options.map((opt,i) =>
-    `<button class="option ${colorClass}${answers[q.id]===i?' selected':''}" onclick="selectOpt(${i})">${opt}</button>`
+  const color = Q_COLORS[curQ%4];
+  const prog = Q_PROGRESS[curQ%4];
+  document.getElementById('progress-fill').style.width=`${(curQ/total)*100}%`;
+  document.getElementById('progress-fill').style.background=prog;
+  document.getElementById('q-num').textContent=`Pregunta ${curQ+1} de ${total}`;
+  document.getElementById('q-num').style.color=prog;
+  document.getElementById('quiz-card').style.borderColor=prog;
+  document.getElementById('q-text').textContent=q.text;
+  document.getElementById('q-options').innerHTML=q.options.map((opt,i)=>
+    `<button class="option ${color}${answers[q.id]===i?' selected':''}" onclick="selectOpt(${i})">${opt}</button>`
   ).join('');
-  const isLast = curQ === total-1;
-  document.getElementById('btn-next').textContent = isLast ? 'Terminar' : 'Siguiente';
-  document.getElementById('btn-next').disabled = answers[q.id] === undefined;
-  document.getElementById('btn-back').style.visibility = curQ===0 ? 'hidden' : 'visible';
+  const isLast=curQ===total-1;
+  document.getElementById('btn-next').textContent=isLast?'Terminar':'Siguiente';
+  document.getElementById('btn-next').disabled=answers[q.id]===undefined;
+  document.getElementById('btn-back').style.visibility=curQ===0?'hidden':'visible';
 }
-
 function selectOpt(i) {
-  answers[QUESTIONS[curQ].id] = i;
+  answers[QUESTIONS[curQ].id]=i;
   document.querySelectorAll('.option').forEach((el,idx)=>el.classList.toggle('selected',idx===i));
-  document.getElementById('btn-next').disabled = false;
+  document.getElementById('btn-next').disabled=false;
 }
-
 function nextQ() {
-  if (answers[QUESTIONS[curQ].id] === undefined) return;
-  if (curQ < QUESTIONS.length-1) { curQ++; renderQ(); }
-  else submitAnswers();
+  if (answers[QUESTIONS[curQ].id]===undefined) return;
+  if (curQ<QUESTIONS.length-1){curQ++;renderQ();}else submitAnswers();
 }
+function prevQ(){if(curQ>0){curQ--;renderQ();}}
 
-function prevQ() { if (curQ>0){ curQ--; renderQ(); } }
-
-// ══ SUBMIT ══
+// ── SUBMIT ──
 async function submitAnswers() {
   goScreen('screen-loading');
-  const isTest = selName === 'TEST';
-  const payload = { action:'saveAnswers', name:selName, gender:selGender, answers };
+  const isTest = selName==='TEST';
+  savedCode = String(Math.floor(1000+Math.random()*9000));
 
   if (!isTest) {
-    localStorage.setItem('cupido_'+selName, JSON.stringify({answers, gender:selGender}));
-    try { await fetch(APPS_SCRIPT_URL, { method:'POST', body:JSON.stringify(payload) }); } catch(e) {}
-    document.getElementById('confirm-msg').textContent = 'Tus respuestas se guardaron. Vuelve a esta página a las 9pm para ver tus resultados. Ingresa de nuevo con tu nombre.';
+    const payload = {action:'saveAnswers', name:selName, gender:selGender, code:savedCode, answers};
+    localStorage.setItem('cupido_'+selName, JSON.stringify({answers, gender:selGender, code:savedCode}));
+    try { await fetch(APPS_SCRIPT_URL,{method:'POST',body:JSON.stringify(payload)}); } catch(e){}
+    document.getElementById('display-code').textContent = savedCode;
+    document.getElementById('code-box-wrap').style.display = 'block';
+    document.getElementById('confirm-msg').textContent = 'Vuelve a esta página a las 9pm para ver tus resultados.';
   } else {
-    document.getElementById('confirm-msg').textContent = 'Modo test — las respuestas no se guardaron. Puedes volver a empezar cuando quieras.';
+    document.getElementById('code-box-wrap').style.display = 'none';
+    document.getElementById('confirm-msg').textContent = 'Modo test — nada guardado. Puedes volver a empezar.';
   }
   setTimeout(()=>goScreen('screen-code'), 1500);
 }
 
-// ══ RESULTS ══
+// ── RESULTS ──
 async function showResults(name, gender, myAnswers) {
-  let unlocked = localStorage.getItem('cupido_unlocked') === 'true';
+  let unlocked = localStorage.getItem('cupido_unlocked')==='true';
   try {
     const res = await fetch(`${APPS_SCRIPT_URL}?action=getStatus`);
     const data = await res.json();
-    unlocked = data.unlocked === true;
+    unlocked = data.unlocked===true;
     if (unlocked) localStorage.setItem('cupido_unlocked','true');
-  } catch(e) {}
+  } catch(e){}
+  if (!unlocked && name!=='TEST') { goScreen('screen-locked'); return; }
 
-  if (!unlocked) { goScreen('screen-locked'); return; }
-
-  let allAnswers = [];
+  let allAnswers=[];
   try {
     const res = await fetch(`${APPS_SCRIPT_URL}?action=getAllAnswers`);
     allAnswers = await res.json();
-  } catch(e) {}
+  } catch(e){}
 
   const pool = gender==='H' ? MUJERES : HOMBRES;
-  const scores = [];
+  const scores=[];
   for (const person of pool) {
     if (isBlocked(name, person.name)) continue;
     const their = allAnswers.find(a=>a.name===person.name);
     if (!their) continue;
-    let hits = 0;
+    let hits=0;
     for (const qid of Object.keys(myAnswers)) {
-      if (myAnswers[qid] === their.answers[qid]) hits++;
+      if (myAnswers[qid]===their.answers[qid]) hits++;
     }
-    const pct = Math.round((hits/QUESTIONS.length)*100);
+    const pct=Math.round((hits/QUESTIONS.length)*100);
     scores.push({person, pct, theirAnswers:their.answers});
   }
   scores.sort((a,b)=>b.pct-a.pct);
-  const top3 = scores.slice(0,3);
+  const top3=scores.slice(0,3);
 
-  function icebreaker(myA, theirA, isMale) {
+  function buildIcebreaker(myA, theirA, isMale) {
     for (const q of QUESTIONS) {
       if (myA[q.id]!==undefined && theirA[q.id]!==undefined && myA[q.id]!==theirA[q.id]) {
         const myOpt = q.options[myA[q.id]].split('.')[0];
         const theirOpt = q.options[theirA[q.id]].split('.')[0];
-        const pro = isMale ? 'El respondio' : 'Ella respondio';
-        return `Tu respuesta fue "${myOpt}". ${pro} "${theirOpt}". Alguien tiene que dar el primer paso para resolver este debate.`;
+        const pro = isMale ? 'El eligió' : 'Ella eligió';
+        const tu = 'Tu elegiste';
+        return `${tu} "${myOpt}". ${pro} "${theirOpt}".`;
       }
     }
-    return 'Respondieron practicamente igual en todo. La unica forma de confirmarlo es hablarse.';
+    return 'Respondieron prácticamente igual en todo. Eso ya dice mucho.';
   }
 
-  const ranks = ['Primer match','Segundo match','Tercer match'];
+  const rankColors = ['r0','r1','r2'];
   const matchesMale = gender==='H';
-  const baseUrl = 'https://mabeyluis.github.io/boda/images/cupido/';
-
-  document.getElementById('results-greeting').textContent = `Tus matches, ${name.split(' ')[0]}`;
+  const base = 'https://mabeyluis.github.io/boda/images/cupido/';
   const container = document.getElementById('matches-container');
 
   if (top3.length===0) {
-    container.innerHTML = '<div class="card" style="text-align:center;padding:2rem;"><p style="opacity:0.55;font-size:0.9rem;line-height:1.6;">Aun no hay suficientes respuestas para calcular tus matches. Vuelve mas tarde.</p></div>';
+    container.innerHTML='<div class="card" style="text-align:center;padding:2rem;"><p style="opacity:0.55;font-size:0.9rem;line-height:1.6;">Aun no hay suficientes respuestas. Vuelve mas tarde.</p></div>';
   } else {
     container.innerHTML = top3.map((m,i) => {
-      const img = `${baseUrl}${m.person.slug}-main.jpg`;
-      const ice = icebreaker(myAnswers, m.theirAnswers, !matchesMale);
+      const img = `${base}${m.person.slug}-1.jpg`;
+      const ice = buildIcebreaker(myAnswers, m.theirAnswers, !matchesMale);
       const ig = m.person.instagram;
-      return `<div class="match-card">
-        <div class="match-header">
-          <img class="match-photo" src="${img}" alt="${m.person.name}" onerror="this.style.background='rgba(208,145,147,0.15)'"/>
+      return `<div class="match-card ${rankColors[i]}">
+        <div class="match-top">
+          <img class="match-photo" src="${img}" alt="${m.person.name}" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
           <div class="match-info">
-            <p class="match-rank">${ranks[i]}</p>
             <p class="match-name">${m.person.name}</p>
-            <p class="match-pct">${m.pct}% compatibles</p>
+            ${ig?`<p class="match-ig">@${ig.replace('@','')}</p>`:''}
           </div>
+          <p class="match-pct">${m.pct}%</p>
         </div>
         <div class="match-body">
-          <p class="ice-label">Para romper el hielo</p>
           <p class="ice-text">${ice}</p>
-          ${ig ? `<a class="ig-btn" href="https://instagram.com/${ig.replace('@','')}" target="_blank">Ver en Instagram</a>` : `<p style="font-size:0.76rem;text-align:center;opacity:0.35;">Instagram no disponible</p>`}
+          ${ig?`<a class="ig-btn" href="https://instagram.com/${ig.replace('@','')}" target="_blank">Ver en Instagram</a>`:''}
         </div>
       </div>`;
     }).join('');
@@ -617,17 +542,16 @@ async function showResults(name, gender, myAnswers) {
   goScreen('screen-results');
 }
 
-// ══ NAVIGATION ══
+// ── NAV ──
 function goScreen(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
 function goWelcome() {
-  selName=''; selGender=''; curQ=0; answers={};
+  selName=''; selGender=''; curQ=0; answers=''; savedCode='';
   document.getElementById('autoComplete').value='';
   document.getElementById('btn-start').disabled=true;
-  document.getElementById('btn-start').textContent='Empezar';
   document.getElementById('btn-results').disabled=true;
   document.getElementById('err-welcome').textContent='';
   goScreen('screen-welcome');
