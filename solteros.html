@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Solteros — Mabe & Luis</title>
+<link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream:#FCFBF6;--dusty-rose:#D09193;--burgundy:#9F3544;
+    --sage:#A6B072;--charcoal:#1F1D1D;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--cream);font-family:Georgia,serif;color:var(--charcoal);min-height:100vh;display:flex;flex-direction:column;}
+  .page-header{text-align:center;padding:2.5rem 1.5rem 1.25rem;border-bottom:1px solid rgba(208,145,147,0.2);position:sticky;top:0;background:var(--cream);z-index:10;}
+  .page-title{font-family:'Beth Ellen',Georgia,serif;font-size:2.2rem;font-weight:400;color:var(--burgundy);margin-bottom:0.3rem;}
+  .page-subtitle{font-size:0.82rem;color:var(--charcoal);opacity:0.55;font-style:italic;}
+  .count-badge{display:inline-block;background:rgba(208,145,147,0.12);border:1px solid rgba(208,145,147,0.3);border-radius:50px;padding:0.2rem 0.75rem;font-size:0.75rem;color:var(--dusty-rose);margin-top:0.5rem;letter-spacing:0.05em;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;padding:1.5rem;max-width:1000px;margin:0 auto;flex:1;}
+  .person-card{background:white;border:1px solid rgba(208,145,147,0.2);border-radius:16px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;color:inherit;display:block;}
+  .person-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(159,53,68,0.1);border-color:rgba(208,145,147,0.5);}
+  .photo-strip{display:flex;gap:3px;height:220px;background:rgba(208,145,147,0.08);}
+  .photo-main{width:66%;height:100%;object-fit:cover;flex-shrink:0;}
+  .photo-thumbs{display:flex;flex-direction:column;gap:3px;flex:1;}
+  .photo-thumb{width:100%;height:50%;object-fit:cover;}
+  .photo{background:rgba(208,145,147,0.1);}
+  .person-info{padding:0.9rem 1.25rem;display:flex;align-items:center;justify-content:space-between;}
+  .person-name{font-size:0.95rem;font-weight:400;color:var(--charcoal);}
+  .ig-handle{font-size:0.75rem;color:var(--dusty-rose);opacity:0.8;}
+  .cta-section{text-align:center;padding:2.5rem 1.5rem;border-top:1px solid rgba(208,145,147,0.15);margin-top:1rem;}
+  .cta-text{font-size:0.9rem;color:var(--charcoal);opacity:0.7;margin-bottom:1rem;line-height:1.6;max-width:340px;margin-left:auto;margin-right:auto;}
+  .cta-btn{display:inline-block;padding:0.85rem 2rem;background:var(--burgundy);color:var(--cream);border-radius:50px;text-decoration:none;font-family:Georgia,serif;font-size:0.9rem;letter-spacing:0.03em;transition:opacity 0.2s;}
+  .cta-btn:hover{opacity:0.85;}
+  footer{text-align:center;padding:1rem 1.5rem;font-size:0.72rem;color:var(--charcoal);opacity:0.35;letter-spacing:0.1em;text-transform:uppercase;border-top:1px solid rgba(208,145,147,0.1);}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <h1 class="page-title">Solteros</h1>
+  <p class="page-subtitle">Solteros en la fiesta. Lo que hagas con esta información ya es cosa tuya.</p>
+  <span class="count-badge">16 personas</span>
+</div>
+<div class="grid">
+
+    <a href="https://instagram.com/_c_adrian04" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/adrian-cazar-1.jpg" alt="Adrian Cazar" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/adrian-cazar-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/adrian-cazar-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Adrian Cazar</span>
+        <span class="ig-handle">@_c_adrian04</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/titovidal99" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/alberto-vidal-1.jpg" alt="Alberto Vidal" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/alberto-vidal-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/alberto-vidal-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Alberto Vidal</span>
+        <span class="ig-handle">@titovidal99</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/arrebarreto" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/andres-barreto-1.jpg" alt="Andres Barreto" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/andres-barreto-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/andres-barreto-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Andres Barreto</span>
+        <span class="ig-handle">@arrebarreto</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/_.c.m.t.r._" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/caetano-torres-1.jpg" alt="Caetano Torres" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/caetano-torres-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/caetano-torres-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Caetano Torres</span>
+        <span class="ig-handle">@_.c.m.t.r._</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/danieldelpo95" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/daniel-del-pozo-1.jpg" alt="Daniel Del Pozo" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/daniel-del-pozo-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/daniel-del-pozo-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Daniel Del Pozo</span>
+        <span class="ig-handle">@danieldelpo95</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/danielpfigueredo" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/daniel-figueredo-1.jpg" alt="Daniel Figueredo" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/daniel-figueredo-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/daniel-figueredo-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Daniel Figueredo</span>
+        <span class="ig-handle">@danielpfigueredo</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/danielrondonv" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/daniel-rondon-1.jpg" alt="Daniel Rondon" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/daniel-rondon-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/daniel-rondon-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Daniel Rondon</span>
+        <span class="ig-handle">@danielrondonv</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/fernandocsv" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/fernando-carrillo-1.jpg" alt="Fernando Carrillo" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/fernando-carrillo-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/fernando-carrillo-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Fernando Carrillo</span>
+        <span class="ig-handle">@fernandocsv</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/jrafael.rdz" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/jesus-rodriguez-1.jpg" alt="Jesus Rodriguez" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/jesus-rodriguez-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/jesus-rodriguez-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Jesus Rodriguez</span>
+        <span class="ig-handle">@jrafael.rdz</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/jose_cazar" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/jose-cazar-1.jpg" alt="Jose Cazar" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/jose-cazar-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/jose-cazar-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Jose Cazar</span>
+        <span class="ig-handle">@jose_cazar</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/josecomerma" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/jose-comerma-1.jpg" alt="Jose Comerma" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/jose-comerma-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/jose-comerma-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Jose Comerma</span>
+        <span class="ig-handle">@josecomerma</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/pedrorubio__" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/pedro-rubio-1.jpg" alt="Pedro Rubio" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/pedro-rubio-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/pedro-rubio-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Pedro Rubio</span>
+        <span class="ig-handle">@pedrorubio__</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/rodrigofcm16" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/rodrigo-carrion-1.jpg" alt="Rodrigo Carrion" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/rodrigo-carrion-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/rodrigo-carrion-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Rodrigo Carrion</span>
+        <span class="ig-handle">@rodrigofcm16</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/saeed.primary" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/saeed-suwaidi-1.jpg" alt="Saeed Suwaidi" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/saeed-suwaidi-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/saeed-suwaidi-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Saeed Suwaidi</span>
+        <span class="ig-handle">@saeed.primary</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/santiurdaneta" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/santiago-urdaneta-1.jpg" alt="Santiago Urdaneta" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/santiago-urdaneta-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/santiago-urdaneta-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Santiago Urdaneta</span>
+        <span class="ig-handle">@santiurdaneta</span>
+      </div>
+    </a>
+    <a href="https://instagram.com/foca.3" target="_blank" class="person-card">
+      <div class="photo-strip">
+        <img src="https://mabeyluis.github.io/boda/images/cupido/sergio-abisambra-1.jpg" alt="Sergio Abisambra" class="photo photo-main" onerror="this.style.display='none'"/>
+        <div class="photo-thumbs">
+          <img src="https://mabeyluis.github.io/boda/images/cupido/sergio-abisambra-2.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+          <img src="https://mabeyluis.github.io/boda/images/cupido/sergio-abisambra-3.jpg" alt="" class="photo photo-thumb" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div class="person-info">
+        <span class="person-name">Sergio Abisambra</span>
+        <span class="ig-handle">@foca.3</span>
+      </div>
+    </a>
+</div>
+<div class="cta-section">
+  <p class="cta-text">¿Quieres saber con quién tienes más en común esta noche?</p>
+  <a href="https://mabeyluis.github.io/boda/cupido.html" class="cta-btn">Descubrirlo</a>
+</div>
+<footer>Mabe &amp; Luis · 3 octubre 2026</footer>
+</body>
+</html>
