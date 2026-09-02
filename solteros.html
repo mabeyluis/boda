@@ -1,27 +1,32 @@
-v    display:flex;align-items:center;justify-content:space-between;
-    padding:0.65rem 1.25rem;
-    border-top:1px solid rgba(var(--accent-rgb),0.2);
-    border-bottom:1px solid rgba(var(--accent-rgb),0.2);
-    background:var(--cream);
-  }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>Los Solteros — Mabe & Luis</title>
+<link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet"/>
+<style>
+  :root{--cream:#FCFBF6;--accent:#92A6BE;--accent-dark:#384B70;--accent-rgb:146,166,190;--charcoal:#1F1D1D;--safe-bottom:env(safe-area-inset-bottom,0px);}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html{height:100%;}
+  body{background:var(--cream);font-family:Georgia,serif;color:var(--charcoal);min-height:100vh;min-height:-webkit-fill-available;display:flex;flex-direction:column;}
+  .sticky-top{position:sticky;top:0;z-index:10;background:var(--cream);}
+  .page-header{text-align:center;padding:2rem 1.25rem 0;}
+  .page-title{font-family:'Beth Ellen',Georgia,serif;font-size:2.2rem;font-weight:400;color:var(--accent-dark);margin-bottom:0.2rem;line-height:1.1;}
+  .page-subtitle{font-size:0.8rem;color:var(--charcoal);opacity:0.5;font-style:italic;line-height:1.5;margin-bottom:0.85rem;}
+  .filter-bar{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.25rem 0.75rem;background:var(--cream);}
   .filter-count{font-size:0.78rem;color:var(--charcoal);opacity:0.55;letter-spacing:0.02em;}
   .filter-icons{display:flex;gap:0.5rem;align-items:center;}
-  .icon-btn{
-    background:none;border:none;cursor:pointer;
-    padding:0.2rem;display:flex;align-items:center;justify-content:center;
-    opacity:0.3;transition:opacity 0.15s;
-  }
+  .icon-btn{background:none;border:none;cursor:pointer;padding:0.2rem;display:flex;align-items:center;justify-content:center;opacity:0.3;transition:opacity 0.15s;}
   .icon-btn.active{opacity:1;}
   .icon-btn:active{opacity:0.6;}
-
-  /* GRID */
+  .desktop-only{display:none;}
+  @media(min-width:900px){.desktop-only{display:flex;}}
   .grid{display:grid;gap:0.75rem;padding:0.75rem;width:100%;flex:1;}
-
-  /* Mobile defaults */
   .grid.cols-1{grid-template-columns:1fr;}
   .grid.cols-2{grid-template-columns:repeat(2,1fr);}
   .grid.cols-3{grid-template-columns:repeat(2,1fr);}
-
   @media(min-width:600px){
     .grid{gap:1rem;padding:1rem;}
     .grid.cols-1{grid-template-columns:repeat(2,1fr);}
@@ -30,6 +35,173 @@ v    display:flex;align-items:center;justify-content:space-between;
   }
   @media(min-width:900px){
     .grid{gap:1.25rem;padding:1.25rem;max-width:1100px;margin:0 auto;}
+    .grid.cols-1{grid-template-columns:1fr;max-width:480px;}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr);max-width:700px;margin-left:auto;margin-right:auto;}
+    .grid.cols-3{grid-template-columns:repeat(4,1fr);max-width:1100px;}
+  }
+  .person-card{background:white;border:1px solid rgba(var(--accent-rgb),0.18);border-radius:12px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;color:inherit;display:block;}
+  .person-card:active{transform:scale(0.97);}
+  @media(hover:hover){.person-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(var(--accent-rgb),0.14);border-color:rgba(var(--accent-rgb),0.4);}}
+  .photo-wrap{width:100%;aspect-ratio:3/4;overflow:hidden;background:rgba(var(--accent-rgb),0.08);}
+  .photo{width:100%;height:100%;object-fit:cover;display:block;}
+  .person-info{padding:0.6rem 0.75rem 0.75rem;}
+  .person-name{font-size:0.88rem;font-weight:400;color:var(--charcoal);display:block;line-height:1.3;margin-bottom:0.1rem;}
+  .ig-handle{font-size:0.7rem;color:var(--accent);opacity:0.85;}
+  .cta-section{text-align:center;padding:2rem 1.25rem calc(2rem + var(--safe-bottom));border-top:1px solid rgba(var(--accent-rgb),0.12);}
+  .cta-text{font-size:0.88rem;color:var(--charcoal);opacity:0.6;margin-bottom:1rem;line-height:1.6;}
+  .cta-btn{display:inline-block;padding:0.8rem 2rem;background:var(--accent-dark);color:white;border-radius:50px;text-decoration:none;font-family:Georgia,serif;font-size:0.88rem;letter-spacing:0.03em;transition:opacity 0.2s;min-height:48px;line-height:1.5;}
+  .cta-btn:active{opacity:0.82;}
+  footer{text-align:center;padding:1rem 1.25rem;font-size:0.66rem;color:var(--charcoal);opacity:0.28;letter-spacing:0.1em;text-transform:uppercase;border-top:1px solid rgba(var(--accent-rgb),0.08);}
+  @keyframes shimmer {
+    0% { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+  }
+  .skeleton-card { background: white; border: 1px solid rgba(146,166,190,0.12); border-radius: 12px; overflow: hidden; }
+  .skeleton-photo { width: 100%; aspect-ratio: 3/4; background: linear-gradient(90deg, #f0f0eb 25%, #e8e8e2 50%, #f0f0eb 75%); background-size: 400px 100%; animation: shimmer 1.4s ease-in-out infinite; }
+  .skeleton-info { padding: 0.6rem 0.75rem 0.75rem; }
+  .skeleton-line { height: 10px; border-radius: 5px; background: linear-gradient(90deg, #f0f0eb 25%, #e8e8e2 50%, #f0f0eb 75%); background-size: 400px 100%; animation: shimmer 1.4s ease-in-out infinite; margin-bottom: 0.4rem; }
+  .skeleton-line.long { width: 75%; }
+  .skeleton-line.short { width: 45%; }
+    .loading{text-align:center;padding:3rem 1rem;font-size:0.88rem;opacity:0.45;}
+</style>
+</head>
+<body>
+
+<div class="sticky-top">
+  <div class="page-header">
+    <h1 class="page-title">Los Solteros</h1>
+    <p class="page-subtitle">Solteros en la fiesta. Lo que hagas con esta información ya es cosa tuya.</p>
+  </div>
+  <div class="filter-bar">
+    <span class="filter-count" id="count-label">Cargando...</span>
+    <div class="filter-icons">
+      <button class="icon-btn" id="btn-1" onclick="setCols(1)" title="Vista individual"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="1.5" y="1.5" width="17" height="17" rx="1.5" stroke="#384B70" stroke-width="1.8"/></svg></button>
+      <button class="icon-btn active" id="btn-2" onclick="setCols(2)" title="Vista galería"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="1.5" y="1.5" width="7.5" height="17" rx="1.5" stroke="#384B70" stroke-width="1.8"/><rect x="11" y="1.5" width="7.5" height="17" rx="1.5" stroke="#384B70" stroke-width="1.8"/></svg></button>
+      <button class="icon-btn desktop-only" id="btn-3" onclick="setCols(3)" title="Vista 4 columnas"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="1" y="1.5" width="3.5" height="17" rx="1" stroke="#384B70" stroke-width="1.6"/><rect x="6" y="1.5" width="3.5" height="17" rx="1" stroke="#384B70" stroke-width="1.6"/><rect x="11" y="1.5" width="3.5" height="17" rx="1" stroke="#384B70" stroke-width="1.6"/><rect x="16" y="1.5" width="3" height="17" rx="1" stroke="#384B70" stroke-width="1.6"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<div class="grid cols-2" id="grid">
+  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <p class="cta-text">¿Quieres saber con quién tienes más en común esta noche?</p>
+  <a href="https://mabeyluis.github.io/boda/cupido.html" class="cta-btn">Descubrirlo</a>
+</div>
+<footer>Mabe &amp; Luis · 3 octubre 2026</footer>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVawvfx3UZ8zIOaN2Y7n-YwmsBcGYey9J-Ui3bKLBnWRvUYWTVV0gnk8QiJqh2ioHLLQ/exec';
+const GENDER = 'H';
+const BASE_IMG = 'https://mabeyluis.github.io/boda/images/cupido/';
+
+function slug(name) {
+  return name.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/\u00f1/g,'n').replace(/ñ/g,'n')
+    .replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+}
+
+async function loadPeople() {
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=getSolteros`);
+    const all = await res.json();
+    const people = all
+      .filter(p => p.gender === GENDER)
+      .sort((a,b) => a.name.localeCompare(b.name));
+    renderCards(people);
+  } catch(e) {
+    document.getElementById('grid').innerHTML = '<div class="loading">Error al cargar. Recarga la página.</div>';
+  }
+}
+
+function renderCards(people) {
+  document.getElementById('count-label').textContent = `${people.length} personas`;
+  if (!people.length) {
+    document.getElementById('grid').innerHTML = '<div class="loading">No hay personas en esta lista.</div>';
+    return;
+  }
+  document.getElementById('grid').innerHTML = people.map(p => {
+    const s = slug(p.name);
+    const img = `${BASE_IMG}${s}-1.jpg`;
+    const ig = p.instagram ? p.instagram.replace('@','') : '';
+    const href = ig ? `https://instagram.com/${ig}` : null;
+    const tag = href ? 'a' : 'div';
+    const attrs = href ? `href="${href}" target="_blank"` : '';
+    return `<${tag} ${attrs} class="person-card">
+      <div class="photo-wrap">
+        <img src="${img}" alt="${p.name}" class="photo" onerror="this.style.background='rgba(var(--accent-rgb),0.1)'"/>
+      </div>
+      <div class="person-info">
+        <span class="person-name">${p.name}</span>
+        ${ig ? `<span class="ig-handle">@${ig}</span>` : ''}
+      </div>
+    </${tag}>`;
+  }).join('');
+}
+
+function setCols(n) {
+  document.getElementById('grid').className = 'grid cols-' + n;
+  document.getElementById('btn-1').classList.toggle('active', n===1);
+  document.getElementById('btn-2').classList.toggle('active', n===2);
+  const b3 = document.getElementById('btn-3');
+  if (b3) b3.classList.toggle('active', n===3);
+}
+
+loadPeople();
+</script>
+</body>
+</html>    .grid{gap:1.25rem;padding:1.25rem;max-width:1100px;margin:0 auto;}
     .grid.cols-1{grid-template-columns:1fr;max-width:480px;}
     .grid.cols-2{grid-template-columns:repeat(2,1fr);max-width:700px;margin-left:auto;margin-right:auto;}
     .grid.cols-3{grid-template-columns:repeat(4,1fr);max-width:1100px;}
