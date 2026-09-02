@@ -60,7 +60,11 @@
   .count-num{font-size:1.6rem;color:var(--burgundy);display:block;}
 
   /* ── MATCHES VIEW ── */
-  .match-search-row{display:flex;gap:0.5rem;align-items:center;margin-bottom:1rem;}
+  #match-search-list li{padding:0.75rem 1rem;font-size:0.9rem;cursor:pointer;font-family:Georgia,serif;border-bottom:1px solid rgba(208,145,147,0.08);}
+  #match-search-list li:last-child{border-bottom:none;}
+  #match-search-list li:hover,#match-search-list li.ac-active{background:rgba(208,145,147,0.1);}
+
+  .match-search-row{display:flex;gap:0.5rem;align-items:flex-start;margin-bottom:0.5rem;}
   .match-search-row input{flex:1;}
   .match-search-btn{background:var(--sage);color:white;border:none;border-radius:50px;padding:0.65rem 1.1rem;font-family:Georgia,serif;font-size:0.82rem;cursor:pointer;white-space:nowrap;min-height:44px;}
   .match-search-btn:active{opacity:0.82;}
@@ -160,7 +164,10 @@
   <div class="panel" id="panel-matches">
     <p style="font-size:0.82rem;opacity:0.55;margin-bottom:1rem;line-height:1.5;">Busca un nombre para ver sus matches calculados en tiempo real.</p>
     <div class="match-search-row">
-      <input type="search" id="match-search-input" placeholder="Nombre del invitado..." autocomplete="off" autocorrect="off" spellcheck="false"/>
+      <div style="position:relative;flex:1;">
+        <input type="search" id="match-search-input" placeholder="Nombre del invitado..." autocomplete="off" autocorrect="off" spellcheck="false" oninput="filterMatchSearch()"/>
+        <ul id="match-search-list" role="listbox" style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:white;border:1.5px solid rgba(208,145,147,0.3);border-radius:14px;overflow:hidden;z-index:100;box-shadow:0 6px 24px rgba(0,0,0,0.09);max-height:200px;overflow-y:auto;padding:0.35rem 0;list-style:none;"></ul>
+      </div>
       <button class="match-search-btn" onclick="calcMatches()">Ver matches</button>
     </div>
     <span class="error-msg" id="match-error"></span>
@@ -349,9 +356,42 @@ async function setUnlocked(val) {
   updateStatusUI(val, null);
 }
 
+// ── MATCH SEARCH AUTOCOMPLETE ──
+let matchSelName = '';
+
+function filterMatchSearch() {
+  const val = document.getElementById('match-search-input').value.toLowerCase().trim();
+  const list = document.getElementById('match-search-list');
+  matchSelName = '';
+  if (!val) { list.style.display='none'; return; }
+  // Only show names that have answered
+  const answeredNames = allAnswers.map(a => a.name);
+  const matches = solteros.filter(s => s.name.toLowerCase().includes(val) && answeredNames.includes(s.name));
+  if (!matches.length) { list.style.display='none'; return; }
+  list.innerHTML = matches.map(s =>
+    `<li data-val="${s.name}">${s.name}</li>`
+  ).join('');
+  list.style.display = 'block';
+
+  list.querySelectorAll('li').forEach(li => {
+    li.addEventListener('mousedown', e => {
+      e.preventDefault();
+      document.getElementById('match-search-input').value = li.dataset.val;
+      matchSelName = li.dataset.val;
+      list.style.display = 'none';
+    });
+  });
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#match-search-input') && !e.target.closest('#match-search-list')) {
+    document.getElementById('match-search-list').style.display = 'none';
+  }
+});
+
 // ── MATCHES VIEW ──
 async function calcMatches() {
-  const name = document.getElementById('match-search-input').value.trim();
+  const name = matchSelName || document.getElementById('match-search-input').value.trim();
   const errEl = document.getElementById('match-error');
   const container = document.getElementById('match-results');
   errEl.textContent = '';
