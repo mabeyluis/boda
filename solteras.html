@@ -1,4 +1,35 @@
-v    .grid.cols-1{grid-template-columns:repeat(2,1fr);}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>Las Solteras — Mabe & Luis</title>
+<link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet"/>
+<style>
+  :root{--cream:#FCFBF6;--accent:#D09193;--accent-dark:#9F3544;--accent-rgb:208,145,147;--charcoal:#1F1D1D;--safe-bottom:env(safe-area-inset-bottom,0px);}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html{height:100%;}
+  body{background:var(--cream);font-family:Georgia,serif;color:var(--charcoal);min-height:100vh;min-height:-webkit-fill-available;display:flex;flex-direction:column;}
+  .sticky-top{position:sticky;top:0;z-index:10;background:var(--cream);}
+  .page-header{text-align:center;padding:2rem 1.25rem 0;}
+  .page-title{font-family:'Beth Ellen',Georgia,serif;font-size:2.2rem;font-weight:400;color:var(--accent-dark);margin-bottom:0.2rem;line-height:1.1;}
+  .page-subtitle{font-size:0.8rem;color:var(--charcoal);opacity:0.5;font-style:italic;line-height:1.5;margin-bottom:0.85rem;}
+  .filter-bar{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.25rem 0.75rem;background:var(--cream);}
+  .filter-count{font-size:0.78rem;color:var(--charcoal);opacity:0.55;letter-spacing:0.02em;}
+  .filter-icons{display:flex;gap:0.5rem;align-items:center;}
+  .icon-btn{background:none;border:none;cursor:pointer;padding:0.2rem;display:flex;align-items:center;justify-content:center;opacity:0.3;transition:opacity 0.15s;}
+  .icon-btn.active{opacity:1;}
+  .icon-btn:active{opacity:0.6;}
+  .desktop-only{display:none;}
+  @media(min-width:900px){.desktop-only{display:flex;}}
+  .grid{display:grid;gap:0.75rem;padding:0.75rem;width:100%;flex:1;}
+  .grid.cols-1{grid-template-columns:1fr;}
+  .grid.cols-2{grid-template-columns:repeat(2,1fr);}
+  .grid.cols-3{grid-template-columns:repeat(2,1fr);}
+  @media(min-width:600px){
+    .grid{gap:1rem;padding:1rem;}
+    .grid.cols-1{grid-template-columns:repeat(2,1fr);}
     .grid.cols-2{grid-template-columns:repeat(3,1fr);}
     .grid.cols-3{grid-template-columns:repeat(3,1fr);}
   }
@@ -21,7 +52,17 @@ v    .grid.cols-1{grid-template-columns:repeat(2,1fr);}
   .cta-btn{display:inline-block;padding:0.8rem 2rem;background:var(--accent-dark);color:white;border-radius:50px;text-decoration:none;font-family:Georgia,serif;font-size:0.88rem;letter-spacing:0.03em;transition:opacity 0.2s;min-height:48px;line-height:1.5;}
   .cta-btn:active{opacity:0.82;}
   footer{text-align:center;padding:1rem 1.25rem;font-size:0.66rem;color:var(--charcoal);opacity:0.28;letter-spacing:0.1em;text-transform:uppercase;border-top:1px solid rgba(var(--accent-rgb),0.08);}
-  .loading{text-align:center;padding:3rem 1rem;font-size:0.88rem;opacity:0.45;}
+  @keyframes shimmer {
+    0% { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+  }
+  .skeleton-card { background: white; border: 1px solid rgba(208,145,147,0.12); border-radius: 12px; overflow: hidden; }
+  .skeleton-photo { width: 100%; aspect-ratio: 3/4; background: linear-gradient(90deg, #f0f0eb 25%, #e8e8e2 50%, #f0f0eb 75%); background-size: 400px 100%; animation: shimmer 1.4s ease-in-out infinite; }
+  .skeleton-info { padding: 0.6rem 0.75rem 0.75rem; }
+  .skeleton-line { height: 10px; border-radius: 5px; background: linear-gradient(90deg, #f0f0eb 25%, #e8e8e2 50%, #f0f0eb 75%); background-size: 400px 100%; animation: shimmer 1.4s ease-in-out infinite; margin-bottom: 0.4rem; }
+  .skeleton-line.long { width: 75%; }
+  .skeleton-line.short { width: 45%; }
+    .loading{text-align:center;padding:3rem 1rem;font-size:0.88rem;opacity:0.45;}
 </style>
 </head>
 <body>
@@ -42,7 +83,55 @@ v    .grid.cols-1{grid-template-columns:repeat(2,1fr);}
 </div>
 
 <div class="grid cols-2" id="grid">
-  <div class="loading">Cargando...</div>
+  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>  <div class="skeleton-card">
+    <div class="skeleton-photo"></div>
+    <div class="skeleton-info">
+      <div class="skeleton-line long"></div>
+      <div class="skeleton-line short"></div>
+    </div>
+  </div>
 </div>
 
 <div class="cta-section">
