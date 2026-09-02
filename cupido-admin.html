@@ -193,6 +193,7 @@
         <input type="text" id="add-h-name" placeholder="Nombre completo"/>
         <input type="text" id="add-h-ig" placeholder="Instagram (opcional)"/>
         <button class="btn btn-add" onclick="addSoltero('H')" style="margin-top:0.25rem;">Añadir</button>
+        <div id="filename-hint-h" style="display:none;font-size:0.78rem;line-height:1.6;color:var(--charcoal);margin-top:0.5rem;padding:0.6rem 0.75rem;background:rgba(207,147,59,0.06);border-radius:8px;border:1px solid rgba(207,147,59,0.2);"></div>
       </div>
     </div>
     <!-- Mujeres -->
@@ -204,6 +205,7 @@
         <input type="text" id="add-m-name" placeholder="Nombre completo"/>
         <input type="text" id="add-m-ig" placeholder="Instagram (opcional)"/>
         <button class="btn btn-add" onclick="addSoltero('M')" style="margin-top:0.25rem;">Añadir</button>
+        <div id="filename-hint-m" style="display:none;font-size:0.78rem;line-height:1.6;color:var(--charcoal);margin-top:0.5rem;padding:0.6rem 0.75rem;background:rgba(207,147,59,0.06);border-radius:8px;border:1px solid rgba(207,147,59,0.2);"></div>
       </div>
     </div>
     <div class="save-bar">
@@ -349,11 +351,13 @@ function updateStatusUI(unlocked, count) {
 }
 
 async function setUnlocked(val) {
+  // Update UI immediately — don't wait for server
   localStorage.setItem('cupido_unlocked', val ? 'true' : 'false');
+  updateStatusUI(val, null);
+  // Sync with server in background
   try {
     await fetch(APPS_SCRIPT_URL, { method:'POST', body:JSON.stringify({ action:'setStatus', unlocked:val }) });
   } catch(e) {}
-  updateStatusUI(val, null);
 }
 
 // ── MATCH SEARCH AUTOCOMPLETE ──
@@ -394,18 +398,19 @@ async function calcMatches() {
   const name = matchSelName || document.getElementById('match-search-input').value.trim();
   const errEl = document.getElementById('match-error');
   const container = document.getElementById('match-results');
+  const btn = document.querySelector('.match-search-btn');
   errEl.textContent = '';
   container.innerHTML = '';
+  btn.textContent = 'Calculando...';
+  btn.disabled = true;
 
-  if (!name) { errEl.textContent = 'Introduce un nombre'; return; }
+  if (!name) { errEl.textContent='Introduce un nombre'; btn.textContent='Ver matches'; btn.disabled=false; return; }
 
-  // Find this person in solteros
-  const person = solteros.find(s => s.name.toLowerCase() === name.toLowerCase());
-  if (!person) { errEl.textContent = 'No encontrado en la lista de participantes'; return; }
+  const person = solteros.find(s => s.name.toLowerCase()===name.toLowerCase());
+  if (!person) { errEl.textContent='No encontrado en la lista de participantes'; btn.textContent='Ver matches'; btn.disabled=false; return; }
 
-  // Find their answers
-  const myData = allAnswers.find(a => a.name.toLowerCase() === name.toLowerCase());
-  if (!myData) { errEl.textContent = `${name} aun no ha respondido el quiz`; return; }
+  const myData = allAnswers.find(a => a.name.toLowerCase()===name.toLowerCase());
+  if (!myData) { errEl.textContent=`${name} aun no ha respondido el quiz`; btn.textContent='Ver matches'; btn.disabled=false; return; }
 
   const pool = person.gender === 'H'
     ? solteros.filter(s => s.gender === 'M')
@@ -428,7 +433,7 @@ async function calcMatches() {
 
   if (!top3.length) {
     container.innerHTML = '<p class="empty-msg">No hay suficientes respuestas para calcular matches.</p>';
-    return;
+    btn.textContent='Ver matches'; btn.disabled=false; return;
   }
 
   function ice(myA, theirA) {
@@ -461,6 +466,7 @@ async function calcMatches() {
         <p class="match-ice">${ice(myData.answers, m.theirAnswers)}</p>
       </div>`;
     }).join('');
+  btn.textContent='Ver matches'; btn.disabled=false;
 }
 
 // ── CÓDIGOS ──
@@ -518,10 +524,42 @@ function addSoltero(gender) {
   const name   = document.getElementById(nameId).value.trim();
   const ig     = document.getElementById(igId).value.trim().replace('@','');
   if (!name) return;
+
+  // Generate slug for filename
+  const slug = name.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/ñ/g,'n').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+  const filename = `${slug}-1.jpg`;
+
   solteros.push({ name, gender, instagram: ig });
   document.getElementById(nameId).value='';
   document.getElementById(igId).value='';
   renderLists();
+
+  // Show filename hint
+  const hintId = gender==='H' ? 'filename-hint-h' : 'filename-hint-m';
+  const hint = document.getElementById(hintId);
+  hint.innerHTML = `Sube la foto como <span onclick="copyFilename('${filename}', this)" style="background:rgba(207,147,59,0.12);border:1px solid rgba(207,147,59,0.4);border-radius:6px;padding:0.15rem 0.5rem;font-family:monospace;font-size:0.85rem;cursor:pointer;color:var(--charcoal);">${filename}</span> a <span style="font-family:monospace;font-size:0.78rem;opacity:0.6;">images/cupido/</span> en GitHub. Toca el nombre para copiarlo.`;
+  hint.style.display = 'block';
+  setTimeout(() => hint.style.display='none', 15000);
+}
+
+function copyFilename(text, el) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = el.textContent;
+    el.textContent = '✓ Copiado';
+    el.style.background = 'rgba(166,176,114,0.2)';
+    el.style.borderColor = 'rgba(166,176,114,0.5)';
+    setTimeout(() => { el.textContent=orig; el.style.background=''; el.style.borderColor=''; }, 2000);
+  }).catch(() => {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+    el.textContent='✓ Copiado';
+    setTimeout(() => el.textContent=text, 2000);
+  });
 }
 
 function removeSoltero(idx) {
@@ -530,8 +568,9 @@ function removeSoltero(idx) {
 }
 
 async function saveSolteros() {
-  await saveSolterosData();
   const ok = document.getElementById('save-ok');
+  ok.textContent = 'Guardando...';
+  saveSolterosData(); // fire and forget
   ok.textContent = '✓ Guardado';
   setTimeout(() => ok.textContent='', 2500);
 }
