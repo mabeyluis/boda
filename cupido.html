@@ -234,56 +234,23 @@
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVawvfx3UZ8zIOaN2Y7n-YwmsBcGYey9J-Ui3bKLBnWRvUYWTVV0gnk8QiJqh2ioHLLQ/exec';
 
 const QUESTIONS = [
-  {id:'q1',text:'Si tuvieras que elegir tu peor enemigo, ¿cuál sería?',options:['100 caballos del tamaño de un pato. Los aplasto de uno en uno.','Un pato del tamaño de un caballo. Negocio con él, los patos son listos.','Huyo de ambos sin mirar atrás.','Me rindo antes de empezar.']},
-  {id:'q2',text:'¿Con qué villano de Disney te identificas más?',options:['Úrsula','Scar','Maléfica','Gastón','Hades','Cruella de Vil']},
-  {id:'q3',text:'¿Qué estación del año eres?',options:['Verano. Energía, sol y planes.','Otoño. Café, mantas y planes tranquilos.','Primavera. Siempre de buen humor, nueva etapa.','Invierno. Tranquila/o, selectiva/o y profunda/o.']},
-  {id:'q4',text:'¿Qué animal serías en tu próxima vida?',options:['Delfín','Gato','Perro','Oso','Cuervo','Pulpo']},
-  {id:'q5',text:'¿Cómo reaccionas cuando alguien cancela planes en el último momento?',options:['Alivio total. Era lo que quería pero no me atrevía a decir.','Molestia genuina. Me había preparado para esto.','Ya me lo esperaba, siempre pasa.','Propongo otro plan inmediatamente.']},
-  {id:'q6',text:'Si pudieras tener un superpoder, ¿cuál elegirías?',options:['Teletransportarme. Adiós atascos, adiós madrugadas.','Leer la mente. El caos que causaría.','Detener el tiempo. Dormir sin perderme nada.','Volverme invisible. Solo para situaciones específicas.']},
-  {id:'q7',text:'Si te quedas atrapada/o en un ascensor, ¿qué haces?',options:['Pulso todos los botones por si acaso.','Llamo al número de emergencias inmediatamente.','Me siento en el suelo y espero con calma.','Intento hablar con quien esté dentro para hacer la espera llevadera.']},
-  {id:'q8',text:'¿Qué haces cuando una canción te gusta mucho?',options:['La pongo en repeat hasta que la odio.','La agrego a la playlist y sigo con mi vida.','La busco en todas las plataformas y aprendo la letra en dos días.','La mando a tres personas distintas sin contexto.']},
-  {id:'q9',text:'Si pudieras vivir en cualquier época, ¿cuál elegirías?',options:['Antigua Roma, con todos los dramas incluidos.','Los años 70. Música, libertad y sin redes sociales.','El futuro. Quiero ver cómo termina todo esto.','Aquí me quedo. Las otras épocas eran una pesadilla sanitaria.']},
-  {id:'q10',text:'¿Cuánto tiempo tardas en estar listo/a para salir?',options:['Quince minutos, máximo veinte con ducha incluida.','Una hora. Necesito mi proceso.','Empiezo a arreglarme tres horas antes para no tener prisa.','Depende del plan. Para algo importante me tomo mi tiempo.']},
-  {id:'q11',text:'Si tuvieras que comer lo mismo todos los días para siempre, ¿qué elegirías?',options:['Pizza, sin límites ni remordimientos.','Sushi. Podría vivir así perfectamente.','Pasta en cualquiera de sus formas.','Un desayuno completo. Es la única comida que nunca cansa.','Tacos. Hay infinitas variaciones como para aburrirse.','Arroz con lo que sea. Es el acompañamiento perfecto para todo.']},
-  {id:'q12',text:'¿Qué tipo de viajero/a eres?',options:['Itinerario completo. Reservas hechas y plan hora por hora.','Una idea general del destino y el resto sobre la marcha.','Vuelo barato, mochila y a ver qué pasa.','Prefiero repetir destinos que ya conozco y que sé que me gustan.']},
+  {id:'q1',text:'Si pudieras tener un superpoder, ¿cuál elegirías?',options:['Teletransportarme','Leer la mente','Detener el tiempo','Volverme invisible']},
+  {id:'q2',text:'¿Qué universo visitarías por un día?',options:['Harry Potter','Marvel','Disney','Pokémon','Mario Bros','Star Wars']},
+  {id:'q3',text:'¿Cuál de estos animales elegirías como mascota?',options:['Dragón','Unicornio','Dinosaurio','Cerbero','Fénix','Grifo']},
+  {id:'q4',text:'¿Cuál de estos objetos te llevarías a una isla desierta?',options:['Una hamaca','Un cuchillo','Protector solar','Una pelota','Una caja de galletas']},
+  {id:'q5',text:'Si pudieras vivir en cualquier época, ¿cuál elegirías?',options:['Antigua Roma','Los años 20','Los años 70','El futuro','Aquí me quedo']},
+  {id:'q6',text:'Si tuvieras que comer lo mismo todos los días para siempre, ¿qué elegirías?',options:['Pizza','Sushi','Pasta','Desayuno','Tacos','Arroz con lo que sea']},
+  {id:'q7',text:'¿Qué sabor de helado prefieres?',options:['Chocolate','Vainilla','Fresa','Menta con chocolate','Pistacho','Limón']},
+  {id:'q8',text:'¿Qué animal serías en tu próxima vida?',options:['Delfín','Gato','Perro','Oso','Cuervo','Pulpo']},
+  {id:'q9',text:'¿Qué estación del año eres?',options:['Verano','Otoño','Primavera','Invierno']},
+  {id:'q10',text:'¿Con qué villano de Disney te identificas más?',options:['Úrsula','Scar','Maléfica','Gastón','Hades','Cruella de Vil']},
+  {id:'q11',text:'Si tuvieras que elegir tu peor enemigo, ¿cuál sería?',options:['100 caballos del tamaño de un pato.','Un pato del tamaño de un caballo.']},
+  {id:'q12',text:'¿Cuál es la banda más icónica de todos los tiempos?',options:['The Beatles','NSYNC','One Direction','BTS','Queen','ABBA']},
 ];
 
-const HOMBRES = [
-  {name:'Adrian Cazar',slug:'adrian-cazar',instagram:'_c_adrian04'},
-  {name:'Jose Cazar',slug:'jose-cazar',instagram:'jose_cazar'},
-  {name:'Caetano Torres',slug:'caetano-torres',instagram:'_.c.m.t.r._'},
-  {name:'Pedro Rubio',slug:'pedro-rubio',instagram:'pedrorubio__'},
-  {name:'Alberto Vidal',slug:'alberto-vidal',instagram:'titovidal99'},
-  {name:'Rodrigo Carrion',slug:'rodrigo-carrion',instagram:'rodrigofcm16'},
-  {name:'Andres Barreto',slug:'andres-barreto',instagram:'arrebarreto'},
-  {name:'Daniel Del Pozo',slug:'daniel-del-pozo',instagram:'danieldelpo95'},
-  {name:'Daniel Rondon',slug:'daniel-rondon',instagram:'danielrondonv'},
-  {name:'Santiago Urdaneta',slug:'santiago-urdaneta',instagram:'santiurdaneta'},
-  {name:'Sergio Abisambra',slug:'sergio-abisambra',instagram:'foca.3'},
-  {name:'Jesus Rodriguez',slug:'jesus-rodriguez',instagram:'jrafael.rdz'},
-  {name:'Jose Comerma',slug:'jose-comerma',instagram:'josecomerma'},
-  {name:'Saeed Suwaidi',slug:'saeed-suwaidi',instagram:'saeed.primary'},
-  {name:'Fernando Carrillo',slug:'fernando-carrillo',instagram:'fernandocsv'},
-  {name:'Daniel Figueredo',slug:'daniel-figueredo',instagram:'danielpfigueredo'},
-];
-const MUJERES = [
-  {name:'Micaela Vargas',slug:'micaela-vargas',instagram:'mi.camita'},
-  {name:'Claudia Ycaza',slug:'claudia-ycaza',instagram:'clauycaza'},
-  {name:'Arianna Vargas',slug:'arianna-vargas',instagram:'ariannafvm'},
-  {name:'Ilaria Huertas',slug:'ilaria-huertas',instagram:'ila.hs'},
-  {name:'Claudia Voysest',slug:'claudia-voysest',instagram:'claudia.voy'},
-  {name:'Mercedes Nuñez',slug:'mercedes-nunez',instagram:'mercynunez'},
-  {name:'Karen Guambo',slug:'karen-guambo',instagram:'karenguambo'},
-  {name:'Mariana Paez',slug:'mariana-paez',instagram:'mariana_paez'},
-  {name:'Andrea Isa',slug:'andrea-isa',instagram:'andreaisalopez'},
-  {name:'Maria Fernanda Bravo',slug:'maria-fernanda-bravo',instagram:'mafeb79'},
-  {name:'Isabella Dalmau',slug:'isabella-dalmau',instagram:'isa_dalmau'},
-  {name:'Alicia Olivares',slug:'alicia-olivares',instagram:'aliolisc'},
-  {name:'Maria Andreina Touza',slug:'maria-andreina-touza',instagram:'mandytouza'},
-  {name:'Manuela Hernandez',slug:'manuela-hernandez',instagram:'manuhernandez97'},
-  {name:'Paola Marín',slug:'paola-marin',instagram:'paomarin97'},
-];
-const ALL = [...HOMBRES,...MUJERES];
+let HOMBRES = [];
+let MUJERES = [];
+let ALL = [];
 const BLOCKLIST = [
   ['Adrian Cazar','Micaela Vargas'],['Adrian Cazar','Claudia Ycaza'],['Adrian Cazar','Arianna Vargas'],
   ['Jose Cazar','Micaela Vargas'],['Jose Cazar','Claudia Ycaza'],['Jose Cazar','Arianna Vargas'],
@@ -293,11 +260,50 @@ const BLOCKLIST = [
 ];
 function isBlocked(a,b){ return BLOCKLIST.some(([x,y])=>(x===a&&y===b)||(x===b&&y===a)); }
 function getGender(name){ return HOMBRES.find(h=>h.name===name)?'H':'M'; }
+function toSlug(name){ return name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ñ/g,'n').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,''); }
 
 // ── STATE ──
 let selName='', selGender='', curQ=0, answers={}, savedCode='';
+let acWelcome_names=[], acReturning_names=[];
 
-// ── AUTOCOMPLETE ──
+// ── LOAD SOLTEROS FROM SHEETS ──
+async function loadSolteros() {
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=getSolteros`);
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      HOMBRES = data.filter(p=>p.gender==='H').map(p=>({...p, slug:toSlug(p.name)}));
+      MUJERES = data.filter(p=>p.gender==='M').map(p=>({...p, slug:toSlug(p.name)}));
+      ALL = [...HOMBRES,...MUJERES];
+    }
+  } catch(e) {}
+  // Init autocompletes after loading
+  initAutocompletes();
+}
+
+function initAutocompletes() {
+  makeAutocomplete('autoComplete', 'autoComplete_list', [...ALL.map(p=>p.name),'TEST'], val => {
+    if (val) {
+      selName=val; selGender=getGender(val);
+      const isTest = val==='TEST';
+      const local = isTest ? null : localStorage.getItem('cupido_'+val);
+      const alreadyDone = !!local;
+      document.getElementById('btn-start').disabled = alreadyDone;
+      document.getElementById('btn-start').textContent = 'Empezar';
+      document.getElementById('btn-results').disabled = false;
+      document.getElementById('err-welcome').textContent = alreadyDone
+        ? 'Ya completaste el quiz. Usa "Resultados" para ver tus matches.' : '';
+    } else {
+      selName=''; selGender='';
+      document.getElementById('btn-start').disabled = true;
+      document.getElementById('btn-results').disabled = true;
+      document.getElementById('err-welcome').textContent = '';
+    }
+  });
+  makeAutocomplete('retAutoComplete', 'retAutoComplete_list', ALL.map(p=>p.name), val => {
+    if (val) document.getElementById('err-ret-name').textContent='';
+  });
+}
 function makeAutocomplete(inputId, listId, names, onSelect) {
   const input = document.getElementById(inputId);
   const list = document.getElementById(listId);
@@ -337,27 +343,7 @@ function makeAutocomplete(inputId, listId, names, onSelect) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  makeAutocomplete('autoComplete', 'autoComplete_list', [...ALL.map(p=>p.name),'TEST'], val => {
-    if (val) {
-      selName=val; selGender=getGender(val);
-      const isTest = val==='TEST';
-      const local = isTest ? null : localStorage.getItem('cupido_'+val);
-      const alreadyDone = !!local;
-      document.getElementById('btn-start').disabled = alreadyDone;
-      document.getElementById('btn-start').textContent = 'Empezar';
-      document.getElementById('btn-results').disabled = false;
-      document.getElementById('err-welcome').textContent = alreadyDone
-        ? 'Ya completaste el quiz. Usa "Resultados" para ver tus matches.' : '';
-    } else {
-      selName=''; selGender='';
-      document.getElementById('btn-start').disabled = true;
-      document.getElementById('btn-results').disabled = true;
-      document.getElementById('err-welcome').textContent = '';
-    }
-  });
-  makeAutocomplete('retAutoComplete', 'retAutoComplete_list', ALL.map(p=>p.name), val => {
-    if (val) document.getElementById('err-ret-name').textContent='';
-  });
+  loadSolteros();
 });
 
 // ── HANDLE START ──
@@ -438,6 +424,8 @@ function selectOpt(i) {
   answers[QUESTIONS[curQ].id]=i;
   document.querySelectorAll('.option').forEach((el,idx)=>el.classList.toggle('selected',idx===i));
   document.getElementById('btn-next').disabled=false;
+  // Auto-advance after short delay so user sees their selection
+  setTimeout(() => nextQ(), 350);
 }
 function nextQ() {
   if (answers[QUESTIONS[curQ].id]===undefined) return;
