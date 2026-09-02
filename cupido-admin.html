@@ -7,266 +7,430 @@
 <title>Cupido Admin — Mabe & Luis</title>
 <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --cream:#FCFBF6; --burgundy:#9F3544; --rose:#D09193;
-    --sage:#A6B072; --charcoal:#1F1D1D; --golden:#CF933B;
-    --slate:#92A6BE; --safe-bottom:env(safe-area-inset-bottom,0px);
+  :root{
+    --cream:#FCFBF6;--burgundy:#9F3544;--rose:#D09193;
+    --sage:#A6B072;--slate:#384B70;--slate-light:#92A6BE;
+    --golden:#CF933B;--charcoal:#1F1D1D;
+    --safe-bottom:env(safe-area-inset-bottom,0px);
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
   html{height:100%;}
-  body{background:var(--cream);font-family:Georgia,serif;color:var(--charcoal);min-height:100vh;min-height:-webkit-fill-available;padding:1.5rem 1.25rem calc(1.5rem + var(--safe-bottom));}
+  body{background:var(--cream);font-family:Georgia,serif;color:var(--charcoal);min-height:100vh;min-height:-webkit-fill-available;padding:0 0 calc(1rem + var(--safe-bottom));}
 
-  /* ── SCREENS ── */
-  .screen{display:none;min-height:100svh;flex-direction:column;align-items:center;justify-content:center;}
-  .screen.active{display:flex;}
-  .screen-top{justify-content:flex-start;padding-top:2rem;}
-
-  /* ── CARD ── */
-  .card{background:white;border:1.5px solid var(--burgundy);border-radius:20px;padding:1.75rem 1.5rem;width:100%;max-width:440px;}
+  /* ── LOGIN ── */
+  .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem 1.25rem;}
+  .card{background:white;border:1.5px solid var(--burgundy);border-radius:20px;padding:1.75rem 1.5rem;width:100%;max-width:420px;}
 
   /* ── TYPE ── */
   .cupid-title{font-family:'Beth Ellen',Georgia,serif;font-size:2rem;font-weight:400;color:var(--burgundy);text-align:center;}
-  .eyebrow{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);text-align:center;margin-bottom:0.4rem;}
-  .section-label{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--rose);margin-bottom:0.6rem;display:block;}
+  .eyebrow{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose);text-align:center;margin-bottom:0.4rem;display:block;}
+  .section-label{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--rose);margin-bottom:0.55rem;display:block;}
 
   /* ── INPUTS ── */
-  input[type=password]{width:100%;padding:0.9rem 1rem;border:1.5px solid var(--rose);border-radius:50px;font-family:Georgia,serif;font-size:1rem;background:var(--cream);outline:none;text-align:center;letter-spacing:0.1em;-webkit-appearance:none;appearance:none;margin-bottom:0.5rem;}
-  input[type=password]:focus{border-color:var(--burgundy);}
-  input[type=text]{width:100%;padding:0.7rem 1rem;border:1.5px solid rgba(208,145,147,0.4);border-radius:50px;font-family:Georgia,serif;font-size:0.9rem;background:var(--cream);outline:none;-webkit-appearance:none;appearance:none;}
-  input[type=text]:focus{border-color:var(--rose);}
-  select{width:100%;padding:0.7rem 1rem;border:1.5px solid rgba(208,145,147,0.4);border-radius:50px;font-family:Georgia,serif;font-size:0.9rem;background:var(--cream);outline:none;-webkit-appearance:none;appearance:none;cursor:pointer;}
+  input[type=password]{width:100%;padding:0.9rem 1rem;border:1.5px solid var(--rose);border-radius:50px;font-family:Georgia,serif;font-size:1rem;background:var(--cream);outline:none;text-align:center;letter-spacing:0.1em;-webkit-appearance:none;margin-bottom:0.5rem;}
+  input[type=text],input[type=search]{width:100%;padding:0.75rem 1rem;border:1.5px solid rgba(208,145,147,0.4);border-radius:50px;font-family:Georgia,serif;font-size:0.9rem;background:var(--cream);outline:none;-webkit-appearance:none;}
+  input[type=text]:focus,input[type=search]:focus{border-color:var(--rose);}
 
   /* ── BUTTONS ── */
   .btn{width:100%;padding:0.9rem;border-radius:50px;font-family:Georgia,serif;font-size:0.95rem;cursor:pointer;transition:all 0.2s;border:none;margin-top:0.65rem;min-height:52px;letter-spacing:0.02em;}
   .btn-login{background:var(--burgundy);color:var(--cream);}
-  .btn-unlock{background:var(--sage);color:white;font-size:1rem;}
+  .btn-unlock{background:var(--sage);color:white;font-size:1.05rem;}
   .btn-lock{background:var(--burgundy);color:var(--cream);}
-  .btn-add{background:var(--slate);color:white;}
+  .btn-add{background:var(--slate-light);color:white;}
   .btn-save{background:var(--burgundy);color:var(--cream);}
+  .btn-search{background:var(--slate);color:white;}
   .btn:active{opacity:0.82;}
-  .btn-tab{flex:1;padding:0.6rem;font-family:Georgia,serif;font-size:0.8rem;background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;color:var(--charcoal);opacity:0.5;transition:all 0.2s;}
-  .btn-tab.active{opacity:1;color:var(--burgundy);border-bottom-color:var(--burgundy);}
-  .btn-ghost{background:none;border:none;color:var(--rose);font-family:Georgia,serif;font-size:0.8rem;cursor:pointer;text-decoration:underline;margin-top:0.75rem;display:block;width:100%;text-align:center;padding:0.35rem;}
 
-  /* ── STATUS ── */
-  .status-box{border-radius:14px;padding:1.1rem 1rem;margin:1rem 0;font-size:0.9rem;line-height:1.5;text-align:center;}
+  /* ── TABS ── */
+  .tabs{display:flex;border-bottom:1px solid rgba(208,145,147,0.2);background:var(--cream);position:sticky;top:0;z-index:10;}
+  .btn-tab{flex:1;padding:0.65rem 0.25rem;font-family:Georgia,serif;font-size:0.72rem;background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;color:var(--charcoal);opacity:0.45;transition:all 0.2s;letter-spacing:0.02em;}
+  .btn-tab.active{opacity:1;color:var(--burgundy);border-bottom-color:var(--burgundy);}
+
+  /* ── PANEL WRAPPER ── */
+  .panel{display:none;padding:1.25rem;max-width:480px;margin:0 auto;}
+  .panel.active{display:block;}
+
+  /* ── ACTIVAR ── */
+  .status-box{border-radius:14px;padding:1.1rem 1rem;margin-bottom:1rem;text-align:center;}
   .status-locked{background:rgba(159,53,68,0.07);border:1.5px solid rgba(159,53,68,0.25);color:var(--burgundy);}
   .status-unlocked{background:rgba(166,176,114,0.1);border:1.5px solid rgba(166,176,114,0.35);color:#6b7a3a;}
   .status-text{font-size:1rem;font-weight:bold;margin-bottom:0.2rem;}
-  .status-sub{font-size:0.8rem;opacity:0.75;}
-
-  /* ── COUNT ── */
-  .count-box{margin-top:1rem;padding:0.75rem 1rem;background:rgba(208,145,147,0.07);border-radius:10px;font-size:0.82rem;color:var(--charcoal);opacity:0.7;text-align:center;}
+  .status-sub{font-size:0.78rem;opacity:0.7;}
+  .count-box{padding:0.85rem 1rem;background:rgba(208,145,147,0.07);border-radius:10px;font-size:0.82rem;opacity:0.7;text-align:center;margin-bottom:1rem;}
   .count-num{font-size:1.6rem;color:var(--burgundy);display:block;}
 
-  /* ── TABS ── */
-  .tabs{display:flex;border-bottom:1px solid rgba(208,145,147,0.2);margin:1.25rem 0 1rem;}
+  /* ── MATCHES VIEW ── */
+  .match-search-row{display:flex;gap:0.5rem;align-items:center;margin-bottom:1rem;}
+  .match-search-row input{flex:1;}
+  .match-search-btn{background:var(--sage);color:white;border:none;border-radius:50px;padding:0.65rem 1.1rem;font-family:Georgia,serif;font-size:0.82rem;cursor:pointer;white-space:nowrap;min-height:44px;}
+  .match-search-btn:active{opacity:0.82;}
 
-  /* ── SOLTERO LIST ── */
-  .soltero-item{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0;border-bottom:1px solid rgba(208,145,147,0.1);}
-  .soltero-item:last-child{border-bottom:none;}
-  .soltero-name{flex:1;font-size:0.88rem;}
-  .soltero-badge{font-size:0.65rem;padding:0.15rem 0.4rem;border-radius:4px;font-family:monospace;flex-shrink:0;}
-  .badge-h{background:rgba(146,166,190,0.2);color:#384B70;}
-  .badge-m{background:rgba(208,145,147,0.15);color:var(--burgundy);}
-  .btn-remove{background:none;border:none;color:rgba(159,53,68,0.4);font-size:1.1rem;cursor:pointer;padding:0.2rem 0.4rem;flex-shrink:0;min-height:36px;min-width:36px;}
-  .btn-remove:active{color:var(--burgundy);}
+  .match-card{background:white;border-radius:14px;overflow:hidden;margin-bottom:0.75rem;}
+  .match-card.r0{border:1.5px solid rgba(166,176,114,0.5);}
+  .match-card.r1{border:1.5px solid rgba(207,147,59,0.5);}
+  .match-card.r2{border:1.5px solid rgba(208,145,147,0.5);}
+  .match-row{display:flex;align-items:center;gap:0.85rem;padding:0.85rem 1rem;}
+  .match-photo{width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0;background:rgba(208,145,147,0.1);}
+  .match-card.r0 .match-photo{border:2px solid var(--sage);}
+  .match-card.r1 .match-photo{border:2px solid var(--golden);}
+  .match-card.r2 .match-photo{border:2px solid var(--rose);}
+  .match-info{flex:1;min-width:0;}
+  .match-name{font-size:0.9rem;color:var(--charcoal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .match-ig{font-size:0.72rem;opacity:0.5;margin-top:0.1rem;}
+  .match-pct{font-size:1.3rem;font-weight:400;flex-shrink:0;}
+  .match-card.r0 .match-pct{color:var(--sage);}
+  .match-card.r1 .match-pct{color:var(--golden);}
+  .match-card.r2 .match-pct{color:var(--rose);}
+  .match-ice{padding:0 1rem 0.85rem;font-size:0.78rem;font-style:italic;opacity:0.65;line-height:1.5;border-top:1px solid rgba(208,145,147,0.1);padding-top:0.6rem;}
 
-  /* ── ADD FORM ── */
-  .add-form{background:rgba(208,145,147,0.05);border:1px solid rgba(208,145,147,0.2);border-radius:12px;padding:1rem;margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;}
-
-  /* ── SAVE BAR ── */
-  .save-bar{position:sticky;bottom:0;background:var(--cream);padding:0.75rem 0 0;margin-top:1rem;}
-
-  /* ── CÓDIGO RESULT ── */
-  .code-result-card{background:rgba(207,147,59,0.07);border:1.5px solid rgba(207,147,59,0.3);border-radius:14px;padding:1.1rem 1.25rem;text-align:center;}
-  .code-result-name{font-size:0.82rem;opacity:0.6;margin-bottom:0.35rem;}
+  /* ── CÓDIGOS ── */
+  .code-result-card{background:rgba(207,147,59,0.07);border:1.5px solid rgba(207,147,59,0.3);border-radius:14px;padding:1.1rem;text-align:center;margin-bottom:1rem;}
+  .code-result-name{font-size:0.8rem;opacity:0.6;margin-bottom:0.3rem;}
   .code-result-num{font-size:2.5rem;letter-spacing:0.25em;color:var(--charcoal);}
-  .code-result-hint{font-size:0.72rem;opacity:0.45;margin-top:0.25rem;}
+  .code-result-hint{font-size:0.7rem;opacity:0.4;margin-top:0.2rem;}
   .code-row{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(208,145,147,0.1);font-size:0.85rem;}
   .code-row:last-child{border-bottom:none;}
-  .code-row-name{flex:1;opacity:0.8;}
-  .code-row-num{font-size:0.95rem;letter-spacing:0.15em;color:var(--charcoal);font-weight:400;}
-  .code-empty{font-size:0.82rem;opacity:0.4;text-align:center;padding:1.5rem 0;}
+  .code-row-name{flex:1;opacity:0.75;}
+  .code-row-num{font-size:0.9rem;letter-spacing:0.12em;color:var(--charcoal);}
+  .list-box{border:1px solid rgba(208,145,147,0.2);border-radius:12px;padding:0.25rem 1rem;}
 
-  .error{color:var(--burgundy);font-size:0.8rem;margin-top:0.4rem;min-height:1.1rem;display:block;text-align:center;}
-  .msg-ok{color:#4a6a2a;font-size:0.8rem;margin-top:0.4rem;text-align:center;}
+  /* ── PARTICIPANTES ── */
+  .gender-section{margin-bottom:1.5rem;}
+  .gender-title{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--rose);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(208,145,147,0.15);}
+  .soltero-item{display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0;border-bottom:1px solid rgba(208,145,147,0.08);}
+  .soltero-item:last-child{border-bottom:none;}
+  .soltero-name{flex:1;font-size:0.88rem;}
+  .soltero-ig{font-size:0.72rem;opacity:0.45;}
+  .btn-remove{background:none;border:none;color:rgba(159,53,68,0.35);font-size:1rem;cursor:pointer;padding:0.2rem 0.4rem;min-height:36px;min-width:36px;flex-shrink:0;}
+  .btn-remove:active{color:var(--burgundy);}
+  .add-form{background:rgba(208,145,147,0.05);border:1px solid rgba(208,145,147,0.18);border-radius:12px;padding:1rem;margin-top:0.75rem;display:flex;flex-direction:column;gap:0.5rem;}
+  .save-bar{position:sticky;bottom:0;background:var(--cream);padding:0.75rem 0 0;margin-top:1rem;}
+  .msg-ok{color:#4a6a2a;font-size:0.8rem;text-align:center;margin-top:0.4rem;min-height:1rem;display:block;}
+  .empty-msg{font-size:0.82rem;opacity:0.4;text-align:center;padding:1rem 0;}
+  .error-msg{color:var(--burgundy);font-size:0.8rem;text-align:center;margin-top:0.4rem;min-height:1rem;display:block;}
 </style>
 </head>
 <body>
 
 <!-- ══ LOGIN ══ -->
-<div class="screen active" id="screen-login" style="align-items:center;justify-content:center;">
+<div id="screen-login" class="login-wrap">
   <div class="card" style="text-align:center;">
-    <p class="eyebrow">Solo para Mabe y Luis</p>
+    <span class="eyebrow">Solo para Mabe y Luis</span>
     <h1 class="cupid-title">Cupid</h1>
     <div style="margin-top:1.25rem;">
       <input type="password" id="pwd" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()" autocomplete="current-password"/>
       <button class="btn btn-login" onclick="login()">Entrar</button>
-      <span class="error" id="login-error"></span>
+      <span class="error-msg" id="login-error"></span>
     </div>
   </div>
 </div>
 
 <!-- ══ ADMIN ══ -->
-<div class="screen screen-top" id="screen-admin">
-  <div style="width:100%;max-width:440px;">
+<div id="screen-admin" style="display:none;">
 
-    <!-- Header -->
-    <p class="eyebrow" style="margin-bottom:0.3rem;">Panel de control</p>
-    <h1 class="cupid-title" style="margin-bottom:1.25rem;">Cupid</h1>
+  <!-- Header -->
+  <div style="text-align:center;padding:1.5rem 1.25rem 0.75rem;background:var(--cream);">
+    <span class="eyebrow">Panel de control</span>
+    <h1 class="cupid-title">Cupid</h1>
+  </div>
 
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="btn-tab active" id="tab-matches" onclick="switchTab('matches')">Matches</button>
-      <button class="btn-tab" id="tab-codigos" onclick="switchTab('codigos')">Códigos</button>
-      <button class="btn-tab" id="tab-hombres" onclick="switchTab('hombres')">Hombres</button>
-      <button class="btn-tab" id="tab-mujeres" onclick="switchTab('mujeres')">Mujeres</button>
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="btn-tab active" id="tab-activar" onclick="switchTab('activar')">Activar</button>
+    <button class="btn-tab" id="tab-matches" onclick="switchTab('matches')">Matches</button>
+    <button class="btn-tab" id="tab-codigos" onclick="switchTab('codigos')">Códigos</button>
+    <button class="btn-tab" id="tab-participantes" onclick="switchTab('participantes')">Participantes</button>
+  </div>
+
+  <!-- ── ACTIVAR ── -->
+  <div class="panel active" id="panel-activar">
+    <div id="status-box" class="status-box status-locked">
+      <p class="status-text" id="status-text">Cargando...</p>
+      <p class="status-sub" id="status-stat"></p>
     </div>
-
-    <!-- ── MATCHES PANEL ── -->
-    <div id="panel-matches">
-      <div id="status-box" class="status-box status-locked">
-        <p class="status-text" id="status-text">Cargando...</p>
-        <p class="status-sub" id="status-stat"></p>
-      </div>
-      <button class="btn btn-unlock" id="btn-unlock" onclick="setUnlocked(true)">Desbloquear matches</button>
-      <button class="btn btn-lock" id="btn-lock" onclick="setUnlocked(false)" style="display:none;">Volver a bloquear</button>
-      <div class="count-box">
-        <span class="count-num" id="count-num">—</span>
-        personas han respondido el quiz
-      </div>
+    <button class="btn btn-unlock" id="btn-unlock" onclick="setUnlocked(true)" style="display:none;">Desbloquear matches</button>
+    <button class="btn btn-lock" id="btn-lock" onclick="setUnlocked(false)" style="display:none;">Volver a bloquear</button>
+    <div class="count-box">
+      <span class="count-num" id="count-num">—</span>
+      personas han respondido el quiz
     </div>
+  </div>
 
-    <!-- ── CÓDIGOS PANEL ── -->
-    <div id="panel-codigos" style="display:none;">
-      <p style="font-size:0.82rem;opacity:0.55;margin-bottom:1rem;line-height:1.5;">Busca el nombre de un invitado para ver su código personal y ayudarle a recuperarlo.</p>
-      <div style="position:relative;">
-        <input type="text" id="code-search" placeholder="Buscar nombre..." oninput="searchCode()" autocomplete="off" autocorrect="off" spellcheck="false"/>
-      </div>
-      <div id="code-result" style="margin-top:1rem;"></div>
-      <div id="code-list" style="margin-top:1.25rem;"></div>
+  <!-- ── MATCHES ── -->
+  <div class="panel" id="panel-matches">
+    <p style="font-size:0.82rem;opacity:0.55;margin-bottom:1rem;line-height:1.5;">Busca un nombre para ver sus matches calculados en tiempo real.</p>
+    <div class="match-search-row">
+      <input type="search" id="match-search-input" placeholder="Nombre del invitado..." autocomplete="off" autocorrect="off" spellcheck="false"/>
+      <button class="match-search-btn" onclick="calcMatches()">Ver matches</button>
     </div>
+    <span class="error-msg" id="match-error"></span>
+    <div id="match-results"></div>
+  </div>
 
-    <!-- ── HOMBRES PANEL ── -->
-    <div id="panel-hombres" style="display:none;">
+  <!-- ── CÓDIGOS ── -->
+  <div class="panel" id="panel-codigos">
+    <p style="font-size:0.82rem;opacity:0.55;margin-bottom:1rem;line-height:1.5;">Busca el nombre de un invitado para ver su código personal.</p>
+    <input type="search" id="code-search" placeholder="Buscar nombre..." oninput="searchCode()" autocomplete="off" autocorrect="off" spellcheck="false" style="margin-bottom:1rem;"/>
+    <div id="code-result"></div>
+    <div id="code-list"></div>
+  </div>
+
+  <!-- ── PARTICIPANTES ── -->
+  <div class="panel" id="panel-participantes">
+    <!-- Hombres -->
+    <div class="gender-section">
+      <p class="gender-title">Hombres</p>
       <div id="list-hombres"></div>
       <div class="add-form">
         <span class="section-label" style="margin-bottom:0;">Añadir hombre</span>
         <input type="text" id="add-h-name" placeholder="Nombre completo"/>
         <input type="text" id="add-h-ig" placeholder="Instagram (opcional)"/>
-        <button class="btn btn-add" onclick="addSoltero('H')">Añadir</button>
-      </div>
-      <div class="save-bar">
-        <button class="btn btn-save" onclick="saveSolteros()">Guardar cambios</button>
-        <span class="msg-ok" id="save-ok-h"></span>
+        <button class="btn btn-add" onclick="addSoltero('H')" style="margin-top:0.25rem;">Añadir</button>
       </div>
     </div>
-
-    <!-- ── MUJERES PANEL ── -->
-    <div id="panel-mujeres" style="display:none;">
+    <!-- Mujeres -->
+    <div class="gender-section">
+      <p class="gender-title">Mujeres</p>
       <div id="list-mujeres"></div>
       <div class="add-form">
         <span class="section-label" style="margin-bottom:0;">Añadir mujer</span>
         <input type="text" id="add-m-name" placeholder="Nombre completo"/>
         <input type="text" id="add-m-ig" placeholder="Instagram (opcional)"/>
-        <button class="btn btn-add" onclick="addSoltero('M')">Añadir</button>
-      </div>
-      <div class="save-bar">
-        <button class="btn btn-save" onclick="saveSolteros()">Guardar cambios</button>
-        <span class="msg-ok" id="save-ok-m"></span>
+        <button class="btn btn-add" onclick="addSoltero('M')" style="margin-top:0.25rem;">Añadir</button>
       </div>
     </div>
-
+    <div class="save-bar">
+      <button class="btn btn-save" onclick="saveSolteros()">Guardar cambios</button>
+      <span class="msg-ok" id="save-ok"></span>
+    </div>
   </div>
+
 </div>
 
 <script>
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVawvfx3UZ8zIOaN2Y7n-YwmsBcGYey9J-Ui3bKLBnWRvUYWTVV0gnk8QiJqh2ioHLLQ/exec';
 const PASSWORD = '2026';
 
-// Default list — used to seed Sheets if empty
-const DEFAULT_HOMBRES = [
-  {name:'Adrian Cazar',gender:'H',instagram:''},
-  {name:'Jose Cazar',gender:'H',instagram:''},
-  {name:'Caetano Torres',gender:'H',instagram:''},
-  {name:'Pedro Rubio',gender:'H',instagram:''},
-  {name:'Alberto Vidal',gender:'H',instagram:''},
-  {name:'Rodrigo Carrion',gender:'H',instagram:''},
-  {name:'Andres Barreto',gender:'H',instagram:''},
-  {name:'Daniel Del Pozo',gender:'H',instagram:''},
-  {name:'Daniel Rondon',gender:'H',instagram:''},
-  {name:'Santiago Urdaneta',gender:'H',instagram:''},
-  {name:'Sergio Abisambra',gender:'H',instagram:''},
-  {name:'Jesus Rodriguez',gender:'H',instagram:''},
-  {name:'Jose Comerma',gender:'H',instagram:''},
-  {name:'Saeed Suwaidi',gender:'H',instagram:''},
-  {name:'Fernando Carrillo',gender:'H',instagram:''},
-  {name:'Daniel Figueredo',gender:'H',instagram:''},
-];
-const DEFAULT_MUJERES = [
-  {name:'Micaela Vargas',gender:'M',instagram:''},
-  {name:'Claudia Ycaza',gender:'M',instagram:''},
-  {name:'Arianna Vargas',gender:'M',instagram:''},
-  {name:'Ilaria Huertas',gender:'M',instagram:''},
-  {name:'Claudia Voysest',gender:'M',instagram:''},
-  {name:'Mercedes Nuñez',gender:'M',instagram:''},
-  {name:'Karen Guambo',gender:'M',instagram:''},
-  {name:'Mariana Paez',gender:'M',instagram:''},
-  {name:'Andrea Isa',gender:'M',instagram:''},
-  {name:'Maria Fernanda Bravo',gender:'M',instagram:''},
-  {name:'Isabella Dalmau',gender:'M',instagram:''},
-  {name:'Alicia Olivares',gender:'M',instagram:''},
-  {name:'Maria Andreina Touza',gender:'M',instagram:''},
-  {name:'Manuela Hernandez',gender:'M',instagram:''},
-  {name:'Paola Marín',gender:'M',instagram:''},
+const QUESTIONS = [
+  {id:'q1',text:'Si tuvieras que elegir tu peor enemigo, ¿cuál sería?',options:['100 caballos del tamaño de un pato. Los aplasto de uno en uno.','Un pato del tamaño de un caballo. Negocio con él, los patos son listos.','Huyo de ambos sin mirar atrás.','Me rindo antes de empezar.']},
+  {id:'q2',text:'¿Con qué villano de Disney te identificas más?',options:['Úrsula','Scar','Maléfica','Gastón','Hades','Cruella de Vil']},
+  {id:'q3',text:'¿Qué estación del año eres?',options:['Verano. Energía, sol y planes.','Otoño. Café, mantas y planes tranquilos.','Primavera. Siempre de buen humor, nueva etapa.','Invierno. Tranquila/o, selectiva/o y profunda/o.']},
+  {id:'q4',text:'¿Qué animal serías en tu próxima vida?',options:['Delfín','Gato','Perro','Oso','Cuervo','Pulpo']},
+  {id:'q5',text:'¿Cómo reaccionas cuando alguien cancela planes en el último momento?',options:['Alivio total. Era lo que quería pero no me atrevía a decir.','Molestia genuina. Me había preparado para esto.','Ya me lo esperaba, siempre pasa.','Propongo otro plan inmediatamente.']},
+  {id:'q6',text:'Si pudieras tener un superpoder, ¿cuál elegirías?',options:['Teletransportarme. Adiós atascos, adiós madrugadas.','Leer la mente. El caos que causaría.','Detener el tiempo. Dormir sin perderme nada.','Volverme invisible. Solo para situaciones específicas.']},
+  {id:'q7',text:'Si te quedas atrapada/o en un ascensor, ¿qué haces?',options:['Pulso todos los botones por si acaso.','Llamo al número de emergencias inmediatamente.','Me siento en el suelo y espero con calma.','Intento hablar con quien esté dentro para hacer la espera llevadera.']},
+  {id:'q8',text:'¿Qué haces cuando una canción te gusta mucho?',options:['La pongo en repeat hasta que la odio.','La agrego a la playlist y sigo con mi vida.','La busco en todas las plataformas y aprendo la letra en dos días.','La mando a tres personas distintas sin contexto.']},
+  {id:'q9',text:'Si pudieras vivir en cualquier época, ¿cuál elegirías?',options:['Antigua Roma, con todos los dramas incluidos.','Los años 70. Música, libertad y sin redes sociales.','El futuro. Quiero ver cómo termina todo esto.','Aquí me quedo. Las otras épocas eran una pesadilla sanitaria.']},
+  {id:'q10',text:'¿Cuánto tiempo tardas en estar listo/a para salir?',options:['Quince minutos, máximo veinte con ducha incluida.','Una hora. Necesito mi proceso.','Empiezo a arreglarme tres horas antes para no tener prisa.','Depende del plan. Para algo importante me tomo mi tiempo.']},
+  {id:'q11',text:'Si tuvieras que comer lo mismo todos los días para siempre, ¿qué elegirías?',options:['Pizza, sin límites ni remordimientos.','Sushi. Podría vivir así perfectamente.','Pasta en cualquiera de sus formas.','Un desayuno completo. Es la única comida que nunca cansa.','Tacos. Hay infinitas variaciones como para aburrirse.','Arroz con lo que sea. Es el acompañamiento perfecto para todo.']},
+  {id:'q12',text:'¿Qué tipo de viajero/a eres?',options:['Itinerario completo. Reservas hechas y plan hora por hora.','Una idea general del destino y el resto sobre la marcha.','Vuelo barato, mochila y a ver qué pasa.','Prefiero repetir destinos que ya conozco y que sé que me gustan.']},
 ];
 
-let solteros = []; // full list loaded from Sheets
+const BLOCKLIST = [
+  ['Adrian Cazar','Micaela Vargas'],['Adrian Cazar','Claudia Ycaza'],['Adrian Cazar','Arianna Vargas'],
+  ['Jose Cazar','Micaela Vargas'],['Jose Cazar','Claudia Ycaza'],['Jose Cazar','Arianna Vargas'],
+  ['Caetano Torres','Micaela Vargas'],['Caetano Torres','Claudia Ycaza'],['Caetano Torres','Arianna Vargas'],
+  ['Pedro Rubio','Micaela Vargas'],['Pedro Rubio','Claudia Ycaza'],['Pedro Rubio','Arianna Vargas'],
+  ['Jose Comerma','Alicia Olivares'],['Jose Comerma','Manuela Hernandez'],
+];
+function isBlocked(a,b){ return BLOCKLIST.some(([x,y])=>(x===a&&y===b)||(x===b&&y===a)); }
+
+const DEFAULT_HOMBRES = [
+  {name:'Adrian Cazar',gender:'H',instagram:'_c_adrian04'},
+  {name:'Jose Cazar',gender:'H',instagram:'jose_cazar'},
+  {name:'Caetano Torres',gender:'H',instagram:'_.c.m.t.r._'},
+  {name:'Pedro Rubio',gender:'H',instagram:'pedrorubio__'},
+  {name:'Alberto Vidal',gender:'H',instagram:'titovidal99'},
+  {name:'Rodrigo Carrion',gender:'H',instagram:'rodrigofcm16'},
+  {name:'Andres Barreto',gender:'H',instagram:'arrebarreto'},
+  {name:'Daniel Del Pozo',gender:'H',instagram:'danieldelpo95'},
+  {name:'Daniel Rondon',gender:'H',instagram:'danielrondonv'},
+  {name:'Santiago Urdaneta',gender:'H',instagram:'santiurdaneta'},
+  {name:'Sergio Abisambra',gender:'H',instagram:'foca.3'},
+  {name:'Jesus Rodriguez',gender:'H',instagram:'jrafael.rdz'},
+  {name:'Jose Comerma',gender:'H',instagram:'josecomerma'},
+  {name:'Saeed Suwaidi',gender:'H',instagram:'saeed.primary'},
+  {name:'Fernando Carrillo',gender:'H',instagram:'fernandocsv'},
+  {name:'Daniel Figueredo',gender:'H',instagram:'danielpfigueredo'},
+];
+const DEFAULT_MUJERES = [
+  {name:'Micaela Vargas',gender:'M',instagram:'mi.camita'},
+  {name:'Claudia Ycaza',gender:'M',instagram:'clauycaza'},
+  {name:'Arianna Vargas',gender:'M',instagram:'ariannafvm'},
+  {name:'Ilaria Huertas',gender:'M',instagram:'ila.hs'},
+  {name:'Claudia Voysest',gender:'M',instagram:'claudia.voy'},
+  {name:'Mercedes Nuñez',gender:'M',instagram:'mercynunez'},
+  {name:'Karen Guambo',gender:'M',instagram:'karenguambo'},
+  {name:'Mariana Paez',gender:'M',instagram:'mariana_paez'},
+  {name:'Andrea Isa',gender:'M',instagram:'andreaisalopez'},
+  {name:'Maria Fernanda Bravo',gender:'M',instagram:'mafeb79'},
+  {name:'Isabella Dalmau',gender:'M',instagram:'isa_dalmau'},
+  {name:'Alicia Olivares',gender:'M',instagram:'aliolisc'},
+  {name:'Maria Andreina Touza',gender:'M',instagram:'mandytouza'},
+  {name:'Manuela Hernandez',gender:'M',instagram:'manuhernandez97'},
+  {name:'Paola Marín',gender:'M',instagram:'paomarin97'},
+];
+
+let solteros = [];
+let allAnswers = [];
+let allCodes = [];
 
 // ── LOGIN ──
 function login() {
   if (document.getElementById('pwd').value === PASSWORD) {
-    document.getElementById('screen-login').classList.remove('active');
-    document.getElementById('screen-admin').classList.add('active');
+    document.getElementById('screen-login').style.display = 'none';
+    document.getElementById('screen-admin').style.display = 'block';
     loadAll();
   } else {
     document.getElementById('login-error').textContent = 'Contraseña incorrecta';
   }
 }
 
-// ── LOAD ──
+// ── LOAD ALL ──
 async function loadAll() {
   loadStatus();
   loadSolteros();
-  loadCodes();
+  loadAnswers();
 }
 
-let allCodes = [];
+async function loadStatus() {
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=getStatus`);
+    const data = await res.json();
+    updateStatusUI(data.unlocked, null);
+  } catch(e) { updateStatusUI(false, null); }
+}
 
-async function loadCodes() {
+async function loadAnswers() {
   try {
     const res = await fetch(`${APPS_SCRIPT_URL}?action=getAllAnswers`);
     const data = await res.json();
     if (Array.isArray(data)) {
+      allAnswers = data;
       allCodes = data.map(d => ({ name: d.name, code: d.code || '—' }));
+      document.getElementById('count-num').textContent = data.length;
       renderCodeList(allCodes);
     }
-  } catch(e) { allCodes = []; }
+  } catch(e) {}
 }
 
-function renderCodeList(list) {
-  const el = document.getElementById('code-list');
-  if (!list || !list.length) {
-    el.innerHTML = '<p class="code-empty">Nadie ha respondido el quiz aún.</p>';
+async function loadSolteros() {
+  try {
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=getSolteros`);
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      solteros = data;
+    } else {
+      solteros = [...DEFAULT_HOMBRES, ...DEFAULT_MUJERES];
+      await saveSolterosData();
+    }
+  } catch(e) {
+    solteros = [...DEFAULT_HOMBRES, ...DEFAULT_MUJERES];
+  }
+  renderLists();
+}
+
+// ── STATUS ──
+function updateStatusUI(unlocked, count) {
+  const box = document.getElementById('status-box');
+  document.getElementById('status-text').textContent = unlocked ? 'Matches ACTIVOS' : 'Matches bloqueados';
+  document.getElementById('status-stat').textContent = unlocked ? 'Los invitados ya pueden ver sus matches' : 'Los invitados aun no pueden ver sus matches';
+  box.className = 'status-box ' + (unlocked ? 'status-unlocked' : 'status-locked');
+  document.getElementById('btn-unlock').style.display = unlocked ? 'none' : 'block';
+  document.getElementById('btn-lock').style.display = unlocked ? 'block' : 'none';
+  if (count !== null) document.getElementById('count-num').textContent = count;
+}
+
+async function setUnlocked(val) {
+  localStorage.setItem('cupido_unlocked', val ? 'true' : 'false');
+  try {
+    await fetch(APPS_SCRIPT_URL, { method:'POST', body:JSON.stringify({ action:'setStatus', unlocked:val }) });
+  } catch(e) {}
+  updateStatusUI(val, null);
+}
+
+// ── MATCHES VIEW ──
+async function calcMatches() {
+  const name = document.getElementById('match-search-input').value.trim();
+  const errEl = document.getElementById('match-error');
+  const container = document.getElementById('match-results');
+  errEl.textContent = '';
+  container.innerHTML = '';
+
+  if (!name) { errEl.textContent = 'Introduce un nombre'; return; }
+
+  // Find this person in solteros
+  const person = solteros.find(s => s.name.toLowerCase() === name.toLowerCase());
+  if (!person) { errEl.textContent = 'No encontrado en la lista de participantes'; return; }
+
+  // Find their answers
+  const myData = allAnswers.find(a => a.name.toLowerCase() === name.toLowerCase());
+  if (!myData) { errEl.textContent = `${name} aun no ha respondido el quiz`; return; }
+
+  const pool = person.gender === 'H'
+    ? solteros.filter(s => s.gender === 'M')
+    : solteros.filter(s => s.gender === 'H');
+
+  const scores = [];
+  for (const p of pool) {
+    if (isBlocked(person.name, p.name)) continue;
+    const their = allAnswers.find(a => a.name === p.name);
+    if (!their) continue;
+    let hits = 0;
+    for (const qid of Object.keys(myData.answers)) {
+      if (myData.answers[qid] === their.answers[qid]) hits++;
+    }
+    const pct = Math.round((hits / QUESTIONS.length) * 100);
+    scores.push({ person: p, pct, theirAnswers: their.answers });
+  }
+  scores.sort((a,b) => b.pct - a.pct);
+  const top3 = scores.slice(0, 3);
+
+  if (!top3.length) {
+    container.innerHTML = '<p class="empty-msg">No hay suficientes respuestas para calcular matches.</p>';
     return;
   }
+
+  function ice(myA, theirA) {
+    for (const q of QUESTIONS) {
+      if (myA[q.id] !== undefined && theirA[q.id] !== undefined && myA[q.id] !== theirA[q.id]) {
+        const myOpt = q.options[myA[q.id]].split('.')[0];
+        const theirOpt = q.options[theirA[q.id]].split('.')[0];
+        return `"${myOpt}" vs "${theirOpt}"`;
+      }
+    }
+    return 'Respondieron casi igual en todo.';
+  }
+
+  const rankColors = ['r0','r1','r2'];
+  const base = 'https://mabeyluis.github.io/boda/images/cupido/';
+
+  container.innerHTML = `<p style="font-size:0.78rem;opacity:0.5;margin-bottom:0.75rem;text-align:center;">Top 3 matches de ${name}</p>` +
+    top3.map((m, i) => {
+      const slug = m.person.name.toLowerCase().replace(/\s+/g,'-').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ñ/g,'n');
+      const img = `${base}${slug}-1.jpg`;
+      return `<div class="match-card ${rankColors[i]}">
+        <div class="match-row">
+          <img class="match-photo" src="${img}" alt="${m.person.name}" onerror="this.style.background='rgba(208,145,147,0.12)'"/>
+          <div class="match-info">
+            <p class="match-name">${m.person.name}</p>
+            ${m.person.instagram ? `<p class="match-ig">@${m.person.instagram}</p>` : ''}
+          </div>
+          <p class="match-pct">${m.pct}%</p>
+        </div>
+        <p class="match-ice">${ice(myData.answers, m.theirAnswers)}</p>
+      </div>`;
+    }).join('');
+}
+
+// ── CÓDIGOS ──
+function renderCodeList(list) {
+  const el = document.getElementById('code-list');
+  if (!list || !list.length) { el.innerHTML = '<p class="empty-msg">Nadie ha respondido el quiz aún.</p>'; return; }
   const sorted = [...list].sort((a,b) => a.name.localeCompare(b.name));
-  el.innerHTML = '<div style="border:1px solid rgba(208,145,147,0.2);border-radius:12px;padding:0.5rem 1rem;">' +
-    sorted.map(r => `<div class="code-row">
-      <span class="code-row-name">${r.name}</span>
-      <span class="code-row-num">${r.code}</span>
-    </div>`).join('') + '</div>';
+  el.innerHTML = '<div class="list-box">' +
+    sorted.map(r => `<div class="code-row"><span class="code-row-name">${r.name}</span><span class="code-row-num">${r.code}</span></div>`).join('') +
+  '</div>';
 }
 
 function searchCode() {
@@ -279,45 +443,12 @@ function searchCode() {
     resultEl.innerHTML = `<div class="code-result-card">
       <p class="code-result-name">${matches[0].name}</p>
       <p class="code-result-num">${matches[0].code}</p>
-      <p class="code-result-hint">Este es su código personal</p>
+      <p class="code-result-hint">Código personal</p>
     </div>`;
-  } else {
-    resultEl.innerHTML = '';
-  }
+  } else { resultEl.innerHTML=''; }
 }
 
-async function loadStatus() {
-  try {
-    const [statusRes, answersRes] = await Promise.all([
-      fetch(`${APPS_SCRIPT_URL}?action=getStatus`),
-      fetch(`${APPS_SCRIPT_URL}?action=getAllAnswers`)
-    ]);
-    const status = await statusRes.json();
-    const answers = await answersRes.json();
-    updateStatusUI(status.unlocked, Array.isArray(answers) ? answers.length : 0);
-  } catch(e) {
-    updateStatusUI(false, '?');
-  }
-}
-
-async function loadSolteros() {
-  try {
-    const res = await fetch(`${APPS_SCRIPT_URL}?action=getSolteros`);
-    const data = await res.json();
-    if (Array.isArray(data) && data.length > 0) {
-      solteros = data;
-    } else {
-      // Seed with defaults
-      solteros = [...DEFAULT_HOMBRES, ...DEFAULT_MUJERES];
-      await saveSolterosData();
-    }
-  } catch(e) {
-    solteros = [...DEFAULT_HOMBRES, ...DEFAULT_MUJERES];
-  }
-  renderLists();
-}
-
-// ── RENDER LISTS ──
+// ── PARTICIPANTES ──
 function renderLists() {
   renderList('H', 'list-hombres');
   renderList('M', 'list-mujeres');
@@ -326,30 +457,30 @@ function renderLists() {
 function renderList(gender, containerId) {
   const list = solteros.filter(s => s.gender === gender);
   const el = document.getElementById(containerId);
-  if (list.length === 0) {
-    el.innerHTML = '<p style="font-size:0.82rem;opacity:0.45;text-align:center;padding:1rem 0;">No hay personas en esta lista</p>';
-    return;
-  }
-  el.innerHTML = list.map((s, i) => {
-    const globalIdx = solteros.indexOf(s);
-    return `<div class="soltero-item">
-      <span class="soltero-badge ${gender==='H'?'badge-h':'badge-m'}">${gender}</span>
-      <span class="soltero-name">${s.name}${s.instagram ? ` <span style="font-size:0.75rem;opacity:0.5;">@${s.instagram.replace('@','')}</span>` : ''}</span>
-      <button class="btn-remove" onclick="removeSoltero(${globalIdx})" title="Quitar">✕</button>
-    </div>`;
-  }).join('');
+  if (!list.length) { el.innerHTML = '<p class="empty-msg">Lista vacía</p>'; return; }
+  el.innerHTML = '<div class="list-box">' +
+    list.map((s) => {
+      const idx = solteros.indexOf(s);
+      return `<div class="soltero-item">
+        <div style="flex:1;min-width:0;">
+          <span class="soltero-name">${s.name}</span>
+          ${s.instagram ? `<span class="soltero-ig"> @${s.instagram}</span>` : ''}
+        </div>
+        <button class="btn-remove" onclick="removeSoltero(${idx})">✕</button>
+      </div>`;
+    }).join('') +
+  '</div>';
 }
 
-// ── ADD / REMOVE ──
 function addSoltero(gender) {
-  const nameId = gender === 'H' ? 'add-h-name' : 'add-m-name';
-  const igId   = gender === 'H' ? 'add-h-ig'   : 'add-m-ig';
+  const nameId = gender==='H'?'add-h-name':'add-m-name';
+  const igId   = gender==='H'?'add-h-ig':'add-m-ig';
   const name   = document.getElementById(nameId).value.trim();
   const ig     = document.getElementById(igId).value.trim().replace('@','');
   if (!name) return;
   solteros.push({ name, gender, instagram: ig });
-  document.getElementById(nameId).value = '';
-  document.getElementById(igId).value = '';
+  document.getElementById(nameId).value='';
+  document.getElementById(igId).value='';
   renderLists();
 }
 
@@ -358,52 +489,29 @@ function removeSoltero(idx) {
   renderLists();
 }
 
-// ── SAVE ──
 async function saveSolteros() {
   await saveSolterosData();
-  document.getElementById('save-ok-h').textContent = '✓ Guardado';
-  document.getElementById('save-ok-m').textContent = '✓ Guardado';
-  setTimeout(() => {
-    document.getElementById('save-ok-h').textContent = '';
-    document.getElementById('save-ok-m').textContent = '';
-  }, 2500);
+  const ok = document.getElementById('save-ok');
+  ok.textContent = '✓ Guardado';
+  setTimeout(() => ok.textContent='', 2500);
 }
 
 async function saveSolterosData() {
   try {
     await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'setSolteros', solteros }),
+      method:'POST',
+      body: JSON.stringify({ action:'setSolteros', solteros }),
     });
   } catch(e) {}
 }
 
-// ── MATCHES ──
-function updateStatusUI(unlocked, count) {
-  const box = document.getElementById('status-box');
-  document.getElementById('status-text').textContent = unlocked ? 'Matches ACTIVOS' : 'Matches bloqueados';
-  document.getElementById('status-stat').textContent = unlocked ? 'Los invitados ya pueden ver sus matches' : 'Los invitados aun no pueden ver sus matches';
-  box.className = 'status-box ' + (unlocked ? 'status-unlocked' : 'status-locked');
-  document.getElementById('btn-unlock').style.display = unlocked ? 'none' : 'block';
-  document.getElementById('btn-lock').style.display = unlocked ? 'block' : 'none';
-  document.getElementById('count-num').textContent = count;
-}
-
-async function setUnlocked(val) {
-  localStorage.setItem('cupido_unlocked', val ? 'true' : 'false');
-  try {
-    await fetch(APPS_SCRIPT_URL, { method:'POST', body:JSON.stringify({ action:'setStatus', unlocked:val }) });
-  } catch(e) {}
-  updateStatusUI(val, document.getElementById('count-num').textContent);
-}
-
 // ── TABS ──
 function switchTab(tab) {
-  ['matches','codigos','hombres','mujeres'].forEach(t => {
+  ['activar','matches','codigos','participantes'].forEach(t => {
     document.getElementById('tab-'+t).classList.toggle('active', t===tab);
-    document.getElementById('panel-'+t).style.display = t===tab ? 'block' : 'none';
+    document.getElementById('panel-'+t).classList.toggle('active', t===tab);
   });
-  if (tab === 'codigos') loadCodes();
+  if (tab==='codigos') renderCodeList(allCodes);
 }
 </script>
 </body>
